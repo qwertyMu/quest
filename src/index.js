@@ -8,7 +8,7 @@ import '@fontsource/roboto/700.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Amplify } from 'aws-amplify';
-import awsmobile from './aws-exports';
+import awsmobile from './aws-exports.js';
 
 Amplify.configure(awsmobile);
 
