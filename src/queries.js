@@ -22,6 +22,7 @@ export const GET_ATTRIBUTIONS = gql`
 query List($pk: String!){
   listAttributions(pk: $pk) {
     items {
+      sk
       nominal
       organisation
       attribution
@@ -29,6 +30,15 @@ query List($pk: String!){
       datetime_added
       exhibit
     } 
+  }
+}
+`;
+
+export const GET_ATTRIBUTION = gql`
+query GetAttributionFileName($pk: String!, $sk: String!){
+  getAttribution(pk: $pk, sk: $sk) {
+      exhibit
+      file_name
   }
 }
 `;

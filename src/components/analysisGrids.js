@@ -7,6 +7,7 @@ import SearchComponent from './searchComponent';
 import Crud from './userGeneratedContact/CrudContactDraft'
 import GlitchSearchComponent from './glitchSearchComponent';
 import { Button } from '@mui/material';
+import Search from '../components_v2/search'
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -54,7 +55,8 @@ export default function AnalysisGrid() {
             <Grid container spacing={2} alignItems="stretch" justifyContent="space-between">
               <Grid item ls={12} md={12} sm={12} xs={12}>
                 <Item>
-                  <SearchComponent />
+                  {/* <SearchComponent /> */}
+                  <Search />
                 </Item>
               </Grid>
               <Grid item ls={12} md={12} sm={12} xs={12} sx={{display: "none"}}> 

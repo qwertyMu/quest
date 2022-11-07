@@ -2,89 +2,31 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Todo @model {
+type CapturedInteraction @model {
   id: ID!
-  attributedName: String!
-  attributedIdentifier: String
-  dateAddedToList: AWSDateTime
+  key: Int
+  identifier: String!
+  partner: String
+  datetime: String
+  datetime_added: String
+  direction: String
+  duration: String
+  exhibit: String
+  file_name: String
+  interaction: String
+  organisation: String
   nameKnownToMe: String
   notes: String
 }
 
-schema {
-  query: Query
-  mutation: Mutation
+type CapturedAttribution @model {
+  id: ID!
+  key: Int
+  nominal: String!,
+  organisation: String,
+  attribution: String,
+  file_name: String,
+  datetime_added: String, 
+  exhibit: String,
 }
 
-type Attribution {
-  attribution: AttributionTypes
-  datetime_added: AWSDateTime
-  exhibit: String
-  file_name: String
-  nominal: String
-  organisation: String
-  pk: String!
-  sk: String!
-}
-
-type AttributionConnection {
-  items: [Attribution]
-  nextToken: String
-}
-
-type Interaction {
-  datetime: AWSDateTime
-  datetime_added: AWSDateTime
-  direction: DirectionTypes
-  duration: AWSTime
-  exhibit: String
-  file_name: String
-  interaction: InteractionTypes
-  organisation: String
-  partner: String
-  pk: String!
-  sk: String!
-}
-
-type InteractionConnection {
-  items: [Interaction]
-  nextToken: String
-}
-
-type Mutation {
-  #  Attribution mutations
-  createAttribution(attribution: AttributionTypes, exhibit: String, file_name: String, nominal: String, organisation: String, pk: String!): Attribution
-  #  Interaction mutations
-  createInteraction(datetime: AWSDateTime, direction: DirectionTypes, duration: AWSTime, exhibit: String, file_name: String, interaction: InteractionTypes, organisation: String, partner: String, pk: String!): Interaction
-  # updateAttribution(input: AttributionInput!): Attribution
-  deleteAttribution(pk: String!, sk: String!): Attribution
-  # updateInteraction(input: InteractionInput!): Interaction
-  deleteInteraction(pk: String!, sk: String!): Interaction
-}
-
-type Query {
-  #  Attribution queries
-  getAttribution(pk: String!, sk: String!): Attribution
-  #  Interaction queries
-  getInteraction(pk: String!, sk: String!): Interaction
-  listAttributions(limit: Int, nextToken: String, pk: String!): AttributionConnection
-  listInteractions(limit: Int, nextToken: String, pk: String!): InteractionConnection
-}
-
-enum AttributionTypes {
-  CONTACT
-  INHERENT
-}
-
-enum DirectionTypes {
-  INBOUND
-  NONE
-  OUTBOUND
-}
-
-enum InteractionTypes {
-  EMAIL
-  MESSAGE
-  PHONECALL
-  SMS
-}

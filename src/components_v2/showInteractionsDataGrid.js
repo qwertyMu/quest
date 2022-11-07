@@ -12,13 +12,15 @@ import { API } from 'aws-amplify'
 import { createCapturedInteraction as createCapturedInteractionMutation } from '../graphql/mutations';
 import { v1 as uuidv1 } from 'uuid';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import InteractionsModalLogic from "./interactionsModalLogic";
+import InteractionsModalLogic from "../components/interactionsModalLogic";
 import SaveIcon from '@mui/icons-material/Save';
 import { randomQuantity } from "@mui/x-data-grid-generator";
 
 const ShowInteractionsDataGrid = props => {  
 
   const {pk} = props;
+  const {interactionsData} = props;
+  console.log(interactionsData)
 
   const initialParamState = { 
     key: '',
@@ -73,14 +75,6 @@ const ShowInteractionsDataGrid = props => {
     handleOpen();
   };
 
-  const { loading, error, data } = useQuery(GET_INTERACTIONS, {
-    variables: { pk },
-  });
-  
-  if (loading) return <h2>LOADING... </h2>;
-  if (error) return `Error! ${error}`;
-  if (data !== undefined){
-  }
   const columns = [
     { field: "interaction", headerName: "Interaction", width: 130, },
     { field: "direction", headerName: "Direction", width: 130 },
@@ -92,7 +86,7 @@ const ShowInteractionsDataGrid = props => {
     { field: "file_name", headerName: "Orignial File", width: 180 },
     { field: "datetime_added", headerName: "Date/Time Added", width: 180 },
   ];
-  const rows = data.listInteractions.items.map(({ direction, interaction, partner, duration, datetime, exhibit, organisation, file_name, datetime_added }, index) => {
+  const rows = interactionsData.map(({ direction, interaction, partner, duration, datetime, exhibit, organisation, file_name, datetime_added }, index) => {
     let DateTimeOfInteraction = moment(datetime).format('MMM Do YY, h:mma')
     let DateTimeAddedToQuest = moment(datetime_added).format('MMM Do YY, h:mma')
     return({
@@ -140,7 +134,8 @@ const ShowInteractionsDataGrid = props => {
 
 
 ShowInteractionsDataGrid.propTypes = {
-  pk: PropTypes.string.isRequired
+  pk: PropTypes.string.isRequired,
+  interactionsData: PropTypes.array,
 };
 
 export default ShowInteractionsDataGrid;

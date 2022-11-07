@@ -1,23 +1,13 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getAttribution = /* GraphQL */ `
-  query GetAttribution($pk: String!, $sk: String!) {
-    getAttribution(pk: $pk, sk: $sk) {
-      attribution
-      datetime_added
-      exhibit
-      file_name
-      nominal
-      organisation
-      pk
-      sk
-    }
-  }
-`;
-export const getInteraction = /* GraphQL */ `
-  query GetInteraction($pk: String!, $sk: String!) {
-    getInteraction(pk: $pk, sk: $sk) {
+export const getCapturedInteraction = /* GraphQL */ `
+  query GetCapturedInteraction($id: ID!) {
+    getCapturedInteraction(id: $id) {
+      id
+      key
+      identifier
+      partner
       datetime
       datetime_added
       direction
@@ -26,33 +16,29 @@ export const getInteraction = /* GraphQL */ `
       file_name
       interaction
       organisation
-      partner
-      pk
-      sk
+      nameKnownToMe
+      notes
+      createdAt
+      updatedAt
     }
   }
 `;
-export const listAttributions = /* GraphQL */ `
-  query ListAttributions($limit: Int, $nextToken: String, $pk: String!) {
-    listAttributions(limit: $limit, nextToken: $nextToken, pk: $pk) {
+export const listCapturedInteractions = /* GraphQL */ `
+  query ListCapturedInteractions(
+    $filter: ModelCapturedInteractionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCapturedInteractions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
-        attribution
-        datetime_added
-        exhibit
-        file_name
-        nominal
-        organisation
-        pk
-        sk
-      }
-      nextToken
-    }
-  }
-`;
-export const listInteractions = /* GraphQL */ `
-  query ListInteractions($limit: Int, $nextToken: String, $pk: String!) {
-    listInteractions(limit: $limit, nextToken: $nextToken, pk: $pk) {
-      items {
+        id
+        key
+        identifier
+        partner
         datetime
         datetime_added
         direction
@@ -61,42 +47,51 @@ export const listInteractions = /* GraphQL */ `
         file_name
         interaction
         organisation
-        partner
-        pk
-        sk
+        nameKnownToMe
+        notes
+        createdAt
+        updatedAt
       }
       nextToken
     }
   }
 `;
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
+export const getCapturedAttribution = /* GraphQL */ `
+  query GetCapturedAttribution($id: ID!) {
+    getCapturedAttribution(id: $id) {
       id
-      attributedName
-      attributedIdentifier
-      dateAddedToList
-      nameKnownToMe
-      notes
+      key
+      nominal
+      organisation
+      attribution
+      file_name
+      datetime_added
+      exhibit
       createdAt
       updatedAt
     }
   }
 `;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
+export const listCapturedAttributions = /* GraphQL */ `
+  query ListCapturedAttributions(
+    $filter: ModelCapturedAttributionFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listCapturedAttributions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
-        attributedName
-        attributedIdentifier
-        dateAddedToList
-        nameKnownToMe
-        notes
+        key
+        nominal
+        organisation
+        attribution
+        file_name
+        datetime_added
+        exhibit
         createdAt
         updatedAt
       }

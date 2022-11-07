@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   withStyles,
   Card,
@@ -7,12 +7,10 @@ import {
   Tooltip
 } from "@material-ui/core";
 import PropTypes from "prop-types";
-import Styles from "./userGeneratedContact/Styles";
-import { Button } from "@mui/material";
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import Styles from "../components/userGeneratedContact/Styles";
+import { IconButton, Button } from "@mui/material";
 import PhoneForwardedIcon from '@mui/icons-material/PhoneForwarded';
 import PhoneCallbackIcon from '@mui/icons-material/PhoneCallback';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import moment from "moment";
 import { useState } from "react";
 import { API } from 'aws-amplify'
@@ -20,13 +18,12 @@ import { createCapturedInteraction as createCapturedInteractionMutation } from '
 import { v1 as uuidv1 } from 'uuid';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import SaveIcon from '@mui/icons-material/Save';
 import { randomQuantity } from "@mui/x-data-grid-generator";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const InteractionsCard = props => {
   const {
     classes,
-    Id,
     Interaction,
     Direction,
     Partner,
@@ -65,7 +62,6 @@ const InteractionsCard = props => {
     if (!parameters.interaction || !parameters.partner) return;
     await API.graphql({ query: createCapturedInteractionMutation, variables: { input: parameters } });
     console.log("Card saved in interactionsCard"); 
-    
   }
 
   const style = {
@@ -85,15 +81,17 @@ const InteractionsCard = props => {
   function CheckDirection(){
     if(Direction == "OUTBOUND"){
       return(
-          <Typography className={classes.body}>
-            <PhoneForwardedIcon /><i style={{position: "relative", bottom: "8px"}}>{Direction}</i>
-          </Typography>
+        //   <Typography className={classes.body}>
+        //     <PhoneForwardedIcon /><i style={{position: "relative", bottom: "8px"}}>{Direction}</i>
+        //   </Typography>
+        <PhoneForwardedIcon fontSize="small"/>
       )
     }else{
       return(
-          <Typography className={classes.body}>
-            <PhoneCallbackIcon /><i style={{position: "relative", bottom: "8px"}}>{Direction}</i>
-          </Typography>
+        //   <Typography className={classes.body}>
+        //     <PhoneCallbackIcon /><i style={{position: "relative", bottom: "8px"}}>{Direction}</i>
+        //   </Typography>
+        <PhoneCallbackIcon fontSize="small"/>
       )
     }
   }
@@ -104,30 +102,13 @@ const InteractionsCard = props => {
 
   return (
     <>
-    <Card className={classes.card} elevation={8} style={{color: "white"}}>
+    <Card className={classes.interactionCard} elevation={8} style={{color: "white"}}>
       <CardContent>
-        <Typography variant="h6" className={classes.name}>
-          <PhoneIphoneIcon fontSize="large" /><b style={{position: "relative", bottom: "10px"}}>{Partner}</b>
-        </Typography><hr style={{marginBottom: "20px"}} />
-        {<CheckDirection />}<br/>
-        <Typography className={classes.details}>
-          <big>{Interaction}</big>
-        </Typography><br />
-        <Typography className={classes.details}>
-          <i style={{position: "relative", bottom: "3px"}}>{DateTimeOfInteraction}</i>
-          <Tooltip title="Date and Time of Interaction">
-            <InfoOutlinedIcon fontSize="tiny" sx={{position: "relative", bottom: "10px"}}/>
-          </Tooltip>
-        </Typography><br />
-        <Typography className={classes.details}>
-          <i style={{position: "relative", bottom: "5px"}}>{Duration}</i>
-          <Tooltip title="Duration">
-            <InfoOutlinedIcon fontSize="tiny" sx={{position: "relative", bottom: "10px"}}/>
-          </Tooltip>
-        </Typography><br />
-        <Button variant="contained" onClick={handleOpen}>
-            <SaveIcon />
-        </Button>
+        <small>{Interaction}</small>
+        <Typography variant="h6">
+            {<CheckDirection sx={{float:"left"}} />}<b style={{position: "relative", bottom: "3px", marginLeft:"5px"}}>{Partner}</b>
+        </Typography>
+        <MoreHorizIcon onClick={handleOpen}/>
       </CardContent>
     </Card>
     <Modal
@@ -138,10 +119,10 @@ const InteractionsCard = props => {
       >
       <Box sx={style}>
         <h4>Save interaction with <b>{Partner}</b> into My Captured Interactions List</h4>
-        <Button variant="contained" sx={{margin: "5px"}} onClick={saveCapturedInteractionItem}> 
+        <Button variant="contained" sx={{margin: "5px", borderRadius: "20px"}} onClick={saveCapturedInteractionItem}> 
           Yes
         </Button>
-        <Button variant="contained" sx={{margin: "5px"}} onClick={handleClose}>
+        <Button variant="contained" sx={{margin: "5px", borderRadius: "20px"}} onClick={handleClose}>
           No
         </Button>
       </Box>
