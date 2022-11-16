@@ -83,6 +83,7 @@ const InteractionsCard = props => {
       return(
         //   <Typography className={classes.body}>
         //     <PhoneForwardedIcon /><i style={{position: "relative", bottom: "8px"}}>{Direction}</i>
+        
         //   </Typography>
         <PhoneForwardedIcon fontSize="small"/>
       )
