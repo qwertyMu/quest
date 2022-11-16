@@ -23,7 +23,7 @@ query List($pk: String!){
   listAttributions(pk: $pk) {
     items {
       sk
-      name
+      nominal
       organisation
       attribution
       file_name
