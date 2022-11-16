@@ -44,10 +44,10 @@ const AttributionsCard = props => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: "40%",
+    width: "30%",
     bgcolor: '#f05c54',
     color: 'white',
-    borderRadius: '100px', 
+    borderRadius: '40px', 
     boxShadow: 24,
     p: 4,
     textAlign: 'center',
@@ -102,7 +102,7 @@ const AttributionsCard = props => {
         aria-describedby="modal-modal-description"
     >
         <Box sx={style}>
-            {/* <h4>Save attribution with <b>{Nominal}</b> into My Captured Attributions List</h4> */}
+            
             <Typography variant="h6" className={classes.name}>
                 <b>{Pk}</b>
                 <hr />
@@ -112,14 +112,15 @@ const AttributionsCard = props => {
                     </Tooltip>
                     <b style={{position: "relative", fontSize:"50px", bottom: "2px", marginLeft:"10px"}}>{Nominal}</b>
                 </Typography>
-                Exhibit - {Exhibit}
-                <br />
-                <small><i>(Contributed by {Organisation} on {DateTimeAddedToQuest})</i></small>
-                <br />
-                Found in seized device - {FoundInsidePhone}
-                <br />
-                <small><i>(Original file - {FileName})</i></small> <Button sx={{marginLeft: "15px"}} variant="contained" onClick={""}><DownloadForOfflineSharpIcon /></Button>
             </Typography>
+            
+            Exhibit - {Exhibit}
+            <br />
+            <small><i>(Contributed by {Organisation} on {DateTimeAddedToQuest})</i></small>
+            <br />
+            Found in seized device - {FoundInsidePhone}
+            <br />
+            <small><i>(Original file - {FileName})</i></small> <Button sx={{marginLeft: "15px"}} variant="contained" onClick={""}><DownloadForOfflineSharpIcon /></Button>
             <hr />
             Capture in Attributions List?
             <br />
