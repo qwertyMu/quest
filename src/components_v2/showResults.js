@@ -27,11 +27,11 @@ const ShowResults = props => {
     if ( data !== undefined){
       setAttributionsData(data.listAttributions.items);
       return <div>
-      {attributionsData.map(({ sk, nominal, organisation, attribution, file_name, datetime_added, exhibit }, index) => (
+      {attributionsData.map(({ sk, name, organisation, attribution, file_name, datetime_added, exhibit }, index) => (
         <AttributionsCard 
           key={index}
           Sk={sk}
-          Nominal={nominal}
+          Nominal={name}
           Organisation={organisation}
           Attribution={attribution}
           FileName={file_name}
