@@ -26,13 +26,16 @@ const InteractionsCard = props => {
     classes,
     Interaction,
     Direction,
-    Partner,
+    LocalPartner,
     Duration,
     DateTime,
     Exhibit,
     Organisation,
-    FileName,
+    FileHash,
     DateTimeAdded,
+    CaseRef,
+    DeviceUid,
+    Status,
     Pk,
   } = props;
 
@@ -45,13 +48,16 @@ const InteractionsCard = props => {
     identifier: Pk,
     interaction: Interaction,
     direction: Direction,
-    partner: Partner,
+    localPartner: LocalPartner,
     duration: Duration,
     datetime: DateTimeOfInteraction,
     exhibit:  Exhibit,
     organisation: Organisation,
-    file_name: FileName,
+    file_hash: FileHash,
     datetime_added: DateTimeAddedToQuest, 
+    caseRef: CaseRef,
+    deviceUid: DeviceUid,
+    status: Status,
   }
   const [parameters, setParameters] = useState(initialParamState);
 
@@ -107,9 +113,11 @@ const InteractionsCard = props => {
       <CardContent>
         <small>{Interaction}</small>
         <Typography variant="h6">
-            {<CheckDirection sx={{float:"left"}} />}<b style={{position: "relative", bottom: "3px", marginLeft:"5px"}}>{Partner}</b>
+            {<CheckDirection sx={{float:"left"}} />}<b style={{position: "relative", bottom: "3px", marginLeft:"5px"}}>{Status}</b>
         </Typography>
-        <MoreHorizIcon onClick={handleOpen}/>
+        <MoreHorizIcon onClick={handleOpen}/><br/>
+        {Duration}
+        
       </CardContent>
     </Card>
     <Modal
@@ -119,7 +127,7 @@ const InteractionsCard = props => {
       aria-describedby="modal-modal-description"
       >
       <Box sx={style}>
-        <h4>Save interaction with <b>{Partner}</b> into My Captured Interactions List</h4>
+        <h4>Save interaction with <b>{Interaction}</b> into My Captured Interactions List</h4>
         <Button variant="contained" sx={{margin: "5px", borderRadius: "20px"}} onClick={saveCapturedInteractionItem}> 
           Yes
         </Button>
@@ -137,13 +145,16 @@ InteractionsCard.propTypes = {
   Id: PropTypes.string,
   Interaction: PropTypes.string.isRequired,
   Direction: PropTypes.string.isRequired,
-  Partner: PropTypes.string.isRequired,
+  LocalPartner: PropTypes.string.isRequired,
   Duration: PropTypes.string.isRequired,
   DateTime: PropTypes.string.isRequired,
   Exhibit: PropTypes.string.isRequired,
   Organisation: PropTypes.string.isRequired,
-  FileName: PropTypes.string.isRequired,
+  FileHash: PropTypes.string.isRequired,
   DateTimeAdded: PropTypes.string.isRequired,
+  CaseRef: PropTypes.string.isRequired,
+  DeviceUid: PropTypes.string.isRequired,
+  Status: PropTypes.string.isRequired,
   Pk: PropTypes.string.isRequired,
 };
 

@@ -23,6 +23,10 @@ const TabbedResults = props => {
     setValue(newValue);
   };
 
+  const nodeHoverTooltip = React.useCallback((node) => {
+    return `<div>${node.name}</div>`;
+  }, []);
+
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value} variant="fullWidth" >
@@ -30,6 +34,7 @@ const TabbedResults = props => {
           <TabList centered onChange={handleResultsChange} aria-label="lab API tabs example">
             <Tab label="Attributions" value="1" />
             <Tab label="Interactions" value="2" />
+            <Tab label="Force Graph View" value="3" />
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -37,6 +42,9 @@ const TabbedResults = props => {
         </TabPanel>
         <TabPanel value="2">
           <ShowInteractionsDataGrid pk={pk} interactionsData={interactionsData}/>
+        </TabPanel>
+        <TabPanel value="3">
+          {/* Add the force graph UI into here */}
         </TabPanel>
       </TabContext>
     </Box>

@@ -62,7 +62,7 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            Glitch
+            Quest
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

@@ -23,22 +23,24 @@ const ShowResults = props => {
         variables: { pk },
     });
     if ( loading ) return <h2>LOADING... </h2>;
-    if ( error ) return `Error! ${error}`;
+    if ( error ) return `Error! ${error.message}`;
     if ( data !== undefined){
       setAttributionsData(data.listAttributions.items);
       return <div>
-      {attributionsData.map(({ sk, name, organisation, attribution, file_name, datetime_added, exhibit }, index) => (
+      {attributionsData.map(({ pk, sk, case_ref, exhibit_ref, device_uid, file_hash, organisation, datetime_added, name, attribution }, index) => (
         <AttributionsCard 
           key={index}
-          Sk={sk}
-          Nominal={name}
-          Organisation={organisation}
-          Attribution={attribution}
-          FileName={file_name}
-          FoundInsidePhone={file_name.match(/[0-9]+/g)}
-          DateTimeAdded={datetime_added}
-          Exhibit={exhibit}
           Pk ={pk}
+          Sk={sk}
+          CaseRef={case_ref}
+          Exhibit={exhibit_ref}
+          DeviceUid={device_uid}
+          FileHash={file_hash}
+          Organisation={organisation}
+          DateTimeAdded={datetime_added}
+          Nominal={name}
+          Attribution={attribution}
+          FoundInsidePhone={file_hash.match(/[0-9]+/g)}
         />
         ))}
       </div>
@@ -52,24 +54,28 @@ const ShowResults = props => {
     
 
     if ( loading ) return <h2>LOADING... </h2>;
-    if ( error ) return `Error! ${error}`;
+    if ( error ) return `Error! ${error.message}`;
     if ( data !== undefined){
       console.log("Interactions Data - " + data );
       setInteractionsData(data.listInteractions.items)
       return <div>
-          {interactionsData.map(({ direction, interaction, partner, duration, datetime, exhibit, organisation, file_name, datetime_added }, index) => (
+          {interactionsData.map(({ pk, sk, case_ref, exhibit_ref, device_uid, file_hash, organisation, datetime_added, datetime, local_partner, interaction, direction, duration, status }, index) => (
               <InteractionsCard 
                   key={index}
+                  Pk={pk}
+                  Sk={sk}
+                  CaseRef={case_ref}
+                  Exhibit={exhibit_ref}
+                  DeviceUid={device_uid}
+                  FileHash={file_hash}
+                  Organisation={organisation}
+                  DateTimeAdded={datetime_added}
+                  DateTime={datetime}
+                  LocalPartner={local_partner}
                   Interaction={interaction}
                   Direction={direction}
-                  Partner={partner}
                   Duration={duration}
-                  DateTime={datetime}
-                  Exhibit={exhibit}
-                  Organisation={organisation}
-                  FileName={file_name}
-                  DateTimeAdded={datetime_added}
-                  Pk={pk}
+                  Status={status}
               />
           ))}
       </div>
@@ -87,7 +93,6 @@ const ShowResults = props => {
       <br />
       {/* <ShowInteractionsDataGrid pk={pk}/> */}
       {attributionsData !== [] &&
-      // Sep 14th 20:42 -  No idea whats going on with this... The ListAttributions components above work fine
         <TabbedResults pk={pk} attributionsData={attributionsData} interactionsData={interactionsData} />
       }
       <br />

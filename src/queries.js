@@ -4,15 +4,20 @@ export const GET_INTERACTIONS = gql`
 query List($pk: String!){
   listInteractions(pk: $pk) {
     items {
-      direction
-      interaction
-      partner
-      duration
-      datetime
-      exhibit
+      pk
+      sk
+      case_ref
+      exhibit_ref
+      device_uid
+      file_hash
       organisation
-      file_name
       datetime_added
+      datetime
+      local_partner
+      interaction
+      direction
+      duration
+      status
     } 
   }
 }
@@ -22,13 +27,16 @@ export const GET_ATTRIBUTIONS = gql`
 query List($pk: String!){
   listAttributions(pk: $pk) {
     items {
+      pk
       sk
-      name
+      case_ref
+      exhibit_ref
+      device_uid
+      file_hash
       organisation
-      attribution
-      file_name
       datetime_added
-      exhibit
+      name
+      attribution
     } 
   }
 }

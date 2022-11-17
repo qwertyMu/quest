@@ -30,10 +30,12 @@ const AttributionsCard = props => {
     Nominal,
     Organisation,
     Attribution,
-    FileName,
+    FileHash,
     FoundInsidePhone,
     DateTimeAdded,
     Exhibit,
+    CaseRef,
+    DeviceUid,
     Pk,
   } = props;
 
@@ -60,9 +62,11 @@ const AttributionsCard = props => {
     nominal: Nominal,
     organisation: Organisation,
     attribution: Attribution,
-    fileName: FileName,
+    fileHash: FileHash,
     dateTimeAdded: DateTimeAdded,
     exhibit: Exhibit,
+    caseRef: CaseRef,
+    deviceUid: DeviceUid,
   }
 
   const [parameters, setParameters] = useState(initialParamState);
@@ -85,7 +89,7 @@ const AttributionsCard = props => {
     <>
     <Card className={classes.card} elevation={8} style={{color: "white"}}>
         <CardContent>
-            <small>{Attribution} in {FoundInsidePhone}</small>
+            <small>{Attribution}</small>
             <Typography variant="h6" className={classes.name}>
                 <Tooltip title="The name saved against this number">
                     <ContactPhoneIcon fontSize="small" />
@@ -120,7 +124,7 @@ const AttributionsCard = props => {
             <br />
             Found in seized device - {FoundInsidePhone}
             <br />
-            <small><i>(Original file - {FileName})</i></small> <Button sx={{marginLeft: "15px"}} variant="contained" onClick={""}><DownloadForOfflineSharpIcon /></Button>
+            <small><i>(Original file hash - {FileHash})</i></small> <Button sx={{marginLeft: "15px"}} variant="contained" onClick={""}><DownloadForOfflineSharpIcon /></Button>
             <hr />
             Capture in Attributions List?
             <br />
@@ -139,13 +143,15 @@ const AttributionsCard = props => {
 AttributionsCard.propTypes = {
   classes: PropTypes.object.isRequired,
   Id: PropTypes.string,
-  Nominal: PropTypes.string.isRequired,
-  Organisation: PropTypes.string.isRequired,
-  Attribution: PropTypes.string.isRequired,
-  FileName: PropTypes.string.isRequired,
-  FoundInsidePhone: PropTypes.array.isRequired,
-  DateTimeAdded: PropTypes.string.isRequired,
-  Exhibit: PropTypes.string.isRequired,
+  Nominal: PropTypes.string,
+  Organisation: PropTypes.string,
+  Attribution: PropTypes.string,
+  FileHash: PropTypes.string,
+  FoundInsidePhone: PropTypes.string,
+  DateTimeAdded: PropTypes.string,
+  Exhibit: PropTypes.string,
+  DeviceUid: PropTypes.string,
+  CaseRef: PropTypes.string,
   Pk: PropTypes.string.isRequired,
 };
 
