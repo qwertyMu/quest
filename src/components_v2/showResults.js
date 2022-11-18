@@ -64,7 +64,15 @@ const ShowResults = (props) => {
       console.log("Interactions Data - " + data);
       setInteractionsData(data.listInteractions.items);
       return (
-        <div>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            gap: "0.5em",
+            padding: "0.5em",
+            direction: "row-wrap",
+          }}
+        >
           {interactionsData.map(
             (
               {
@@ -104,7 +112,7 @@ const ShowResults = (props) => {
               />
             )
           )}
-        </div>
+        </Box>
       );
     }
   }
@@ -118,10 +126,10 @@ const ShowResults = (props) => {
       }}
     >
       {/* <h2>🚀 Quest has identified the following results against {pk}</h2> */}
-      <center>
+      <Box>
         <ListAttributions pk={pk} />
         <ListInteractions pk={pk} />
-      </center>
+      </Box>
       {/* <ShowInteractionsDataGrid pk={pk}/> */}
       {attributionsData !== [] && (
         <TabbedResults

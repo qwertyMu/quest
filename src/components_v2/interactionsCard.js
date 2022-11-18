@@ -64,14 +64,14 @@ export default function InteractionsCard(props) {
     console.log("Card saved in interactionsCard");
   }
 
-  const style = {
+  const modalStyle = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
     bgcolor: "#f05c54",
-    color: "white",
+    color: "black",
     borderRadius: "10px",
     boxShadow: 24,
     p: 4,
@@ -92,7 +92,16 @@ export default function InteractionsCard(props) {
 
   return (
     <>
-      <Card elevation={8} style={{ color: "white" }}>
+      <Card
+        elevation={8}
+        sx={{
+          color: "black",
+          width: "18em",
+          height: "8em",
+          border: "2px solid black",
+          borderRadius: "15px",
+        }}
+      >
         <CardContent>
           <small>{Interaction}</small>
           <Typography variant="h6">
@@ -114,7 +123,7 @@ export default function InteractionsCard(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={modalStyle}>
           <h4>
             Save interaction with <b>{Interaction}</b> into My Captured
             Interactions List
