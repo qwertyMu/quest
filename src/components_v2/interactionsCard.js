@@ -10,13 +10,11 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { randomQuantity } from "@mui/x-data-grid-generator";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import { Box, Modal } from "@mui/material";
-import PropTypes from "prop-types";
 
 import { createCapturedInteraction as createCapturedInteractionMutation } from "../graphql/mutations";
 
 export default function InteractionsCard(props) {
   const {
-    classes,
     Interaction,
     Direction,
     LocalPartner,
@@ -81,21 +79,10 @@ export default function InteractionsCard(props) {
   };
 
   function CheckDirection() {
-    if (Direction == "OUTBOUND") {
-      return (
-        //   <Typography className={classes.body}>
-        //     <PhoneForwardedIcon /><i style={{position: "relative", bottom: "8px"}}>{Direction}</i>
-
-        //   </Typography>
-        <PhoneForwardedIcon fontSize="small" />
-      );
+    if (Direction === "OUTBOUND") {
+      return <PhoneForwardedIcon fontSize="small" />;
     } else {
-      return (
-        //   <Typography className={classes.body}>
-        //     <PhoneCallbackIcon /><i style={{position: "relative", bottom: "8px"}}>{Direction}</i>
-        //   </Typography>
-        <PhoneCallbackIcon fontSize="small" />
-      );
+      return <PhoneCallbackIcon fontSize="small" />;
     }
   }
 
@@ -105,11 +92,7 @@ export default function InteractionsCard(props) {
 
   return (
     <>
-      <Card
-        className={classes.interactionCard}
-        elevation={8}
-        style={{ color: "white" }}
-      >
+      <Card elevation={8} style={{ color: "white" }}>
         <CardContent>
           <small>{Interaction}</small>
           <Typography variant="h6">
@@ -155,21 +138,3 @@ export default function InteractionsCard(props) {
     </>
   );
 }
-
-InteractionsCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  Id: PropTypes.string,
-  Interaction: PropTypes.string.isRequired,
-  Direction: PropTypes.string.isRequired,
-  LocalPartner: PropTypes.string.isRequired,
-  Duration: PropTypes.string.isRequired,
-  DateTime: PropTypes.string.isRequired,
-  Exhibit: PropTypes.string.isRequired,
-  Organisation: PropTypes.string.isRequired,
-  FileHash: PropTypes.string.isRequired,
-  DateTimeAdded: PropTypes.string.isRequired,
-  CaseRef: PropTypes.string.isRequired,
-  DeviceUid: PropTypes.string.isRequired,
-  Status: PropTypes.string.isRequired,
-  Pk: PropTypes.string.isRequired,
-};
