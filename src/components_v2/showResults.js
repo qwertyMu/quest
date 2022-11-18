@@ -44,7 +44,7 @@ const ShowResults = (props) => {
           }}
         >
           {attributionsData.map((attribution, index) => (
-            <AttributionsCard data={attribution} />
+            <AttributionsCard data={attribution} key={index} />
           ))}
         </Box>
       </React.Fragment>

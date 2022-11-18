@@ -19,7 +19,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 export default function AttributionsCard(props) {
   const { case_ref, exhibit_ref, device_uid, file_hash } = props.data;
   const { organisation, datetime_added } = props.data;
-  const { pk, sk, name, attribution } = props.data;
+  const { pk, name, attribution } = props.data;
 
   let dateTimeAddedToQuest = moment(datetime_added).format("MMM Do YYYY");
 
