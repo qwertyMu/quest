@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { GET_ATTRIBUTIONS, GET_INTERACTIONS } from "../queries";
 import TabbedResults from "./tabbedResults";
 import AttributionWordCloud from "../components/AttributionWordCloud";
-import AttributionsCard from "./attributionsCard";
+import AttributionsCard from "./AttributionsCard";
 import InteractionsCard from "./interactionsCard";
 
 const ShowResults = (props) => {
@@ -37,38 +37,9 @@ const ShowResults = (props) => {
       <React.Fragment>
         <AttributionWordCloud data={attributionsData} />
         <Box>
-          {attributionsData.map(
-            (
-              {
-                pk,
-                sk,
-                case_ref,
-                exhibit_ref,
-                device_uid,
-                file_hash,
-                organisation,
-                datetime_added,
-                name,
-                attribution,
-              },
-              index
-            ) => (
-              <AttributionsCard
-                key={index}
-                Pk={pk}
-                Sk={sk}
-                CaseRef={case_ref}
-                Exhibit={exhibit_ref}
-                DeviceUid={device_uid}
-                FileHash={file_hash}
-                Organisation={organisation}
-                DateTimeAdded={datetime_added}
-                Nominal={name}
-                Attribution={attribution}
-                FoundInsidePhone={file_hash.match(/[0-9]+/g)}
-              />
-            )
-          )}
+          {attributionsData.map((attribution, index) => (
+            <AttributionsCard data={attribution} />
+          ))}
         </Box>
       </React.Fragment>
     );
