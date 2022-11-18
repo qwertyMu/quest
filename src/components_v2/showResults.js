@@ -36,7 +36,13 @@ const ShowResults = (props) => {
     return (
       <React.Fragment>
         <AttributionWordCloud data={attributionsData} />
-        <Box>
+        <Box
+          sx={{
+            padding: "0.5em",
+            height: "20em",
+            display: "flex",
+          }}
+        >
           {attributionsData.map((attribution, index) => (
             <AttributionsCard data={attribution} />
           ))}

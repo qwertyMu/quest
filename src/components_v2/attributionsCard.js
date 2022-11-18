@@ -17,47 +17,34 @@ import { randomQuantity } from "@mui/x-data-grid-generator";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 export default function AttributionsCard(props) {
-  const {
-    Nominal,
-    Organisation,
-    Attribution,
-    FileHash,
-    FoundInsidePhone,
-    DateTimeAdded,
-    Exhibit,
-    CaseRef,
-    DeviceUid,
-    Pk,
-  } = props;
+  const { case_ref, exhibit_ref, device_uid, file_hash } = props.data;
+  const { organisation, datetime_added } = props.data;
+  const { pk, sk, name, attribution } = props.data;
 
-  let DateTimeAddedToQuest = moment(DateTimeAdded).format("MMM Do YYYY");
+  let dateTimeAddedToQuest = moment(datetime_added).format("MMM Do YYYY");
 
   const cardStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "30%",
+    minWidth: "18em",
+    height: "5em",
     bgcolor: "#f05c54",
-    color: "white",
-    borderRadius: "40px",
+    color: "black",
+    borderRadius: "15px",
     boxShadow: 24,
-    p: 4,
     textAlign: "center",
   };
 
   const initialParamState = {
     key: randomQuantity(),
     id: uuidv1(),
-    identifier: Pk,
-    nominal: Nominal,
-    organisation: Organisation,
-    attribution: Attribution,
-    fileHash: FileHash,
-    dateTimeAdded: DateTimeAdded,
-    exhibit: Exhibit,
-    caseRef: CaseRef,
-    deviceUid: DeviceUid,
+    identifier: pk,
+    nominal: name,
+    organisation: organisation,
+    attribution: attribution,
+    fileHash: file_hash,
+    dateTimeAdded: dateTimeAddedToQuest,
+    exhibit: exhibit_ref,
+    caseRef: case_ref,
+    deviceUid: device_uid,
   };
 
   const [parameters, setParameters] = useState(initialParamState);
@@ -65,7 +52,6 @@ export default function AttributionsCard(props) {
   async function saveCapturedAttributionItem() {
     // Build the create query up here.
     setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.
-    console.log(parameters);
     if (!parameters.attribution || !parameters.nominal) return;
     await API.graphql({
       query: createCapturedAttributionMutation,
@@ -81,7 +67,7 @@ export default function AttributionsCard(props) {
     <React.Fragment>
       <Card elevation={8} style={cardStyle}>
         <CardContent>
-          <small>{Attribution}</small>
+          <small>{attribution}</small>
           <Typography variant="h6">
             <Tooltip title="The name saved against this number">
               <ContactPhoneIcon fontSize="small" />
@@ -93,12 +79,13 @@ export default function AttributionsCard(props) {
                 marginLeft: "10px",
               }}
             >
-              {Nominal}
+              {name}
             </b>
           </Typography>
           <MoreHorizIcon onClick={handleOpen} />
         </CardContent>
       </Card>
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -107,7 +94,7 @@ export default function AttributionsCard(props) {
       >
         <Box sx={cardStyle}>
           <Typography variant="h6">
-            <b>{Pk}</b>
+            <b>{pk}</b>
             <hr />
             <Typography variant="h6">
               <Tooltip title="The name saved against this number">
@@ -121,22 +108,22 @@ export default function AttributionsCard(props) {
                   marginLeft: "10px",
                 }}
               >
-                {Nominal}
+                {name}
               </b>
             </Typography>
           </Typography>
-          Exhibit - {Exhibit}
+          Exhibit - {exhibit_ref}
           <br />
           <small>
             <i>
-              (Contributed by {Organisation} on {DateTimeAddedToQuest})
+              (Contributed by {organisation} on {dateTimeAddedToQuest})
             </i>
           </small>
           <br />
-          Found in seized device - {FoundInsidePhone}
+          Found in seized device - {device_uid}
           <br />
           <small>
-            <i>(Original file hash - {FileHash})</i>
+            <i>(Original file hash - {file_hash})</i>
           </small>{" "}
           <Button sx={{ marginLeft: "15px" }} variant="contained" onClick={""}>
             <DownloadForOfflineIcon />
