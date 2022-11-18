@@ -41,6 +41,7 @@ const ShowResults = (props) => {
             padding: "0.5em",
             height: "20em",
             display: "flex",
+            gap: "0.5em",
           }}
         >
           {attributionsData.map((attribution, index) => (

@@ -43,7 +43,7 @@ export default function AttributionWordCloud(props) {
         borderRadius: "15px",
       }}
     >
-      <TagCloud tags={tags} shuffle minSize={12} maxSize={42} />
+      <TagCloud tags={tags} shuffle={false} minSize={12} maxSize={42} />
     </Box>
   );
 }
