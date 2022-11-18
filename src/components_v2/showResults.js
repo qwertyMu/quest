@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 import PropTypes from "prop-types";
 import { GET_ATTRIBUTIONS, GET_INTERACTIONS } from "../queries";
 import TabbedResults from "./tabbedResults";
-import AttributionWordCloud from "../components/AttributionWordCloud";
+import AttributionWordCloud from "../components/AttributionWordCloud.tsx";
 import AttributionsCard from "./AttributionsCard";
 import InteractionsCard from "./interactionsCard";
 
