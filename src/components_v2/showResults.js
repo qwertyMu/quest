@@ -20,7 +20,6 @@ const ShowResults = (props) => {
     const { loading, error, data } = useQuery(GET_ATTRIBUTIONS, {
       variables: { pk },
     });
-
     useEffect(() => {
       // save attribution data into state as it changes
       try {

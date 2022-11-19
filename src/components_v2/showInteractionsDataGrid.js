@@ -1,9 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
-import { useQuery } from '@apollo/client';
 import { useState } from "react";
-import { GET_INTERACTIONS } from "../queries";
 import moment from "moment";
 import { Button } from "@mui/material";
 import Modal from '@mui/material/Modal';
@@ -28,23 +26,26 @@ const ShowInteractionsDataGrid = props => {
     identifier: '',
     interaction: '',
     direction: '',
-    partner: '',
+    local_partner: '',
     duration: '',
     datetime: '',
-    exhibit: '',
+    exhibit_ref: '',
     organisation: '',
-    file_name: '',
-    datetime_added: '', 
+    file_hash: '',
+    datetime_added: '',
+    case_ref: '', 
+    status: '',
+    device_uid: '',
   }
 
   const [parameters, setParameters] = useState(initialParamState);
 
   async function createCapturedInteractionItem() {
     // Build the create query up here.
-    if (!parameters.interaction || !parameters.partner) return;
-      await API.graphql({ query: createCapturedInteractionMutation, variables: { input: parameters } }); 
-      console.log("Row saved in showInteractionsDataGrid");
-      setParameters(initialParamState);   
+    if (!parameters.device_uid) return;
+    await API.graphql({ query: createCapturedInteractionMutation, variables: { input: parameters } }); 
+    console.log("Row saved in showInteractionsDataGrid");
+    setParameters(initialParamState);   
     handleClose();
   }
 
@@ -78,28 +79,34 @@ const ShowInteractionsDataGrid = props => {
   const columns = [
     { field: "interaction", headerName: "Interaction", width: 130, },
     { field: "direction", headerName: "Direction", width: 130 },
-    { field: "partner", headerName: "Partner", width: 130 },
+    { field: "local_partner", headerName: "Partner", width: 130 },
+    { field: "status", headerName: "Status", width: 130 },
     { field: "duration", headerName: "Duration", width: 130 },
-    { field: "datetime", headerName: "Date/Time", width: 180 },
-    { field: "exhibit", headerName: "Exhibit Number", width: 130 },
+    { field: "datetime", headerName: "Date/Time of Interaction", width: 180 },
     { field: "organisation", headerName: "Organisation", width: 180 },
-    { field: "file_name", headerName: "Orignial File", width: 180 },
+    { field: "exhibit_ref", headerName: "Exhibit Number", width: 130 },
+    { field: "case_ref", headerName: "Case Ref", width: 130 },
+    { field: "file_hash", headerName: "File Hash", width: 360 },
+    { field: "device_uid", headerName: "Device Hash", width: 180 },
     { field: "datetime_added", headerName: "Date/Time Added", width: 180 },
   ];
-  const rows = interactionsData.map(({ direction, interaction, partner, duration, datetime, exhibit, organisation, file_name, datetime_added }, index) => {
+  const rows = interactionsData.map(({ direction, interaction, local_partner, duration, datetime, exhibit_ref, organisation, file_hash, datetime_added, case_ref, device_uid, status }, index) => {
     let DateTimeOfInteraction = moment(datetime).format('MMM Do YY, h:mma')
     let DateTimeAddedToQuest = moment(datetime_added).format('MMM Do YY, h:mma')
     return({
       id: uuidv1(),
       interaction: interaction,
       direction: direction,
-      partner: partner,
+      local_partner: local_partner,
       duration: duration,
       datetime: DateTimeOfInteraction,
-      exhibit: exhibit,
+      exhibit_ref: exhibit_ref,
       organisation: organisation,
-      file_name: file_name,
+      file_hash: file_hash,
       datetime_added: DateTimeAddedToQuest,
+      case_ref: case_ref,
+      device_uid: device_uid,
+      status: status,
     })
   });
 

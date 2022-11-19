@@ -39,7 +39,7 @@ export default function InteractionsCard(props) {
     identifier: Pk,
     interaction: Interaction,
     direction: Direction,
-    localPartner: LocalPartner,
+    local_partner: LocalPartner,
     duration: Duration,
     datetime: DateTimeOfInteraction,
     exhibit: Exhibit,

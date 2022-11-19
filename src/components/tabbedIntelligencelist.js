@@ -7,6 +7,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import BulkSearchBuilder from './bulkSearchBuilder'
 import InteractionsIntelligenceList from './interactionsIntelligenceList'
+import AttributionsIntelligenceList from './attributionsIntelligenceList'
 
 
 export default function TabbedIntelligenceList() {
@@ -44,6 +45,7 @@ export default function TabbedIntelligenceList() {
                     <InteractionsIntelligenceList />
                 </TabPanel>
                 <TabPanel value="2">
+                    <AttributionsIntelligenceList />
                     {/* <InteractionsIntelligenceList /> */}
                     {/* This needs to be AttributionsIntelliegnceList */}
                 </TabPanel>

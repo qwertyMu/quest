@@ -6,27 +6,34 @@ type CapturedInteraction @model {
   id: ID!
   key: Int
   identifier: String!
-  partner: String
+  local_partner: String
   datetime: String
   datetime_added: String
   direction: String
   duration: String
-  exhibit: String
-  file_name: String
+  exhibit_ref: String
+  case_ref: String
+  file_hash: String
+  device_uid: String
   interaction: String
   organisation: String
   nameKnownToMe: String
   notes: String
+  status: String
 }
 
 type CapturedAttribution @model {
   id: ID!
   key: Int
-  nominal: String!,
-  organisation: String,
-  attribution: String,
-  file_name: String,
-  datetime_added: String, 
-  exhibit: String,
+  identifier: String!
+  name: String
+  nameKnownToMe: String
+  organisation: String
+  attribution: String
+  file_hash: String
+  datetime_added: String 
+  exhibit_ref: String
+  case_ref: String
+  device_uid: String
 }
 

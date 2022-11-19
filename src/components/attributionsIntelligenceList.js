@@ -2,10 +2,10 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from "react";
 import { API } from 'aws-amplify';
-import { listCapturedInteractions } from "../graphql/queries";
+import { listCapturedAttributions } from "../graphql/queries";
 import moment from "moment";
 
-export default function InteractionsIntelligenceList() {
+export default function AttributionsIntelligenceList() {
 
   const [list, setList] = useState([]);
 
@@ -18,23 +18,18 @@ export default function InteractionsIntelligenceList() {
   }, []);
 
   async function fetchList() {
-    const apiData = await API.graphql({ query: listCapturedInteractions });
-    setList(apiData.data.listCapturedInteractions.items);
+    const apiData = await API.graphql({ query: listCapturedAttributions });
+    setList(apiData.data.listCapturedAttributions.items);
   }
 
   const columns = [
-    { field: 'identifier', headerName: 'Identifier', width: 180, editable: false },
-    { field: 'nameKnownToMe', headerName: 'Name (if known)', width: 180, type: 'string', editable: true },
-    { field: 'local_partner', headerName: 'Communication with', width: 180, type: 'string', editable: false },
-    { field: 'interaction', headerName: 'Type of communication', width: 180, type: 'string', editable: false },
-    { field: 'status', headerName: 'Status', width: 180, type: 'string', editable: false },
-    { field: 'datetime', headerName: 'Communicated on', width: 180, type: 'string', editable: false },
-    { field: 'direction', headerName: 'Direction', width: 180, type: 'string', editable: false },
-    { field: 'duration', headerName: 'Duration', width: 180, type: 'string', editable: false },
-    { field: 'exhibit_ref', headerName: 'From exhibit', width: 180, type: 'string', editable: false },
-    { field: 'case_ref', headerName: 'Case Ref', width: 180, type: 'string', editable: false },
-    { field: 'file_hash', headerName: 'File Hash', width: 180, type: 'string', editable: false },
-    { field: 'organisation', headerName: 'Contributed by', width: 220, type: 'string', editable: false },
+    { field: 'name', headerName: 'Name', width: 180, editable: false },
+    { field: 'organisation', headerName: 'Organisation', width: 180, editable: false },
+    { field: 'attribution', headerName: 'Attribution', width: 180, editable: false },
+    { field: 'exhibit_ref', headerName: 'From Exhibit', width: 180, editable: false },
+    { field: 'case_ref', headerName: 'Case Ref', width: 180, editable: false },
+    { field: 'file_hash', headerName: 'Hash of Original File', width: 180, editable: false },
+    { field: 'device_uid', headerName: 'Device Hash', width: 180, editable: false },
     {
       field: 'datetime_added',
       headerName: 'Date Added to Intelligence List',
@@ -53,39 +48,29 @@ export default function InteractionsIntelligenceList() {
 
   const rows = list.map(({ 
       id, 
-      identifier, 
-      nameKnownToMe, 
-      local_partner, 
-      interaction, 
-      status,
-      datetime, 
-      direction, 
-      duration, 
-      exhibit_ref, 
-      case_ref,
-      file_hash, 
+      name, 
       organisation, 
-      notes, 
+      attribution, 
+      exhibit_ref,
+      case_ref, 
+      file_hash, 
+      device_uid, 
       createdAt, 
+      notes, 
     }, index) => {
     let DateTimeAddedToList = moment(createdAt).format('MMM Do YY, h:mma')
     return({
       key: index,
       id: id,
-      identifier: identifier,
-      local_partner: local_partner,
-      interaction: interaction,
-      status: status,
-      datetime: datetime,
-      direction: direction,
-      duration: duration,
+      name: name,
+      organisation: organisation,
+      attribution: attribution,
       exhibit_ref: exhibit_ref,
       case_ref: case_ref,
       file_hash: file_hash,
-      organisation: organisation,
-      nameKnownToMe: nameKnownToMe,
-      notes: notes,
+      device_uid: device_uid,
       datetime_added: DateTimeAddedToList, //Currently this format does not allow sort by ASC. Date seems fine but time is a bit funny.
+      notes: notes,
     })
   });
 
