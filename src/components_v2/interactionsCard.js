@@ -48,15 +48,15 @@ const InteractionsCard = props => {
     identifier: Pk,
     interaction: Interaction,
     direction: Direction,
-    localPartner: LocalPartner,
+    local_partner: LocalPartner,
     duration: Duration,
     datetime: DateTimeOfInteraction,
-    exhibit:  Exhibit,
+    exhibit_ref:  Exhibit,
     organisation: Organisation,
     file_hash: FileHash,
     datetime_added: DateTimeAddedToQuest, 
-    caseRef: CaseRef,
-    deviceUid: DeviceUid,
+    case_ref: CaseRef,
+    device_uid: DeviceUid,
     status: Status,
   }
   const [parameters, setParameters] = useState(initialParamState);
@@ -65,7 +65,7 @@ const InteractionsCard = props => {
     // Build the create query up here. 
     setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.  
     console.log(parameters);
-    if (!parameters.interaction || !parameters.partner) return;
+    if (parameters.deviceUid) return;
     await API.graphql({ query: createCapturedInteractionMutation, variables: { input: parameters } });
     console.log("Card saved in interactionsCard"); 
   }

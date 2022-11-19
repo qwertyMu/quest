@@ -22,7 +22,7 @@ const InteractionsModalLogic = props => {
             }
             <h3 style={{border: "solid white 1px", borderRadius: "8px"}}>
                 {parameters.interaction === "PHONECALL"
-                ? <><PhoneIphoneIcon fontSize="tiny" sx={{position: "relative", bottom: "-2px"}} />{parameters.partner}</>
+                ? <><PhoneIphoneIcon fontSize="tiny" sx={{position: "relative", bottom: "-2px"}} />{parameters.local_partner}</>
                 : <>{parameters.partner}</>
                 }
             </h3>

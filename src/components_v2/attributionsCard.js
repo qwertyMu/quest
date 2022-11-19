@@ -27,7 +27,7 @@ import DownloadForOfflineSharpIcon from '@mui/icons-material/DownloadForOfflineS
 const AttributionsCard = props => {
   const {
     classes,
-    Nominal,
+    Name,
     Organisation,
     Attribution,
     FileHash,
@@ -59,24 +59,23 @@ const AttributionsCard = props => {
     key: randomQuantity(),
     id: uuidv1(),
     identifier: Pk,
-    nominal: Nominal,
+    name: Name,
     organisation: Organisation,
     attribution: Attribution,
-    fileHash: FileHash,
-    dateTimeAdded: DateTimeAdded,
-    exhibit: Exhibit,
-    caseRef: CaseRef,
-    deviceUid: DeviceUid,
+    exhibit_ref: Exhibit,
+    case_ref: CaseRef,
+    file_hash: FileHash,
+    device_uid: DeviceUid,
+    datetime_added: DateTimeAdded,
   }
 
   const [parameters, setParameters] = useState(initialParamState);
 
-  async function saveCapturedAttributionItem() {
-    console.log("TEST")
+  async function saveCapturedAttributionItem() {  
     // Build the create query up here. 
     setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.  
-    console.log(parameters);
-    if (!parameters.attribution || !parameters.nominal) return;
+    console.log("saveCapturedAttributionItem function - " + parameters);
+    if (parameters.deviceUid) return;
     await API.graphql({ query: createCapturedAttributionMutation, variables: { input: parameters } });
     console.log("Card saved in attributionsCard"); 
   }
@@ -94,7 +93,7 @@ const AttributionsCard = props => {
                 <Tooltip title="The name saved against this number">
                     <ContactPhoneIcon fontSize="small" />
                 </Tooltip>
-                <b style={{position: "relative", bottom: "2px", marginLeft:"10px"}}>{Nominal}</b>
+                <b style={{position: "relative", bottom: "2px", marginLeft:"10px"}}>{Name}</b>
             </Typography>
             <MoreHorizIcon onClick={handleOpen}/>
         </CardContent>
@@ -114,7 +113,7 @@ const AttributionsCard = props => {
                     <Tooltip title="The name saved against this number">
                         <ContactPhoneIcon fontSize="small" />
                     </Tooltip>
-                    <b style={{position: "relative", fontSize:"50px", bottom: "2px", marginLeft:"10px"}}>{Nominal}</b>
+                    <b style={{position: "relative", fontSize:"50px", bottom: "2px", marginLeft:"10px"}}>{Name}</b>
                 </Typography>
             </Typography>
             

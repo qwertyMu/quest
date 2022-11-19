@@ -38,7 +38,7 @@ const ShowResults = props => {
           FileHash={file_hash}
           Organisation={organisation}
           DateTimeAdded={datetime_added}
-          Nominal={name}
+          Name={name}
           Attribution={attribution}
           FoundInsidePhone={file_hash.match(/[0-9]+/g)}
         />

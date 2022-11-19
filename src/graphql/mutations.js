@@ -10,17 +10,20 @@ export const createCapturedInteraction = /* GraphQL */ `
       id
       key
       identifier
-      partner
+      local_partner
       datetime
       datetime_added
       direction
       duration
-      exhibit
-      file_name
+      exhibit_ref
+      case_ref
+      file_hash
+      device_uid
       interaction
       organisation
       nameKnownToMe
       notes
+      status
       createdAt
       updatedAt
     }
@@ -35,17 +38,20 @@ export const updateCapturedInteraction = /* GraphQL */ `
       id
       key
       identifier
-      partner
+      local_partner
       datetime
       datetime_added
       direction
       duration
-      exhibit
-      file_name
+      exhibit_ref
+      case_ref
+      file_hash
+      device_uid
       interaction
       organisation
       nameKnownToMe
       notes
+      status
       createdAt
       updatedAt
     }
@@ -60,17 +66,20 @@ export const deleteCapturedInteraction = /* GraphQL */ `
       id
       key
       identifier
-      partner
+      local_partner
       datetime
       datetime_added
       direction
       duration
-      exhibit
-      file_name
+      exhibit_ref
+      case_ref
+      file_hash
+      device_uid
       interaction
       organisation
       nameKnownToMe
       notes
+      status
       createdAt
       updatedAt
     }
@@ -84,12 +93,16 @@ export const createCapturedAttribution = /* GraphQL */ `
     createCapturedAttribution(input: $input, condition: $condition) {
       id
       key
-      nominal
+      identifier
+      name
+      nameKnownToMe
       organisation
       attribution
-      file_name
+      file_hash
       datetime_added
-      exhibit
+      exhibit_ref
+      case_ref
+      device_uid
       createdAt
       updatedAt
     }
@@ -103,12 +116,16 @@ export const updateCapturedAttribution = /* GraphQL */ `
     updateCapturedAttribution(input: $input, condition: $condition) {
       id
       key
-      nominal
+      identifier
+      name
+      nameKnownToMe
       organisation
       attribution
-      file_name
+      file_hash
       datetime_added
-      exhibit
+      exhibit_ref
+      case_ref
+      device_uid
       createdAt
       updatedAt
     }
@@ -122,12 +139,16 @@ export const deleteCapturedAttribution = /* GraphQL */ `
     deleteCapturedAttribution(input: $input, condition: $condition) {
       id
       key
-      nominal
+      identifier
+      name
+      nameKnownToMe
       organisation
       attribution
-      file_name
+      file_hash
       datetime_added
-      exhibit
+      exhibit_ref
+      case_ref
+      device_uid
       createdAt
       updatedAt
     }

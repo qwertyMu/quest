@@ -7,17 +7,20 @@ export const getCapturedInteraction = /* GraphQL */ `
       id
       key
       identifier
-      partner
+      local_partner
       datetime
       datetime_added
       direction
       duration
-      exhibit
-      file_name
+      exhibit_ref
+      case_ref
+      file_hash
+      device_uid
       interaction
       organisation
       nameKnownToMe
       notes
+      status
       createdAt
       updatedAt
     }
@@ -38,17 +41,20 @@ export const listCapturedInteractions = /* GraphQL */ `
         id
         key
         identifier
-        partner
+        local_partner
         datetime
         datetime_added
         direction
         duration
-        exhibit
-        file_name
+        exhibit_ref
+        case_ref
+        file_hash
+        device_uid
         interaction
         organisation
         nameKnownToMe
         notes
+        status
         createdAt
         updatedAt
       }
@@ -61,12 +67,16 @@ export const getCapturedAttribution = /* GraphQL */ `
     getCapturedAttribution(id: $id) {
       id
       key
-      nominal
+      identifier
+      name
+      nameKnownToMe
       organisation
       attribution
-      file_name
+      file_hash
       datetime_added
-      exhibit
+      exhibit_ref
+      case_ref
+      device_uid
       createdAt
       updatedAt
     }
@@ -86,12 +96,16 @@ export const listCapturedAttributions = /* GraphQL */ `
       items {
         id
         key
-        nominal
+        identifier
+        name
+        nameKnownToMe
         organisation
         attribution
-        file_name
+        file_hash
         datetime_added
-        exhibit
+        exhibit_ref
+        case_ref
+        device_uid
         createdAt
         updatedAt
       }
