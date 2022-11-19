@@ -1,51 +1,51 @@
-import * as React from 'react';
-import FormControl, { useFormControl } from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Box from '@mui/material/Box';
-import FormHelperText from '@mui/material/FormHelperText';
-import { useState } from 'react';
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import ShowResults from './showResults';
+import React, { useState } from "react";
 
+import FormControl, { useFormControl } from "@mui/material/FormControl";
+import { Box, OutlinedInput, FormHelperText } from "@mui/material";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import ShowResults from "./showResults";
 
 export default function Search() {
-  const [searchTerm, setSearchTerm] = useState("");
-
-  let searchTermHandler = (e) => { // Handles the search being inputted
-    var searchTermInputted = e.target.value;
-    setSearchTerm(searchTermInputted);
-  }
-
   const client = new QueryClient();
 
-  function MyFormHelperText() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const MyFormHelperText = () => {
     const { focused } = useFormControl() || {};
     const helperText = React.useMemo(() => {
       if (focused) {
-        return (
-          'Type your query.'
-        )
+        return "Type your query.";
       }
-      return 'You can search for Names | Phone Numbers | Email Addresses | Social Media Identifiers | WiFi Access Points etc...';
+      return "You can search for Names | Phone Numbers | Email Addresses | Social Media Identifiers | WiFi Access Points etc...";
     }, [focused]);
-  
-    return <FormHelperText style={{color: "white"}}>{helperText}</FormHelperText>;
-  }
+
+    return (
+      <FormHelperText style={{ color: "white" }}>{helperText}</FormHelperText>
+    );
+  };
 
   return (
     <Box component="form" noValidate autoComplete="off">
-      <FormControl sx={{ width: '90%' }}>
-        <OutlinedInput placeholder="Please enter text" style={{backgroundColor: "whitesmoke", borderRadius: "12px", color: "#972021"}} onChange={searchTermHandler}/>
+      <FormControl sx={{ width: "90%" }}>
+        <OutlinedInput
+          placeholder="Please enter search text"
+          style={{
+            backgroundColor: "whitesmoke",
+            borderRadius: "12px",
+            color: "#972021",
+          }}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
         <MyFormHelperText />
       </FormControl>
-      <br />
-      <br />
-      <br />
-      {searchTerm !== "" &&
-      <QueryClientProvider client={client}>
-        <ShowResults pk={searchTerm} />
-      </QueryClientProvider>
-      }
+
+      {searchTerm !== "" && (
+        <QueryClientProvider client={client}>
+          <ShowResults pk={searchTerm} />
+        </QueryClientProvider>
+      )}
     </Box>
   );
 }

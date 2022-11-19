@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Grid } from "@material-ui/core";
+
+import { Grid } from "@mui/material";
 import CreateData from "./CreateData.js";
 import DataLists from "./DataLists.js";
-import { Source } from "@mui/icons-material";
-import { Phone } from "@material-ui/icons";
 
 class Crud extends Component {
   constructor(props) {
@@ -37,21 +36,23 @@ class Crud extends Component {
       Notes: "",
       Source: "",
       Exhibit: "",
-      isEditing: false
+      isEditing: false,
     };
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   //To add data to the dataList array
-  addData = e => {
+  addData = (e) => {
     e.preventDefault();
-    const { Name, PhoneNumber, EmailAddress, Notes, Source, Exhibit } = this.state;
-    if (!Name || !PhoneNumber || !EmailAddress | !Notes | !Source | !Exhibit ) return;
+    const { Name, PhoneNumber, EmailAddress, Notes, Source, Exhibit } =
+      this.state;
+    if (!Name || !PhoneNumber || !EmailAddress | !Notes | !Source | !Exhibit)
+      return;
     let dataLists = [
       ...this.state.dataLists,
       {
@@ -61,11 +62,11 @@ class Crud extends Component {
         EmailAddress: this.state.EmailAddress,
         Notes: this.state.Notes,
         Source: this.state.Source,
-        Exhibit: this.state.Exhibit
-      }
+        Exhibit: this.state.Exhibit,
+      },
     ];
     this.setState({
-      dataLists
+      dataLists,
     });
     this.reset();
   };
@@ -78,24 +79,24 @@ class Crud extends Component {
       EmailAddress: "",
       Notes: "",
       Source: "",
-      Exhibit: ""
+      Exhibit: "",
     });
   };
 
   //To remove the data from the list
-  removeData = Id => {
-    let dataLists = this.state.dataLists.filter(data => {
+  removeData = (Id) => {
+    let dataLists = this.state.dataLists.filter((data) => {
       return data.Id !== Id;
     });
 
     this.setState({
-      dataLists
+      dataLists,
     });
   };
 
   //To handle the data Update
   handleUpdate = (e, Id) => {
-    const index = this.state.dataLists.findIndex(data => {
+    const index = this.state.dataLists.findIndex((data) => {
       return data.Id === Id;
     });
     const data = Object.assign({}, this.state.dataLists[index]);
@@ -107,13 +108,13 @@ class Crud extends Component {
       Notes: data.Notes,
       Source: data.Source,
       Exhibit: data.Exhibit,
-      isEditing: true
+      isEditing: true,
     });
   };
 
   //To save the updated data
   saveUpdate = (e, Id) => {
-    const newData = this.state.dataLists.map(data => {
+    const newData = this.state.dataLists.map((data) => {
       if (data.Id === Id) {
         return {
           Name: this.state.Name,
@@ -121,7 +122,7 @@ class Crud extends Component {
           EmailAddress: this.state.EmailAddress,
           Notes: this.state.Notes,
           Source: this.state.Source,
-          Exhibit: this.state.Exhibit
+          Exhibit: this.state.Exhibit,
         };
       }
       return data;
@@ -129,7 +130,7 @@ class Crud extends Component {
     this.setState(
       {
         dataLists: newData,
-        isEditing: false
+        isEditing: false,
       },
       () => {
         this.reset();
@@ -147,7 +148,7 @@ class Crud extends Component {
       Notes,
       Source,
       Exhibit,
-      isEditing
+      isEditing,
     } = this.state;
     return (
       <Grid container spacing={0}>
