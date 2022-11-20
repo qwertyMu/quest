@@ -30,6 +30,7 @@ export default function AttributionsCard(props) {
     color: "black",
     borderRadius: "15px",
     boxShadow: 24,
+    p: 4,
     textAlign: "center",
   };
 
@@ -37,31 +38,33 @@ export default function AttributionsCard(props) {
     key: randomQuantity(),
     id: uuidv1(),
     identifier: pk,
-    nominal: name,
+    name: name,
     organisation: organisation,
     attribution: attribution,
-    fileHash: file_hash,
-    dateTimeAdded: dateTimeAddedToQuest,
-    exhibit: exhibit_ref,
-    caseRef: case_ref,
-    deviceUid: device_uid,
+    exhibit_ref: exhibit_ref,
+    case_ref: case_ref,
+    file_hash: file_hash,
+    device_uid: device_uid,
+    datetime_added: dateTimeAddedToQuest,
   };
 
   const [parameters, setParameters] = useState(initialParamState);
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   async function saveCapturedAttributionItem() {
     // Build the create query up here.
     setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.
-    if (!parameters.attribution || !parameters.nominal) return;
+    if (!parameters.device_uid) return;
     await API.graphql({
       query: createCapturedAttributionMutation,
       variables: { input: parameters },
     });
+    console.log("Card saved into Intel Drawer from AttributionsCard.js");
+    handleClose();
   }
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <React.Fragment>

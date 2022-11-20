@@ -42,26 +42,31 @@ export default function InteractionsCard(props) {
     local_partner: LocalPartner,
     duration: Duration,
     datetime: DateTimeOfInteraction,
-    exhibit: Exhibit,
+    exhibit_ref: Exhibit,
     organisation: Organisation,
     file_hash: FileHash,
     datetime_added: DateTimeAddedToQuest,
-    caseRef: CaseRef,
-    deviceUid: DeviceUid,
+    case_ref: CaseRef,
+    device_uid: DeviceUid,
     status: Status,
   };
   const [parameters, setParameters] = useState(initialParamState);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   async function saveCapturedInteractionItem() {
     // Build the create query up here.
     setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.
     console.log(parameters);
-    if (!parameters.interaction || !parameters.partner) return;
+    if (!parameters.device_uid) return;
     await API.graphql({
       query: createCapturedInteractionMutation,
       variables: { input: parameters },
     });
-    console.log("Card saved in interactionsCard");
+    console.log("Card saved into Intel Drawer in interactionsCard.js");
+    handleClose();
   }
 
   const modalStyle = {
@@ -85,10 +90,6 @@ export default function InteractionsCard(props) {
       return <PhoneCallbackIcon fontSize="small" />;
     }
   }
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <>
