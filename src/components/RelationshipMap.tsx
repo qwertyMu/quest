@@ -2,7 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import ForceGraph2D, { GraphData } from "react-force-graph-2d";
 
+import useRelationshipStore from "../datastore/relationshipStore.tsx";
+
 export default function RelationshipMap() {
+  const [entities] = useRelationshipStore((s) => s.entities);
   const [data, setData] = useState<GraphData>();
 
   const genRandomTree = useCallback((N = 80, reverse = false) => {
@@ -17,14 +20,21 @@ export default function RelationshipMap() {
     };
   }, []);
 
-  const getNodeColor = () => {
-    return "#FFFFFF";
+  const getNode = (node, ctx, globalScale) => {
+    node.val = 10;
+    const label = node.name;
+    const fontSize = node.isClusterNode
+      ? 14 * (node.val / 1500)
+      : 14 / (globalScale * 1.2);
+    ctx.font = `${fontSize}px Sans-Serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "white"; //text colour
+    ctx.fillText(label, node.x, node.y);
   };
+
   const getLinkColor = () => {
     return "#0000FF";
-  };
-  const getNodeSize = () => {
-    return 3;
   };
 
   useEffect(() => {
@@ -34,8 +44,8 @@ export default function RelationshipMap() {
   return (
     <ForceGraph2D
       graphData={data}
-      nodeVal={getNodeSize}
-      nodeColor={getNodeColor}
+      nodeCanvasObjectMode={() => "after"}
+      nodeCanvasObject={getNode}
       linkColor={getLinkColor}
       linkWidth={3}
       linkDirectionalParticles="value"

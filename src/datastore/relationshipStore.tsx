@@ -1,7 +1,20 @@
 import create from "zustand";
 
-const relationshipStore = create((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
+export type Entity = {
+  name: string;
+};
+
+export interface relationshipState {
+  entities: Entity[];
+  addEntity: (newVal: Entity) => void;
+  clearEntities: () => void;
+}
+
+export const useRelationshipStore = create<relationshipState>()((set) => ({
+  entities: [],
+  addEntity: (newVal) =>
+    set((state) => ({ entities: [...state.entities, newVal] })),
+  clearEntities: () => set({ entities: [] }),
 }));
+
+export default useRelationshipStore;
