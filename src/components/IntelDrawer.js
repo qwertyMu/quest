@@ -36,7 +36,10 @@ const Puller = styled(Box)(({ theme }) => ({
 }));
 
 export default function IntelDrawer(props) {
-  const [open, setOpen] = interfaceState((s) => [s.drawerOpen, s.setDrawOpen]);
+  const [open, setOpen] = interfaceState((s) => [
+    s.drawerOpen,
+    s.setDrawerOpen,
+  ]);
   const { window } = props;
 
   // This is used only for the example
