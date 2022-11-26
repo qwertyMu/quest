@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react-v1";
 
 import { AppBar, Box, Toolbar, IconButton, Typography } from "@mui/material";
@@ -9,21 +9,22 @@ import { Tooltip, MenuItem, Tabs, Tab } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const tabs = ["Upload", "Analysis", "My Results", "Audit"];
 const settings = ["Settings", "Feedback", <AmplifySignOut />];
 
 const NavigationBar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [tab, setTab] = useState("");
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   useEffect(() => {
-    debugger;
-    setTab(location);
+    setTab(location.pathname);
   }, [location]);
 
-  const handleTabChange = () => {};
+  const handleTabChange = (_, newPath) => {
+    navigate(newPath);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -49,7 +50,13 @@ const NavigationBar = () => {
       }}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar
+          disableGutters
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -68,6 +75,16 @@ const NavigationBar = () => {
           >
             Quest
           </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Tabs
+              value={tab}
+              onChange={handleTabChange}
+              sx={{ my: 2, color: "white", display: "flex" }}
+            >
+              <Tab value="/" label="Search" />
+              <Tab value="/network" label="Relationship Map" />
+            </Tabs>
+          </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -98,11 +115,13 @@ const NavigationBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {tabs.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <Tabs
+                value={tab}
+                onChange={handleTabChange}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                <Tab label="Search" value="/" />
+              </Tabs>
             </Menu>
           </Box>
 
@@ -125,17 +144,6 @@ const NavigationBar = () => {
           >
             Glitch
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Tabs value={tab} onChange={handleTabChange}>
-              {tabs.map((tab) => (
-                <Tab
-                  sx={{ my: 2, color: "white", display: "block" }}
-                  label={tab}
-                />
-              ))}
-            </Tabs>
-          </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
