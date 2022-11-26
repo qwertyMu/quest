@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Container, CssBaseline } from "@mui/material";
 
 import AnalysisGrid from "./analysisGrids";
-import ResponsiveAppBar from "../components_v2/navigationBar";
+import NavigationBar from "./NavigationBar";
 import RelationshipMap from "../components/RelationshipMap.tsx";
 
 export default function AnalysisContainer() {
@@ -13,7 +13,7 @@ export default function AnalysisContainer() {
       <CssBaseline />
       <Container maxWidth="xl" style={{ paddingTop: "8px" }}>
         <BrowserRouter>
-          <ResponsiveAppBar />
+          <NavigationBar />
           <Routes>
             <Route path="/network" element={<RelationshipMap />} />
             <Route path="/" element={<AnalysisGrid />} />

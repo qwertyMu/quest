@@ -12,7 +12,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 const tabs = ["Upload", "Analysis", "My Results", "Audit"];
 const settings = ["Settings", "Feedback", <AmplifySignOut />];
 
-const ResponsiveAppBar = () => {
+const NavigationBar = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -171,4 +171,4 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default withAuthenticator(ResponsiveAppBar, true);
+export default withAuthenticator(NavigationBar, true);
