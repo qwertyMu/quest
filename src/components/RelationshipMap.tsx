@@ -10,7 +10,11 @@ export default function RelationshipMap() {
 
   const genRandomTree = useCallback((N = 80, reverse = false) => {
     return {
-      nodes: [...Array(N).keys()].map((i) => ({ id: i, value: 3 })),
+      nodes: [...Array(N).keys()].map((i) => ({
+        id: i,
+        value: 3,
+        text: "pew", // poc - can add an arbirtray object to the node
+      })),
       links: [...Array(N).keys()]
         .filter((id) => id)
         .map((id) => ({
@@ -22,7 +26,7 @@ export default function RelationshipMap() {
 
   const getNode = (node, ctx, globalScale) => {
     node.val = 10;
-    const label = node.name;
+    const label = globalScale > 2 ? node.name : "";
     const fontSize = node.isClusterNode
       ? 14 * (node.val / 1500)
       : 14 / (globalScale * 1.2);
@@ -46,6 +50,7 @@ export default function RelationshipMap() {
       graphData={data}
       nodeCanvasObjectMode={() => "after"}
       nodeCanvasObject={getNode}
+      nodeAutoColorBy={"id"}
       linkColor={getLinkColor}
       linkWidth={3}
       linkDirectionalParticles="value"
