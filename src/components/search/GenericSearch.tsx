@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box } from "@mui/material";
 
 import SearchResults from "./SearchResults";
-import SearchBar from "./SearchBar.tsx";
+import SearchBar from "./SearchBar";
 
 export default function GenericSearch() {
   const client = new QueryClient();

@@ -8,15 +8,23 @@ type Tag = {
   count: number;
 };
 
-export default function AttributionWordCloud(props) {
+type Attribution = {
+  name: string;
+};
+
+type PropsType = {
+  data: any;
+};
+
+export default function AttributionWordCloud(props: PropsType) {
   const [tags, setTags] = useState<Tag[]>([]);
 
-  const processTags = useCallback((data) => {
+  const processTags = useCallback((data: any) => {
     // Read the raw data into a format that the word cloud can be drawn from
     let temp: Tag[] = [];
-    let known: {} = {};
+    let known: Record<string, any> = {};
 
-    data.forEach((element) => {
+    data.forEach((element: Attribution) => {
       // Count up how many instances of each name there are
       if (element.name in known) known[element.name] = known[element.name] + 1;
       else {

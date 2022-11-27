@@ -1,9 +1,9 @@
 import React from "react";
 
 import FormControl, { useFormControl } from "@mui/material/FormControl";
-import { Box, OutlinedInput, FormHelperText } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 
-export default function SearchBar(props) {
+export default function SearchBar(props: any) {
   const { searchTerm, setSearchTerm } = props;
 
   const MyFormHelperText = () => {
@@ -15,9 +15,7 @@ export default function SearchBar(props) {
       return "You can search for Names | Phone Numbers | Email Addresses | Social Media Identifiers | WiFi Access Points etc...";
     }, [focused]);
 
-    return (
-      <FormHelperText style={{ color: "white" }}>{helperText}</FormHelperText>
-    );
+    return null;
   };
 
   return (
@@ -30,21 +28,15 @@ export default function SearchBar(props) {
         backgroundImage: "linear-gradient(#f05c54, #ff4242)",
       }}
     >
-      <Box component="form" noValidate autoComplete="off">
-        <FormControl sx={{ width: "90%" }}>
-          <OutlinedInput
-            placeholder="Please enter search text"
-            value={searchTerm}
-            style={{
-              backgroundColor: "whitesmoke",
-              borderRadius: "12px",
-              color: "#972021",
-            }}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <MyFormHelperText />
-        </FormControl>
-      </Box>
+      <TextField
+        value={searchTerm}
+        sx={{
+          backgroundColor: "whitesmoke",
+          borderRadius: "12px",
+          color: "#972021",
+        }}
+        onChange={(e: any) => setSearchTerm(e.target.value)}
+      />
     </Box>
   );
 }

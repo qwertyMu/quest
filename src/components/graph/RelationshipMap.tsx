@@ -3,10 +3,10 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Box } from "@mui/material";
 import ForceGraph2D, { GraphData } from "react-force-graph-2d";
 
-import useRelationshipStore from "../../datastore/relationshipStore.tsx";
+import useRelationshipStore from "../../datastore/relationshipStore";
 
 export default function RelationshipMap() {
-  const graphRef = useRef();
+  const graphRef: any = useRef();
   const [entities] = useRelationshipStore((s) => s.entities);
   const [data, setData] = useState<GraphData>();
 
@@ -26,7 +26,7 @@ export default function RelationshipMap() {
     };
   }, []);
 
-  const getNode = (node, ctx, globalScale) => {
+  const getNode = (node: any, ctx: any, globalScale: number) => {
     node.val = 10;
     const label = globalScale > 2 ? node.name : "";
     const fontSize = node.isClusterNode
