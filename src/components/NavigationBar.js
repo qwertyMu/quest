@@ -3,11 +3,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react-v1";
 
 import { AppBar, Box, Toolbar, IconButton, Typography } from "@mui/material";
-import { Menu, Container, Avatar } from "@mui/material";
+import { Menu, Container, Avatar, Grid } from "@mui/material";
 import { Tooltip, MenuItem, Tabs, Tab } from "@mui/material";
 
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
+
+import useInterfaceStore from "../datastore/interfaceStore.tsx";
 
 const settings = ["Settings", "Feedback", <AmplifySignOut />];
 
@@ -17,6 +21,10 @@ const NavigationBar = () => {
   const [tab, setTab] = useState("");
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useInterfaceStore((s) => [
+    s.drawerOpen,
+    s.setDrawerOpen,
+  ]);
 
   useEffect(() => {
     setTab(location.pathname);
@@ -57,34 +65,85 @@ const NavigationBar = () => {
             alignItems: "center",
           }}
         >
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
+          <Grid
+            container
+            sx={{ width: "100%", display: "flex", alignItems: "center" }}
           >
-            Quest
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Tabs
-              value={tab}
-              onChange={handleTabChange}
-              sx={{ my: 2, color: "white", display: "flex" }}
+            <Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
+              <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                Quest
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={8}
+              sx={{ justifyContent: "center", display: "flex" }}
             >
-              <Tab value="/" label="Search" />
-              <Tab value="/network" label="Relationship Map" />
-            </Tabs>
-          </Box>
+              <Tabs
+                value={tab}
+                onChange={handleTabChange}
+                sx={{ my: 2, color: "white", display: "flex" }}
+              >
+                <Tab value="/" label="Search" />
+                <Tab value="/network" label="Relationship Map" />
+              </Tabs>
+            </Grid>
+            <Grid
+              item
+              xs={2}
+              sx={{ justifyContent: "flex-end", display: "flex", gap: "4px" }}
+            >
+              <Tooltip title="Open watchlist">
+                <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
+                  {(drawerOpen && <KeyboardArrowDownIcon />) || (
+                    <KeyboardArrowUpIcon />
+                  )}
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Grid>
+          </Grid>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -144,36 +203,6 @@ const NavigationBar = () => {
           >
             Glitch
           </Typography>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
         </Toolbar>
       </Container>
     </AppBar>
