@@ -3,14 +3,13 @@ import { useQuery } from "@apollo/client";
 
 import { Box } from "@mui/material";
 
-import PropTypes from "prop-types";
-import { GET_ATTRIBUTIONS, GET_INTERACTIONS } from "../queries";
-import TabbedResults from "./tabbedResults";
-import AttributionWordCloud from "../components/AttributionWordCloud.tsx";
-import AttributionsCard from "./AttributionsCard";
-import InteractionsCard from "./interactionsCard";
+import { GET_ATTRIBUTIONS, GET_INTERACTIONS } from "../../queries";
+import TabbedResults from "../../components_v2/tabbedResults";
+import AttributionWordCloud from "../../components/AttributionWordCloud.tsx";
+import AttributionsCard from "../../components_v2/AttributionsCard";
+import InteractionsCard from "../../components_v2/interactionsCard";
 
-const ShowResults = (props) => {
+const SearchResults = (props) => {
   const { pk } = props;
 
   const [attributionsData, setAttributionsData] = useState([]);
@@ -33,7 +32,15 @@ const ShowResults = (props) => {
     if (error) return `Error! ${error.message}`;
 
     return (
-      <React.Fragment>
+      <Box
+        sx={{
+          width: "calc(100vw - 16px)",
+          margin: "4px 8px 0 8px",
+          padding: "4px 16px",
+          borderRadius: "8px",
+          border: "2px solid grey",
+        }}
+      >
         <AttributionWordCloud data={attributionsData} />
         <Box
           sx={{
@@ -47,7 +54,7 @@ const ShowResults = (props) => {
             <AttributionsCard data={attribution} key={index} />
           ))}
         </Box>
-      </React.Fragment>
+      </Box>
     );
   }
 
@@ -141,8 +148,4 @@ const ShowResults = (props) => {
   );
 };
 
-ShowResults.propTypes = {
-  pk: PropTypes.string,
-};
-
-export default ShowResults;
+export default SearchResults;
