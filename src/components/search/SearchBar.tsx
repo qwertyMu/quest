@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography, Button } from "@mui/material";
 
 export default function SearchBar(props: any) {
   const { searchTerm, setSearchTerm } = props;
@@ -28,17 +28,40 @@ export default function SearchBar(props: any) {
           flexBasis: 1,
         }}
       >
-        <TextField
-          sx={{
-            backgroundColor: "whitesmoke",
-            borderRadius: "8px",
-            color: "#972021",
-            fieldset: { borderRadius: "8px", borderColor: "black !important" },
-          }}
-          value={searchTerm}
-          onChange={handleChange}
-          placeholder={"Enter Search"}
-        />
+        <Box sx={{ display: "flex" }}>
+          <TextField
+            sx={{
+              flexGrow: 1,
+              backgroundColor: "whitesmoke",
+              borderRadius: "8px 0 0 8px",
+              color: "#972021",
+              boxShadow: "0px 2px 4px #000000A0",
+              fieldset: {
+                borderRadius: "8px 0 0 8px",
+                borderColor: "black !important",
+              },
+            }}
+            value={searchTerm}
+            onChange={handleChange}
+            placeholder={"Enter Search"}
+          />
+          <Button
+            variant="contained"
+            sx={{
+              borderRadius: "0 8px 8px 0",
+              border: "1px solid black",
+              borderLeft: 0,
+              boxShadow: "0px 2px 4px #000000A0 !important",
+              "&:disabled": {
+                backgroundColor: "darkgrey",
+              },
+            }}
+            disabled={searchTerm.length < 4}
+          >
+            Go
+          </Button>
+        </Box>
+
         <Typography variant="caption">
           You can search for Names | Phone Numbers | Email Addresses | Social
           Media Identifiers | WiFi Access Points etc...

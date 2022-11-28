@@ -19,6 +19,7 @@ const SearchResults = (props) => {
     const { loading, error, data } = useQuery(GET_ATTRIBUTIONS, {
       variables: { pk },
     });
+
     useEffect(() => {
       // save attribution data into state as it changes
       try {
@@ -30,6 +31,8 @@ const SearchResults = (props) => {
 
     if (loading) return <h2>LOADING... </h2>;
     if (error) return `Error! ${error.message}`;
+
+    if (attributionsData.length === 0) return null;
 
     return (
       <Box
