@@ -2,6 +2,8 @@ import React from "react";
 
 import { Box, TextField, Typography, Button } from "@mui/material";
 
+import SearchSummary from "./SearchSummary";
+
 export default function SearchBar(props: any) {
   const { searchTerm, setSearchTerm } = props;
 
@@ -74,7 +76,9 @@ export default function SearchBar(props: any) {
           flexGrow: 1,
           flexBasis: 1,
         }}
-      ></Box>
+      >
+        <SearchSummary />
+      </Box>
     </Box>
   );
 }
