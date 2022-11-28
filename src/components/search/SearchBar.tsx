@@ -1,21 +1,12 @@
 import React from "react";
 
-import FormControl, { useFormControl } from "@mui/material/FormControl";
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 
 export default function SearchBar(props: any) {
   const { searchTerm, setSearchTerm } = props;
 
-  const MyFormHelperText = () => {
-    const { focused } = useFormControl() || {};
-    const helperText = React.useMemo(() => {
-      if (focused) {
-        return "Type your query.";
-      }
-      return "You can search for Names | Phone Numbers | Email Addresses | Social Media Identifiers | WiFi Access Points etc...";
-    }, [focused]);
-
-    return null;
+  const handleChange = (event: any) => {
+    setSearchTerm(event.target.value);
   };
 
   return (
@@ -26,17 +17,41 @@ export default function SearchBar(props: any) {
         padding: "8px 16px",
         borderRadius: "8px",
         backgroundImage: "linear-gradient(#f05c54, #ff4242)",
+        display: "flex",
       }}
     >
-      <TextField
-        value={searchTerm}
+      <Box
         sx={{
-          backgroundColor: "whitesmoke",
-          borderRadius: "12px",
-          color: "#972021",
+          display: "flex",
+          flexDirection: "column",
+          flexGrow: 1,
+          flexBasis: 1,
         }}
-        onChange={(e: any) => setSearchTerm(e.target.value)}
-      />
+      >
+        <TextField
+          sx={{
+            backgroundColor: "whitesmoke",
+            borderRadius: "8px",
+            color: "#972021",
+            fieldset: { borderRadius: "8px", borderColor: "black !important" },
+          }}
+          value={searchTerm}
+          onChange={handleChange}
+          placeholder={"Enter Search"}
+        />
+        <Typography variant="caption">
+          You can search for Names | Phone Numbers | Email Addresses | Social
+          Media Identifiers | WiFi Access Points etc...
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          flexGrow: 1,
+          flexBasis: 1,
+        }}
+      ></Box>
     </Box>
   );
 }
