@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { GET_ATTRIBUTIONS, GET_INTERACTIONS } from "../queries";
 import TabbedResults from "./tabbedResults";
 import AttributionWordCloud from "../components/AttributionWordCloud.tsx";
-import AttributionsCard from "./AttributionsCard";
+import AttributionsCard from "./AttributionsCard_newStyle";
 import InteractionsCard from "./interactionsCard";
 
 const ShowResults = (props) => {
@@ -27,7 +27,9 @@ const ShowResults = (props) => {
       } catch (e) {
         setAttributionsData([]);
       }
-    }, [data]);
+    }, [data]); // Note for Ben - useEffect works by watching for changes
+    // in the variable listed at the end, then doing whatever action is
+    // in the body.
 
     if (loading) return <h2>LOADING... </h2>;
     if (error) return `Error! ${error.message}`;
@@ -35,18 +37,19 @@ const ShowResults = (props) => {
     return (
       <React.Fragment>
         <AttributionWordCloud data={attributionsData} />
-        <Box
+        {/* <Box
           sx={{
             padding: "0.5em",
             height: "20em",
             display: "flex",
             gap: "0.5em",
           }}
-        >
+        > */}
+        <div>
           {attributionsData.map((attribution, index) => (
             <AttributionsCard data={attribution} key={index} />
           ))}
-        </Box>
+        </div>
       </React.Fragment>
     );
   }
@@ -63,15 +66,16 @@ const ShowResults = (props) => {
       console.log("Interactions Data - " + data);
       setInteractionsData(data.listInteractions.items);
       return (
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            gap: "0.5em",
-            padding: "0.5em",
-            direction: "row-wrap",
-          }}
-        >
+        // <Box
+        //   sx={{
+        //     width: "100%",
+        //     display: "flex",
+        //     gap: "0.5em",
+        //     padding: "0.5em",
+        //     direction: "row-wrap",
+        //   }}
+        // >
+        <div>
           {interactionsData.map(
             (
               {
@@ -111,7 +115,7 @@ const ShowResults = (props) => {
               />
             )
           )}
-        </Box>
+        </div>
       );
     }
   }
@@ -124,12 +128,10 @@ const ShowResults = (props) => {
         width: "100%",
       }}
     >
-      {/* <h2>🚀 Quest has identified the following results against {pk}</h2> */}
-      <Box>
+      <center>
         <ListAttributions pk={pk} />
         <ListInteractions pk={pk} />
-      </Box>
-      {/* <ShowInteractionsDataGrid pk={pk}/> */}
+      </center>
       {attributionsData !== [] && (
         <TabbedResults
           pk={pk}

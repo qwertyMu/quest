@@ -55,8 +55,7 @@ export default function AttributionsCard(props) {
   const handleClose = () => setOpen(false);
 
   async function saveCapturedAttributionItem() {
-    // Build the create query up here.
-    setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.
+    setParameters(initialParamState);
     if (!parameters.device_uid) return;
     await API.graphql({
       query: createCapturedAttributionMutation,

@@ -101,6 +101,7 @@ export default function InteractionsCard(props) {
           height: "8em",
           border: "2px solid black",
           borderRadius: "15px",
+          float: "left",
         }}
       >
         <CardContent>
