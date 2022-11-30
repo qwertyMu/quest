@@ -48,42 +48,39 @@ function toggle(elements, specifiedDisplay) {
 
 export default function AnalysisGrid() {
   return (
-    <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid
-          container
-          spacing={2}
-          alignItems="stretch"
-          justifyContent="space-between"
-        >
-          <Grid item ls={12} md={12} sm={12} xs={12}>
-            <Item>
-              {/* <SearchComponent /> */}
-              <Search />
-            </Item>
-          </Grid>
-          <Grid item ls={12} md={12} sm={12} xs={12} sx={{ display: "none" }}>
-            {/* ^^^sx added for ease */}
-            <br />
-            <Button
-              id="toggle-button"
-              variant="outlined"
-              sx={{
-                float: "right",
-                backgroundColor: "#f05c54",
-                color: "white",
-                border: "none",
-              }}
-              onClick={toggleContactDiv}
-            >
-              Add known contact info
-            </Button>
-            <Item className="target" id="crudContainer">
-              <Crud />
-            </Item>
-          </Grid>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid
+        container
+        spacing={2}
+        alignItems="stretch"
+        justifyContent="space-between"
+      >
+        <Grid item ls={12} md={12} sm={12} xs={12}>
+          <Item>
+            <Search />
+          </Item>
         </Grid>
-      </Box>
-    </div>
+        <Grid item ls={12} md={12} sm={12} xs={12} sx={{ display: "none" }}>
+          {/* ^^^sx added for ease */}
+          <br />
+          <Button
+            id="toggle-button"
+            variant="outlined"
+            sx={{
+              float: "right",
+              backgroundColor: "#f05c54",
+              color: "white",
+              border: "none",
+            }}
+            onClick={toggleContactDiv}
+          >
+            Add known contact info
+          </Button>
+          <Item className="target" id="crudContainer">
+            <Crud />
+          </Item>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }

@@ -1,17 +1,14 @@
 import React from "react";
 
 import { Global } from "@emotion/react";
-import { styled } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+import { styled, useTheme } from "@mui/material/styles";
+
 import { grey } from "@mui/material/colors";
-import { Box, Typography, SwipeableDrawer } from "@mui/material";
+import { Typography, SwipeableDrawer, Grid } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-
-import interfaceState from "../datastore/interfaceStore.tsx";
+import useInterfaceStore from "../datastore/interfaceStore.tsx";
 import TabbedIntelligenceList from "./tabbedIntelligencelist";
-
-const drawerBleeding = 56;
 
 const Root = styled("div")(({ theme }) => ({
   height: "100%",
@@ -25,22 +22,14 @@ const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
 }));
 
-const Puller = styled(Box)(({ theme }) => ({
-  width: 30,
-  height: 6,
-  backgroundColor: theme.palette.mode === "light" ? grey[300] : grey[900],
-  borderRadius: 3,
-  position: "absolute",
-  top: 8,
-  left: "calc(50% - 15px)",
-}));
-
 export default function IntelDrawer(props) {
-  const [open, setOpen] = interfaceState((s) => [
+  const theme = useTheme();
+  const [open, setOpen] = useInterfaceStore((s) => [
     s.drawerOpen,
     s.setDrawerOpen,
   ]);
   const { window } = props;
+  const drawerBleeding = 42;
 
   // This is used only for the example
   const container =
@@ -57,13 +46,6 @@ export default function IntelDrawer(props) {
           },
         }}
       />
-      <Box sx={{ textAlign: "center", pt: 1, backgroundColor: "#1a1b21" }}>
-        <KeyboardArrowDownIcon
-          sx={{ color: "#f05c54" }}
-          fontSize="large"
-          onClick={() => setOpen(!open)}
-        />
-      </Box>
       <SwipeableDrawer
         container={container}
         anchor="bottom"
@@ -83,14 +65,33 @@ export default function IntelDrawer(props) {
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
             visibility: "visible",
+            margin: "0 4px",
             right: 0,
             left: 0,
           }}
         >
-          <Puller />
-          <Typography sx={{ p: 2, color: "text.secondary" }}>
-            My Intel Drawer
-          </Typography>
+          <Grid container sx={{ width: "100%", alignItems: "center" }}>
+            <Grid item xs={4}>
+              <Typography sx={{ p: 2, color: "text.secondary" }}>
+                Watchlist
+              </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Box
+                sx={{
+                  margin: "auto",
+                  width: "30px",
+                  height: "6px",
+                  backgroundColor:
+                    theme.palette.mode === "light" ? grey[300] : grey[900],
+                  borderRadius: "3px",
+                }}
+              />
+            </Grid>
+            <Grid item xs={4} />
+          </Grid>
+
+          <Box></Box>
         </StyledBox>
         <StyledBox
           sx={{
