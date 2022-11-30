@@ -26,14 +26,14 @@ export default function SearchBar(props: any) {
         sx={{
           display: "flex",
           flexDirection: "column",
-          flexGrow: 1,
-          flexBasis: 1,
+          flexGrow: 2,
+          flexBasis: 2,
         }}
       >
         <Box sx={{ display: "flex" }}>
           <TextField
+            fullWidth
             sx={{
-              flexGrow: 1,
               backgroundColor: "whitesmoke",
               borderRadius: "8px 0 0 8px",
               color: "#972021",
@@ -79,6 +79,14 @@ export default function SearchBar(props: any) {
       >
         <SearchSummary />
       </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          flexGrow: 2,
+          flexBasis: 2,
+        }}
+      ></Box>
     </Box>
   );
 }

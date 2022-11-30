@@ -14,6 +14,7 @@ export default function SearchSummary() {
     <Box
       sx={{
         display: "flex",
+        flexDirection: "column",
         justifyContent: "space-around",
         alignItems: "center",
         width: "100%",
