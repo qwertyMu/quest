@@ -17,12 +17,22 @@ export default function NavigationContainer() {
 
   return (
     <React.Fragment>
-      <Slide direction="right" in={component === "search"}>
+      <Slide
+        direction="right"
+        in={component === "search"}
+        mountOnEnter
+        unmountOnExit
+      >
         <Box>
           <GenericSearch />
         </Box>
       </Slide>
-      <Slide direction="left" in={component === "network"}>
+      <Slide
+        direction="left"
+        in={component === "network"}
+        mountOnEnter
+        unmountOnExit
+      >
         <Box>
           <RelationshipMap />
         </Box>
