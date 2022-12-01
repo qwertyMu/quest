@@ -54,7 +54,7 @@ export default function RelationshipMap() {
   }, []);
 
   return (
-    <Box sx={{ overflow: "hidden" }}>
+    <Box sx={{ overflow: "hidden", height: "calc(100vh - 112px)" }}>
       <ForceGraph2D
         ref={graphRef}
         graphData={data}
