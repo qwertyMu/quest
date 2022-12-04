@@ -4,13 +4,12 @@ import { createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { Authenticator } from "@aws-amplify/ui-react";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 
-import RelationshipMap from "./components/graph/RelationshipMap.tsx";
 import IntelDrawer from "./components/IntelDrawer";
-import NavigationBar from "./components/NavigationBar";
-import GenericSearch from "./components/search/GenericSearch.tsx";
+import NavigationBar from "./components/navigation/NavigationBar";
+import NavigationContainer from "./components/navigation/NavigationContainer";
 
 import "./App.css";
 
@@ -51,10 +50,7 @@ class App extends Component {
             <CssBaseline />
             <BrowserRouter>
               <NavigationBar />
-              <Routes>
-                <Route path="/network" element={<RelationshipMap />} />
-                <Route path="/" element={<GenericSearch />} />
-              </Routes>
+              <NavigationContainer />
               <IntelDrawer />
             </BrowserRouter>
           </ApolloProvider>
