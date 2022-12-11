@@ -4,6 +4,7 @@ import { API } from "aws-amplify";
 import moment from "moment";
 
 import SaveIcon from '@mui/icons-material/Save';
+import OutboxIcon from '@mui/icons-material/Outbox';
 
 import { randomQuantity } from "@mui/x-data-grid-generator";
 import { Card, CardContent, Typography, Button } from "@mui/material";
@@ -80,6 +81,10 @@ export default function InteractionsCard(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [openForceGraph, setOpenForceGraph] = useState(false);
+  const handleOpenForceGraph = () => setOpenForceGraph(true);
+  const handleCloseForceGraph = () => setOpenForceGraph(false);
+
   return (
     <>
       <Card
@@ -106,6 +111,7 @@ export default function InteractionsCard(props) {
           Added to Quest: {DateTimeAddedToQuest}
           <br/>
           <SaveIcon onClick={handleOpen} sx={{color: '#f05c54', float: 'right', marginBottom: '0.5em'}}/>
+          <OutboxIcon onClick={handleOpenForceGraph} sx={{color: '#f05c54', float: 'right', marginBottom: '0.5em'}}/>
         </CardContent>
       </Card>
       <Modal
@@ -130,6 +136,32 @@ export default function InteractionsCard(props) {
             variant="contained"
             sx={{ margin: "5px", borderRadius: "20px" }}
             onClick={handleClose}
+          >
+            No
+          </Button>
+        </Box>
+      </Modal>
+      <Modal
+        open={openForceGraph}
+        onClose={handleCloseForceGraph}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <h4>
+            Send to Relationship Graph
+          </h4>
+          <Button
+            variant="contained"
+            sx={{ margin: "5px", borderRadius: "20px" }}
+            onClick={''}
+          >
+            Yes
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ margin: "5px", borderRadius: "20px" }}
+            onClick={handleCloseForceGraph}
           >
             No
           </Button>
