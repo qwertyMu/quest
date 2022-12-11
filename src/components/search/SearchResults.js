@@ -18,6 +18,9 @@ import {
   AccordionSummary,
   Typography,
 } from '@mui/material';
+import moment from "moment";
+import PhoneDisabledIcon from '@mui/icons-material/PhoneDisabled';
+import PhoneIcon from '@mui/icons-material/Phone';
 
 const SearchResults = (props) => {
   const { pk } = props;
@@ -117,7 +120,21 @@ const SearchResults = (props) => {
                 <Paper key={index}>
                   <StyledAccordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      <Typography>{index + 1} - {status} ({duration})</Typography>
+                      <Typography>
+                        <Box sx={{
+                          float: 'left'
+                        }}>
+                          {status === 'missed' && (<PhoneDisabledIcon fontSize="medium" sx={{ color: 'red', marginBottom:-2 }}/>)}
+                          {status === 'answered' && (<PhoneIcon fontSize="medium" sx={{ color: 'green', marginBottom:-2 }}/>)}
+                        </Box>
+                        <Box sx={{
+                          float: 'right'
+                        }}>
+                          &nbsp;&nbsp;{index + 1} - {status} ({duration})  
+                          <br />
+                          {moment(datetime).format('MMM Do YYYY, h:mma')} 
+                        </Box>
+                      </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                       <InteractionsCard
