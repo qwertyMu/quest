@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 import { GET_ATTRIBUTIONS, GET_INTERACTIONS } from "../../queries";
 import TabbedResults from "../../components_v2/tabbedResults";
 import AttributionWordCloud from "../../components/AttributionWordCloud.tsx";
-import AttributionsCard from "../../components_v2/AttributionsCard";
+import AttributionsCard from "../../components_v2/attributionsCard";
 import InteractionsCard from "../../components_v2/interactionsCard";
 
 const SearchResults = (props) => {
