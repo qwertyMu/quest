@@ -97,9 +97,8 @@ export default function InteractionsCard(props) {
         sx={{
           color: "black",
           width: "18em",
-          height: "8em",
-          border: "2px solid black",
-          borderRadius: "15px",
+          height: "5em",
+          borderRadius: "6px",
         }}
       >
         <CardContent>
@@ -113,8 +112,6 @@ export default function InteractionsCard(props) {
             </b>
           </Typography>
           <MoreHorizIcon onClick={handleOpen} />
-          <br />
-          {Duration}
         </CardContent>
       </Card>
       <Modal
