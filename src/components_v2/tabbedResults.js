@@ -28,13 +28,16 @@ const TabbedResults = props => {
   }, []);
 
   return (
-    <Box sx={{ width: '100%', typography: 'body1' }}>
+    <Box sx={{ 
+      width: '100%', 
+      typography: 'body1',
+      marginBottom: '30px', 
+    }}>
       <TabContext value={value} variant="fullWidth" >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList centered onChange={handleResultsChange} aria-label="lab API tabs example">
             <Tab label="Attributions" value="1" />
             <Tab label="Interactions" value="2" />
-            <Tab label="Force Graph View" value="3" />
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -42,9 +45,6 @@ const TabbedResults = props => {
         </TabPanel>
         <TabPanel value="2">
           <ShowInteractionsDataGrid pk={pk} interactionsData={interactionsData}/>
-        </TabPanel>
-        <TabPanel value="3">
-          {/* Add the force graph UI into here */}
         </TabPanel>
       </TabContext>
     </Box>
