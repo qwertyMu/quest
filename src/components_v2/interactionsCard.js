@@ -3,9 +3,7 @@ import { v1 as uuidv1 } from "uuid";
 import { API } from "aws-amplify";
 import moment from "moment";
 
-import PhoneForwardedIcon from "@mui/icons-material/PhoneForwarded";
-import PhoneCallbackIcon from "@mui/icons-material/PhoneCallback";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import SaveIcon from '@mui/icons-material/Save';
 
 import { randomQuantity } from "@mui/x-data-grid-generator";
 import { Card, CardContent, Typography, Button } from "@mui/material";
@@ -78,14 +76,6 @@ export default function InteractionsCard(props) {
     textAlign: "center",
   };
 
-  function CheckDirection() {
-    if (Direction === "OUTBOUND") {
-      return <PhoneForwardedIcon fontSize="small" />;
-    } else {
-      return <PhoneCallbackIcon fontSize="small" />;
-    }
-  }
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -97,21 +87,25 @@ export default function InteractionsCard(props) {
         sx={{
           color: "black",
           width: "18em",
-          height: "5em",
           borderRadius: "6px",
         }}
       >
-        <CardContent>
-          <small>{Interaction}</small>
-          <Typography variant="h6">
-            {<CheckDirection sx={{ float: "left" }} />}
-            <b
-              style={{ position: "relative", bottom: "3px", marginLeft: "5px" }}
-            >
-              {Status}
+        <CardContent sx={{
+          textAlign: 'left',
+        }}>
+          <Typography variant="h7">
+            <b>
+              Case Reference: {CaseRef}
             </b>
           </Typography>
-          <MoreHorizIcon onClick={handleOpen} />
+          <br/>
+          Supplied by: {Organisation}
+          <br/>
+          Exhibit Number: {Exhibit}
+          <br/>
+          Added to Quest: {DateTimeAddedToQuest}
+          <br/>
+          <SaveIcon onClick={handleOpen} sx={{color: '#f05c54', float: 'right', marginBottom: '0.5em'}}/>
         </CardContent>
       </Card>
       <Modal
