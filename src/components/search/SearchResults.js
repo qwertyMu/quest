@@ -180,7 +180,25 @@ const SearchResults = (props) => {
         gap: "0.5em",
         padding: "0.5em",
       }}>
+        <Typography sx={{
+          color:'white', 
+          backgroundColor:'#f05c54', 
+          padding:'0.2em', 
+          borderRadius:'0.3em',
+          fontSize:'1.2em',
+        }}>
+          Attributions
+        </Typography>
         <ListAttributions pk={pk} />
+        <Typography sx={{
+          color:'white', 
+          backgroundColor:'#f05c54', 
+          padding:'0.2em', 
+          borderRadius:'0.3em',
+          fontSize:'1.2em',
+        }}>
+          Interactions
+        </Typography>
         <ListInteractions pk={pk} />
       </Box>
       {attributionsData !== [] && (

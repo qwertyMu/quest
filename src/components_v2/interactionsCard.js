@@ -107,7 +107,7 @@ export default function InteractionsCard(props) {
           Supplied by: {Organisation}
           <br/>
           Exhibit Number: {Exhibit}
-          <br/>
+          <br/> 
           Added to Quest: {DateTimeAddedToQuest}
           <br/>
           <SaveIcon onClick={handleOpen} sx={{color: '#f05c54', float: 'right', marginBottom: '0.5em'}}/>

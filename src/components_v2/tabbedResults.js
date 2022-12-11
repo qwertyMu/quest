@@ -35,9 +35,9 @@ const TabbedResults = props => {
     }}>
       <TabContext value={value} variant="fullWidth" >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList centered onChange={handleResultsChange} aria-label="lab API tabs example">
-            <Tab label="Attributions" value="1" />
-            <Tab label="Interactions" value="2" />
+          <TabList centered onChange={handleResultsChange}>
+            <Tab label="Attributions" value="1" sx={{color: 'white'}} />
+            <Tab label="Interactions" value="2" sx={{color: 'white'}} />
           </TabList>
         </Box>
         <TabPanel value="1">
