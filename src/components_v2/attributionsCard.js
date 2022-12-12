@@ -28,9 +28,10 @@ export default function AttributionsCard(props) {
     height: "5em",
     bgcolor: "#f05c54",
     color: "black",
-    borderRadius: "15px",
+    borderRadius: "6px",
     boxShadow: 24,
     textAlign: "center",
+    margin: '0.5em',
   };
 
   const initialParamState = {

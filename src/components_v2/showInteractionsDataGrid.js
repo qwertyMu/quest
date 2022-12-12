@@ -112,7 +112,7 @@ const ShowInteractionsDataGrid = props => {
 
   return(
     <div>
-      <InfoOutlinedIcon fontSize="tiny" sx={{position: "relative", bottom: "-2px"}}/><i> Select a row for more context;</i>
+      <InfoOutlinedIcon fontSize="tiny" sx={{position: "relative", bottom: "-2px", color:'white'}}/><i> Select a row for more context;</i>
       <DataGrid 
         style={{color: "white", backgroundImage: "linear-gradient(#ec483e, #f05c54)"}} 
         rows={rows} 

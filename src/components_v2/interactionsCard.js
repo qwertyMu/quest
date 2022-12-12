@@ -3,9 +3,8 @@ import { v1 as uuidv1 } from "uuid";
 import { API } from "aws-amplify";
 import moment from "moment";
 
-import PhoneForwardedIcon from "@mui/icons-material/PhoneForwarded";
-import PhoneCallbackIcon from "@mui/icons-material/PhoneCallback";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import SaveIcon from '@mui/icons-material/Save';
+import OutboxIcon from '@mui/icons-material/Outbox';
 
 import { randomQuantity } from "@mui/x-data-grid-generator";
 import { Card, CardContent, Typography, Button } from "@mui/material";
@@ -15,40 +14,40 @@ import { createCapturedInteraction as createCapturedInteractionMutation } from "
 
 export default function InteractionsCard(props) {
   const {
-    Interaction,
-    Direction,
-    LocalPartner,
-    Duration,
-    DateTime,
-    Exhibit,
-    Organisation,
-    FileHash,
-    DateTimeAdded,
-    CaseRef,
-    DeviceUid,
-    Status,
-    Pk,
+    interaction,
+    direction,
+    local_partner,
+    duration,
+    datetime,
+    exhibit_ref,
+    organisation,
+    file_hash,
+    datetime_added,
+    case_ref,
+    device_uid,
+    status,
+    pk,
   } = props;
 
-  let DateTimeOfInteraction = moment(DateTime).format("MMM Do YY, h:mma");
-  let DateTimeAddedToQuest = moment(DateTimeAdded).format("MMM Do YY, h:mma");
+  let DateTimeOfInteraction = moment(datetime).format("MMM Do YY, h:mma");
+  let DateTimeAddedToQuest = moment(datetime_added).format("MMM Do YY, h:mma");
 
   const initialParamState = {
     key: randomQuantity(),
     id: uuidv1(),
-    identifier: Pk,
-    interaction: Interaction,
-    direction: Direction,
-    local_partner: LocalPartner,
-    duration: Duration,
+    identifier: pk,
+    interaction: interaction,
+    direction: direction,
+    local_partner: local_partner,
+    duration: duration,
     datetime: DateTimeOfInteraction,
-    exhibit: Exhibit,
-    organisation: Organisation,
-    file_hash: FileHash,
+    exhibit_ref: exhibit_ref,
+    organisation: organisation,
+    file_hash: file_hash,
     datetime_added: DateTimeAddedToQuest,
-    caseRef: CaseRef,
-    deviceUid: DeviceUid,
-    status: Status,
+    case_ref: case_ref,
+    device_uid: device_uid,
+    status: status,
   };
   const [parameters, setParameters] = useState(initialParamState);
 
@@ -56,12 +55,13 @@ export default function InteractionsCard(props) {
     // Build the create query up here.
     setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.
     console.log(parameters);
-    if (!parameters.interaction || !parameters.partner) return;
+    if (parameters.device_uid == "") return;
     await API.graphql({
       query: createCapturedInteractionMutation,
       variables: { input: parameters },
     });
     console.log("Card saved in interactionsCard");
+    handleClose();
   }
 
   const modalStyle = {
@@ -78,43 +78,42 @@ export default function InteractionsCard(props) {
     textAlign: "center",
   };
 
-  function CheckDirection() {
-    if (Direction === "OUTBOUND") {
-      return <PhoneForwardedIcon fontSize="small" />;
-    } else {
-      return <PhoneCallbackIcon fontSize="small" />;
-    }
-  }
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [openForceGraph, setOpenForceGraph] = useState(false);
+  const handleOpenForceGraph = () => setOpenForceGraph(true);
+  const handleCloseForceGraph = () => setOpenForceGraph(false);
 
   return (
     <>
       <Card
         elevation={8}
         sx={{
-          color: "black",
+          color: "#ebebeb",
           width: "18em",
-          height: "8em",
-          border: "2px solid black",
-          borderRadius: "15px",
+          borderRadius: "6px",
+          backgroundColor: "#595959",
         }}
       >
-        <CardContent>
-          <small>{Interaction}</small>
-          <Typography variant="h6">
-            {<CheckDirection sx={{ float: "left" }} />}
-            <b
-              style={{ position: "relative", bottom: "3px", marginLeft: "5px" }}
-            >
-              {Status}
+        <CardContent sx={{
+          textAlign: 'left',
+        }}>
+          <Typography variant="h7">
+            <b>
+              Case Reference: {case_ref}
             </b>
           </Typography>
-          <MoreHorizIcon onClick={handleOpen} />
-          <br />
-          {Duration}
+          <br/>
+          Supplied by: {organisation}
+          <br/>
+          Exhibit Number: {exhibit_ref}
+          <br/> 
+          Added to Quest: {DateTimeAddedToQuest}
+          <br/>
+          <SaveIcon onClick={handleOpen} sx={{color: '#f05c54', float: 'right', marginBottom: '0.5em'}}/>
+          <OutboxIcon onClick={handleOpenForceGraph} sx={{color: '#f05c54', float: 'right', marginBottom: '0.5em'}}/>
         </CardContent>
       </Card>
       <Modal
@@ -125,7 +124,7 @@ export default function InteractionsCard(props) {
       >
         <Box sx={modalStyle}>
           <h4>
-            Save interaction with <b>{Interaction}</b> into My Captured
+            Save interaction with <b>{interaction}</b> into My Captured
             Interactions List
           </h4>
           <Button
@@ -139,6 +138,32 @@ export default function InteractionsCard(props) {
             variant="contained"
             sx={{ margin: "5px", borderRadius: "20px" }}
             onClick={handleClose}
+          >
+            No
+          </Button>
+        </Box>
+      </Modal>
+      <Modal
+        open={openForceGraph}
+        onClose={handleCloseForceGraph}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <h4>
+            Send to Relationship Graph
+          </h4>
+          <Button
+            variant="contained"
+            sx={{ margin: "5px", borderRadius: "20px" }}
+            onClick={''}
+          >
+            Yes
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ margin: "5px", borderRadius: "20px" }}
+            onClick={handleCloseForceGraph}
           >
             No
           </Button>

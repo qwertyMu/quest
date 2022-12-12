@@ -100,7 +100,7 @@ const ShowAttributionsDataGrid = props => {
 
   return(
     <div>
-      <InfoOutlinedIcon fontSize="tiny" sx={{position: "relative", bottom: "-2px"}}/><i> Select a row for more context;</i>
+      <InfoOutlinedIcon fontSize="tiny" sx={{position: "relative", bottom: "-2px", color:'white'}}/><i> Select a row for more context;</i>
       <DataGrid 
         style={{color: "white", backgroundImage: "linear-gradient(#ec483e, #f05c54)"}} 
         rows={rows} 
@@ -122,30 +122,6 @@ const ShowAttributionsDataGrid = props => {
         </Box>
       </Modal>
     </div>
-      // <div>
-      //   <InfoOutlinedIcon fontSize="tiny" sx={{position: "relative", bottom: "-2px"}}/><i> Select a row for more context;</i>
-      //   <DataGrid 
-      //     style={{color: "white", backgroundImage: "linear-gradient(#ec483e, #f05c54)"}} 
-      //     rows={rows} 
-      //     columns={columns} 
-      //     autoHeight 
-      //     onCellClick={handleOnCellClick}
-      //   />
-      //   {/* //Data Grid needs the autoheight property to render */}
-      //   <Modal
-      //     open={open}
-      //     onClose={handleClose}
-      //     aria-labelledby="modal-modal-title"
-      //     aria-describedby="modal-modal-description"
-      //     >
-      //     <Box sx={style}>
-      //       <InteractionsModalLogic pk={pk} parameters={parameters} />
-      //       <Button variant="contained" onClick={createCapturedInteractionItem}>
-      //         <SaveIcon />
-      //       </Button>
-      //     </Box>
-      //   </Modal>
-      // </div>
   )
 }
 

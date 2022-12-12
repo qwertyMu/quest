@@ -17,7 +17,7 @@ export default function SearchBar(props: any) {
         width: "calc(100vw - 16px)",
         margin: "4px 8px 0 8px",
         padding: "8px 16px",
-        borderRadius: "8px",
+        borderRadius: "6px",
         backgroundImage: "linear-gradient(#f05c54, #ff4242)",
         display: "flex",
       }}
@@ -37,10 +37,10 @@ export default function SearchBar(props: any) {
               backgroundColor: "whitesmoke",
               borderRadius: "8px 0 0 8px",
               color: "#972021",
-              boxShadow: "0px 2px 4px #000000A0",
+              // boxShadow: "0px 2px 4px #000000A0",
               fieldset: {
                 borderRadius: "8px 0 0 8px",
-                borderColor: "black !important",
+                // borderColor: "black !important",
               },
             }}
             value={searchTerm}
@@ -51,7 +51,7 @@ export default function SearchBar(props: any) {
             variant="contained"
             sx={{
               borderRadius: "0 8px 8px 0",
-              border: "1px solid black",
+              // border: "1px solid black",
               borderLeft: 0,
               boxShadow: "0px 2px 4px #000000A0 !important",
               "&:disabled": {
