@@ -139,20 +139,20 @@ const SearchResults = (props) => {
                     <AccordionDetails>
                       <InteractionsCard
                         key={index}
-                        Pk={pk}
-                        Sk={sk}
-                        CaseRef={case_ref}
-                        Exhibit={exhibit_ref}
-                        DeviceUid={device_uid}
-                        FileHash={file_hash}
-                        Organisation={organisation}
-                        DateTimeAdded={datetime_added}
-                        DateTime={datetime}
-                        LocalPartner={local_partner}
-                        Interaction={interaction}
-                        Direction={direction}
-                        Duration={duration}
-                        Status={status}
+                        pk={pk}
+                        sk={sk}
+                        case_ref={case_ref}
+                        exhibit_ref={exhibit_ref}
+                        device_uid={device_uid}
+                        file_hash={file_hash}
+                        organisation={organisation}
+                        datetime_added={datetime_added}
+                        datetime={datetime}
+                        local_partner={local_partner}
+                        interaction={interaction}
+                        direction={direction}
+                        duration={duration}
+                        status={status}
                       />
                     </AccordionDetails>
                   </StyledAccordion>
