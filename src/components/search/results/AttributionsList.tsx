@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { Box } from "@mui/material";
 
 import { GET_ATTRIBUTIONS } from "../../../queries";
+import AttributionWordCloud from "./AttributionWordCloud";
 import resultsState from "../../../datastore/resultsStore";
 import AttributionsCard from "./AttributionsCard";
 
@@ -45,7 +46,7 @@ export default function AttributionsList(props: AttributionListProps) {
         // borderRadius: "8px",
       }}
     >
-      {/*<AttributionWordCloud data={attributions} />*/}
+      <AttributionWordCloud data={attributions} />
       <Box
         sx={{
           padding: "0.5em",

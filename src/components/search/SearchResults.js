@@ -3,7 +3,6 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 
 import resultsStore from "../../datastore/resultsStore";
-import AttributionWordCloud from "../../components/AttributionWordCloud.tsx";
 import AttributionsList from "./results/AttributionsList";
 import InteractionsList from "./results/InteractionsList";
 
