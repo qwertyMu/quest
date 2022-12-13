@@ -33,6 +33,10 @@ export type Interaction = {
   status: string;
 };
 
+export type PreviousSearch = {
+  pk: string;
+}
+
 export interface resultsState {
   attributions: Attribution[];
   attributionCount: Number;
@@ -43,6 +47,11 @@ export interface resultsState {
   interactionCount: Number;
   setInteractionCount: (newVal: Number) => void;
   setInteractions: (newVal: Interaction[]) => void;
+
+  previousSearches: PreviousSearch[];
+  previousSearchesCount: Number;
+  setPreviousSearchesCount: (newVal: Number) => void;
+  setPreviousSearches: (newVal: PreviousSearch[]) => void;
 
   clear: () => void;
 }
@@ -58,7 +67,12 @@ export const useResultsStore = create<resultsState>()((set) => ({
   setInteractionCount: (newVal) => set(() => ({ interactionCount: newVal })),
   setInteractions: (newVal) => set(() => ({ interactions: newVal })),
 
-  clear: () => set({ attributions: [], interactions: [] }),
+  previousSearches: [],
+  previousSearchesCount: 0,
+  setPreviousSearchesCount: (newVal) => set(() => ({ previousSearchesCount: newVal })),
+  setPreviousSearches: (newVal) => set(() => ({ previousSearches: newVal })),
+
+  clear: () => set({ attributions: [], interactions: [], previousSearches: [] }),
 }));
 
 export default useResultsStore;

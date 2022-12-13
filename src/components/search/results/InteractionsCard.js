@@ -108,7 +108,7 @@ export default function InteractionsCard(props) {
           <br />
           Exhibit Number: {exhibit_ref}
           <br />
-          Found in Device:
+          {direction === 'IN' ? 'Inbound to ' : 'Outbound from '} Device:
           <Box
             sx={{
               textAlign: "center",
