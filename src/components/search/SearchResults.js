@@ -26,15 +26,28 @@ export default function SearchResults(props) {
         sx={{
           color: "white",
           backgroundColor: "#f05c54",
-          padding: "0.2em",
+          paddingTop: "0.5em",
+          paddingBottom: "0.5em",
+          paddingLeft: "5em",
+          paddingRight: "5em",
           borderRadius: "0.3em",
           fontSize: "1.2em",
         }}
       >
-        Attributions - {attributionCount}
+        Attributions for {props.pk}
+        <Box sx={{
+          backgroundColor: '#6ae674',
+          color: '#656665',
+          paddingLeft: '0.3em',
+          paddingRight: '0.3em',
+          float: 'right',
+          borderRadius: '0.4em',
+        }}>
+          {attributionCount}
+        </Box>
         <hr />
         <small>
-          What other devices in the Quest database have attributed to your
+          What name other devices in the Quest database have attributed to your
           identifier
         </small>
       </Typography>
@@ -51,7 +64,17 @@ export default function SearchResults(props) {
           fontSize: "1.2em",
         }}
       >
-        Interactions - {interactionCount}
+        Interactions with {props.pk}
+        <Box sx={{
+          backgroundColor: '#6ae674',
+          color: '#656665',
+          paddingLeft: '0.3em',
+          paddingRight: '0.3em',
+          float: 'right',
+          borderRadius: '0.4em',
+        }}>
+          {interactionCount}
+        </Box>
         <hr />
         <small>
           Interactions between your identifier and other devices in the Quest

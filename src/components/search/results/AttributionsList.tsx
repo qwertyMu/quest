@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import moment from "moment";
 
-import { Box } from "@mui/material";
+import { Masonry } from "@mui/lab";
+import { Box, Paper, Typography } from "@mui/material";
+import { AccordionDetails, AccordionSummary } from "@mui/material";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 
 import { GET_ATTRIBUTIONS } from "../../../queries";
 import AttributionWordCloud from "./AttributionWordCloud";
 import resultsState from "../../../datastore/resultsStore";
+import StyledAccordion from "../../generic/StyledAccordion";
 import AttributionsCard from "./AttributionsCard";
 
 type AttributionListProps = {
@@ -48,18 +55,43 @@ export default function AttributionsList(props: AttributionListProps) {
     >
       <AttributionWordCloud data={attributions} />
       <Box
-        sx={{
-          padding: "0.5em",
-          display: "flex",
-          gap: "0.5em",
-          justifyContent: "center",
-          flexWrap: "wrap",
-        }}
-      >
-        {attributions.map((attribution, index) => (
-          <AttributionsCard data={attribution} key={index} />
-        ))}
+          sx={{
+            justifyContent: 'center',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: "0.5em",
+            padding: "0.5em",
+            width: '100%',
+            textAlign: 'left'
+        }}>
+          <Masonry columns={5} spacing={2}>
+            {attributions.map(
+              (
+                attribution,
+                index
+              ) => (
+              <Paper key={index}>
+                <StyledAccordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography>
+                      <Box sx={{
+                          float: 'right'
+                      }}>
+                        <ContactPhoneIcon fontSize="small" sx={{ color: '#1876D1', marginBottom:-0.5 }}/>
+                        &nbsp;&nbsp;{index + 1} - <b>{attribution.name}</b> ({attribution.attribution})  
+                      </Box>
+                    </Typography>
+                  </AccordionSummary>                    
+                  <AccordionDetails>
+                    Added to Quest on; {moment(attribution.datetime_added).format('MMM Do YYYY, h:mma')} 
+                    <br/><br/>
+                    <AttributionsCard data={attributions} key={index} />
+                  </AccordionDetails>
+                </StyledAccordion>
+              </Paper>
+            ))}
+          </Masonry>
+        </Box>
       </Box>
-    </Box>
   );
 }
