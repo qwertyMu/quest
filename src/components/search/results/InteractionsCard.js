@@ -97,19 +97,23 @@ export default function InteractionsCard(props) {
           backgroundColor: "#595959",
         }}
       >
-        <CardContent sx={{
-          textAlign: 'left',
-        }}>
+        <CardContent
+          sx={{
+            textAlign: "left",
+          }}
+        >
           <b>Case Reference:</b> {case_ref}
-          <br/>
+          <br />
           Supplied by: {organisation}
           <br />
           Exhibit Number: {exhibit_ref}
-          <br/> 
-          Found in Device: 
-          <Box sx={{
-            textAlign: 'center'
-          }}>
+          <br />
+          Found in Device:
+          <Box
+            sx={{
+              textAlign: "center",
+            }}
+          >
             <Button variant="contained">{device_uid}</Button>
           </Box>
           Added to Quest: {DateTimeAddedToQuest}
@@ -131,9 +135,7 @@ export default function InteractionsCard(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
-          <h4>
-            Save interaction into Watchlist?
-          </h4>
+          <h4>Save interaction into Watchlist?</h4>
           <Button
             variant="contained"
             sx={{ margin: "5px", borderRadius: "20px" }}
@@ -157,9 +159,7 @@ export default function InteractionsCard(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
-          <h4>
-            Send to Relationship Map
-          </h4>
+          <h4>Send to Relationship Map</h4>
           <Button
             variant="contained"
             sx={{ margin: "5px", borderRadius: "20px" }}

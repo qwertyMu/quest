@@ -12,10 +12,9 @@ type AttributionListProps = {
 };
 
 export default function AttributionsList(props: AttributionListProps) {
-  const [attributions, setAttributions] = resultsState((s) => [
-    s.attributions,
-    s.setAttributions,
-  ]);
+  const [attributions, setAttributions, setAttributionCount] = resultsState(
+    (s) => [s.attributions, s.setAttributions, s.setAttributionCount]
+  );
 
   const { loading, error, data } = useQuery(GET_ATTRIBUTIONS, {
     variables: { pk: props.searchTerm },
@@ -25,10 +24,12 @@ export default function AttributionsList(props: AttributionListProps) {
   useEffect(() => {
     try {
       setAttributions(data.listAttributions.items);
+      setAttributionCount(data.listAttributions.items.length);
     } catch (e) {
       setAttributions([]);
+      setAttributionCount(0);
     }
-  }, [data, setAttributions]);
+  }, [data, setAttributions, setAttributionCount]);
 
   if (loading) return <h2>LOADING... </h2>;
   if (error) return `Error! ${error.message}`;
