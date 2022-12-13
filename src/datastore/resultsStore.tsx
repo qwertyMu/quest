@@ -1,7 +1,18 @@
 import create from "zustand";
 
 export type Attribution = {
+  pk: string;
+  sk: string;
+  case_ref: string;
+  exhibit_ref: string;
+  device_uid: string;
+  file_hash: string;
+  organisation: string;
+  datetime_added: string;
+  datetime: string;
+
   name: string;
+  attribution: string;
 };
 
 export type Interaction = {
@@ -14,6 +25,7 @@ export type Interaction = {
   organisation: string;
   datetime_added: string;
   datetime: string;
+
   local_partner: string;
   interaction: string;
   direction: string;
