@@ -215,7 +215,18 @@ const SearchResults = (props) => {
           borderRadius:'0.3em',
           fontSize:'1.2em',
         }}>
-          Attributions - {attributionsCount}<hr/><small>What other devices in the Quest database have attributed to your identifier</small>
+          <b>Attributions</b> to {pk} 
+          <Box sx={{
+            backgroundColor: '#72f278',
+            float: 'right',
+            paddingLeft: '0.3em',
+            paddingRight: '0.3em',
+            borderRadius: '0.4em',
+            color: '#525252'
+          }}>
+            {attributionsCount}
+          </Box>
+          <hr/><small>What other devices in the Quest database have attributed to your identifier</small>
         </Typography>
         <ListAttributions pk={pk} />
         <Typography sx={{
@@ -228,7 +239,18 @@ const SearchResults = (props) => {
           borderRadius:'0.3em',
           fontSize:'1.2em',
         }}>
-          Interactions - {interactionsCount}<hr/><small>Interactions between your identifier and other devices in the Quest database</small>
+          <b>Interactions</b> with {pk} 
+          <Box sx={{
+            backgroundColor: '#72f278',
+            float: 'right',
+            paddingLeft: '0.3em',
+            paddingRight: '0.3em',
+            borderRadius: '0.5em',
+            color: '#525252'
+          }}>
+            {interactionsCount}
+          </Box>
+          <hr/><small>Interactions between your identifier and other devices in the Quest database</small>
         </Typography>
         <ListInteractions pk={pk} />
       </Box>
