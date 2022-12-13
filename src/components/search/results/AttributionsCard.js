@@ -1,66 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
 import { v1 as uuidv1 } from "uuid";
 import { API } from "aws-amplify";
+import { useState } from "react";
 import moment from "moment";
 
-import SaveIcon from '@mui/icons-material/Save';
-import OutboxIcon from '@mui/icons-material/Outbox';
-
-import { randomQuantity } from "@mui/x-data-grid-generator";
 import { Card, CardContent, Button } from "@mui/material";
 import { Box, Modal } from "@mui/material";
 
-import { createCapturedInteraction as createCapturedInteractionMutation } from "../graphql/mutations";
+import { createCapturedAttribution as createCapturedAttributionMutation } from "../../../graphql/mutations";
 
-export default function InteractionsCard(props) {
-  const {
-    interaction,
-    direction,
-    local_partner,
-    duration,
-    datetime,
-    exhibit_ref,
-    organisation,
-    file_hash,
-    datetime_added,
-    case_ref,
-    device_uid,
-    status,
-    pk,
-  } = props;
+import { randomQuantity } from "@mui/x-data-grid-generator";
+import SaveIcon from '@mui/icons-material/Save';
+import OutboxIcon from '@mui/icons-material/Outbox';
 
-  let DateTimeOfInteraction = moment(datetime).format("MMM Do YY, h:mma");
+export default function AttributionsCard(props) {
+  const { case_ref, exhibit_ref, device_uid, file_hash } = props.data;
+  const { organisation, datetime_added } = props.data;
+  const { pk, name, attribution } = props.data;
+
   let DateTimeAddedToQuest = moment(datetime_added).format("MMM Do YY, h:mma");
 
   const initialParamState = {
     key: randomQuantity(),
     id: uuidv1(),
     identifier: pk,
-    interaction: interaction,
-    direction: direction,
-    local_partner: local_partner,
-    duration: duration,
-    datetime: DateTimeOfInteraction,
-    exhibit_ref: exhibit_ref,
+    name: name,
     organisation: organisation,
+    attribution: attribution,
     file_hash: file_hash,
     datetime_added: DateTimeAddedToQuest,
+    exhibit_ref: exhibit_ref,
     case_ref: case_ref,
     device_uid: device_uid,
-    status: status,
   };
+
   const [parameters, setParameters] = useState(initialParamState);
 
-  async function saveCapturedInteractionItem() {
+  async function saveCapturedAttributionItem() {
     // Build the create query up here.
     setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.
     console.log(parameters);
     if (parameters.device_uid === "") return;
     await API.graphql({
-      query: createCapturedInteractionMutation,
+      query: createCapturedAttributionMutation,
       variables: { input: parameters },
     });
-    console.log("Card saved in interactionsCard");
+    console.log("Card saved in attributionsCard");
     handleClose();
   }
 
@@ -87,7 +72,7 @@ export default function InteractionsCard(props) {
   const handleCloseForceGraph = () => setOpenForceGraph(false);
 
   return (
-    <>
+    <React.Fragment>
       <Card
         elevation={8}
         sx={{
@@ -95,8 +80,7 @@ export default function InteractionsCard(props) {
           width: "18em",
           borderRadius: "6px",
           backgroundColor: "#595959",
-        }}
-      >
+      }}>
         <CardContent sx={{
           textAlign: 'left',
         }}>
@@ -126,12 +110,12 @@ export default function InteractionsCard(props) {
       >
         <Box sx={modalStyle}>
           <h4>
-            Save interaction into Watchlist?
+            Save attribution into Watchlist?
           </h4>
           <Button
             variant="contained"
             sx={{ margin: "5px", borderRadius: "20px" }}
-            onClick={saveCapturedInteractionItem}
+            onClick={saveCapturedAttributionItem}
           >
             Yes
           </Button>
@@ -170,6 +154,6 @@ export default function InteractionsCard(props) {
           </Button>
         </Box>
       </Modal>
-    </>
+    </React.Fragment>
   );
 }
