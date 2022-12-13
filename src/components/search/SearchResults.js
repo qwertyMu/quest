@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import moment from "moment";
 
@@ -12,99 +12,16 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PhoneIcon from "@mui/icons-material/Phone";
 
 import { GET_ATTRIBUTIONS, GET_INTERACTIONS } from "../../queries";
-import TabbedResults from "../../components_v2/tabbedResults";
-import AttributionWordCloud from "../../components/AttributionWordCloud.tsx";
-import AttributionsCard from "../../components_v2/attributionsCard";
-import InteractionsCard from "../../components_v2/interactionsCard";
 
-import Masonry from '@mui/lab/Masonry';
-import { styled } from '@mui/material/styles';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Typography,
-} from '@mui/material';
-import moment from "moment";
-import PhoneDisabledIcon from '@mui/icons-material/PhoneDisabled';
-import PhoneIcon from '@mui/icons-material/Phone';
+import AttributionWordCloud from "../../components/AttributionWordCloud.tsx";
+import AttributionsList from "./results/AttributionsList";
+
+import InteractionsCard from "./results/InteractionsCard";
 
 const SearchResults = (props) => {
   const { pk } = props;
 
-  const [attributionsData, setAttributionsData] = useState([]);
   const [interactionsData, setInteractionsData] = useState([]);
-  const [attributionsCount, setAttributionsCount] = useState([]);
-  const [interactionsCount, setInteractionsCount] = useState([]);
-
-  function ListAttributions({ pk }) {
-    const { loading, error, data } = useQuery(GET_ATTRIBUTIONS, {
-      variables: { pk },
-    });
-
-    useEffect(() => {
-      // save attribution data into state as it changes
-      try {
-        setAttributionsData(data.listAttributions.items);
-      } catch (e) {
-        setAttributionsData([]);
-      }
-    }, [data]);
-
-    if (loading) return <h2>LOADING... </h2>;
-    if (error) return `Error! ${error.message}`;
-
-    if (attributionsData.length === 0) return null;
-    setAttributionsCount(attributionsData.length)
-
-    return (
-      // Unfortunately, we need to keep both of the styles (sx) blocks in these box elements if we intend to keep the wordcloud where it is. 
-      <Box sx={{
-        justifyContent: 'center',
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: "0.5em",
-        padding: "0.5em",
-        width: '100%',
-      }}>
-        <AttributionWordCloud data={attributionsData} />
-        <Box
-          sx={{
-            justifyContent: "center",
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "0.5em",
-            padding: "0.5em",
-            width: '100%',
-            textAlign: 'left'
-        }}>
-          <Masonry columns={5} spacing={2}>
-            {attributionsData.map((attribution, index) => (
-              <Paper key={index}>
-                <StyledAccordion>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>
-                      <Box sx={{
-                          float: 'right'
-                      }}>
-                        <ContactPhoneIcon fontSize="small" sx={{ color: '#1876D1', marginBottom:-0.5 }}/>
-                        &nbsp;&nbsp;{index + 1} - <b>{attribution.name}</b> ({attribution.attribution})  
-                      </Box>
-                    </Typography>
-                  </AccordionSummary>                    
-                  <AccordionDetails>
-                    Added to Quest on; {moment(attribution.datetime_added).format('MMM Do YYYY, h:mma')} 
-                    <AttributionsCard data={attribution} key={index} />
-                  </AccordionDetails>
-                </StyledAccordion>
-              </Paper>
-            ))}
-          </Masonry>
-        </Box>
-      </Box>
-    );
-  }
 
   function ListInteractions({ pk }) {
     //Aug 2022 - This is a working prototype of the query behavious i'm looking for.
@@ -234,7 +151,7 @@ const SearchResults = (props) => {
         }}>
           Attributions - {attributionsCount}<hr/><small>What other devices in the Quest database have attributed to your identifier</small>
         </Typography>
-        <ListAttributions pk={pk} />
+        <AttributionsList searchTerm={pk} />
         <Typography sx={{
           color:'white', 
           backgroundColor:'#f05c54', 
@@ -249,13 +166,6 @@ const SearchResults = (props) => {
         </Typography>
         <ListInteractions pk={pk} />
       </Box>
-      {attributionsData !== [] && (
-        <TabbedResults
-          pk={pk}
-          attributionsData={attributionsData}
-          interactionsData={interactionsData}
-        />
-      )}
     </div>
   );
 };
