@@ -18,15 +18,20 @@ import {
   AccordionSummary,
   Typography,
 } from '@mui/material';
+
 import moment from "moment";
+
 import PhoneDisabledIcon from '@mui/icons-material/PhoneDisabled';
 import PhoneIcon from '@mui/icons-material/Phone';
+import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 
 const SearchResults = (props) => {
   const { pk } = props;
 
   const [attributionsData, setAttributionsData] = useState([]);
   const [interactionsData, setInteractionsData] = useState([]);
+  const [attributionsCount, setAttributionsCount] = useState([]);
+  const [interactionsCount, setInteractionsCount] = useState([]);
 
   function ListAttributions({ pk }) {
     const { loading, error, data } = useQuery(GET_ATTRIBUTIONS, {
@@ -46,31 +51,51 @@ const SearchResults = (props) => {
     if (error) return `Error! ${error.message}`;
 
     if (attributionsData.length === 0) return null;
+    setAttributionsCount(attributionsData.length)
 
     return (
-      <Box
-        sx={{
-          width: "calc(100vw - 16px)",
-          margin: "4px 8px 0 8px",
-          padding: "4px 16px",
-          // borderRadius: "8px",
-        }}
-      >
+      // Unfortunately, we need to keep both of the styles (sx) blocks in these box elements if we intend to keep the wordcloud where it is. 
+      <Box sx={{
+        justifyContent: 'center',
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: "0.5em",
+        padding: "0.5em",
+        width: '100%',
+      }}>
         <AttributionWordCloud data={attributionsData} />
         <Box
           sx={{
-            padding: "0.5em",
-            // height: "20em",
-            display: "flex",
-            gap: "0.5em",
             justifyContent: 'center',
             display: 'flex',
             flexWrap: 'wrap',
-          }}
-        >
-          {attributionsData.map((attribution, index) => (
-            <AttributionsCard data={attribution} key={index} />
-          ))}
+            gap: "0.5em",
+            padding: "0.5em",
+            width: '100%',
+            textAlign: 'left'
+        }}>
+          <Masonry columns={5} spacing={2}>
+            {attributionsData.map((attribution, index) => (
+              <Paper key={index}>
+                <StyledAccordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography>
+                      <Box sx={{
+                          float: 'right'
+                      }}>
+                        <ContactPhoneIcon fontSize="small" sx={{ color: '#1876D1', marginBottom:-0.5 }}/>
+                        &nbsp;&nbsp;{index + 1} - <b>{attribution.name}</b> ({attribution.attribution})  
+                      </Box>
+                    </Typography>
+                  </AccordionSummary>                    
+                  <AccordionDetails>
+                    Added to Quest on; {moment(attribution.datetime_added).format('MMM Do YYYY, h:mma')} 
+                    <AttributionsCard data={attribution} key={index} />
+                  </AccordionDetails>
+                </StyledAccordion>
+              </Paper>
+            ))}
+          </Masonry>
         </Box>
       </Box>
     );
@@ -87,6 +112,7 @@ const SearchResults = (props) => {
     if (data !== undefined) {
       console.log("Interactions Data - " + data);
       setInteractionsData(data.listInteractions.items);
+      setInteractionsCount(interactionsData.length);
       return (
         <Box sx={{
           justifyContent: 'center',
@@ -133,9 +159,10 @@ const SearchResults = (props) => {
                           &nbsp;&nbsp;{index + 1} - {status} ({duration})  
                           <br />
                           {moment(datetime).format('MMM Do YYYY, h:mma')} 
+                          
                         </Box>
                       </Typography>
-                    </AccordionSummary>
+                    </AccordionSummary>                    
                     <AccordionDetails>
                       <InteractionsCard
                         key={index}
@@ -165,8 +192,6 @@ const SearchResults = (props) => {
     }
   }
 
-  const heights = [150, 30, 90, 70, 90, 100, 150, 30, 50, 80];
-
   const StyledAccordion = styled(Accordion)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     color: theme.palette.text.secondary,
@@ -183,21 +208,27 @@ const SearchResults = (props) => {
         <Typography sx={{
           color:'white', 
           backgroundColor:'#f05c54', 
-          padding:'0.2em', 
+          paddingTop:'0.5em',
+          paddingBottom: '0.5em',
+          paddingLeft: '5em',
+          paddingRight: '5em', 
           borderRadius:'0.3em',
           fontSize:'1.2em',
         }}>
-          Attributions
+          Attributions - {attributionsCount}<hr/><small>What other devices in the Quest database have attributed to your identifier</small>
         </Typography>
         <ListAttributions pk={pk} />
         <Typography sx={{
           color:'white', 
           backgroundColor:'#f05c54', 
-          padding:'0.2em', 
+          paddingTop:'0.5em',
+          paddingBottom: '0.5em',
+          paddingLeft: '5em',
+          paddingRight: '5em', 
           borderRadius:'0.3em',
           fontSize:'1.2em',
         }}>
-          Interactions
+          Interactions - {interactionsCount}<hr/><small>Interactions between your identifier and other devices in the Quest database</small>
         </Typography>
         <ListInteractions pk={pk} />
       </Box>

@@ -45,13 +45,8 @@ export default function AttributionWordCloud(props: PropsType) {
   }, [props.data, processTags]);
 
   return (
-    <Box
-      sx={{
-        border: "2px solid darkgrey",
-        borderRadius: "15px",
-      }}
-    >
-      <TagCloud tags={tags} shuffle={false} minSize={12} maxSize={42} />
+    <Box>
+      <TagCloud  tags={tags} shuffle={false} minSize={12} maxSize={42} />
     </Box>
   );
 }
