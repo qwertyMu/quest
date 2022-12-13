@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import moment from "moment";
 
-import { Box, Paper } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Masonry from "@mui/lab/Masonry";
+
+import PhoneDisabledIcon from "@mui/icons-material/PhoneDisabled";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import PhoneIcon from "@mui/icons-material/Phone";
 
 import { GET_ATTRIBUTIONS, GET_INTERACTIONS } from "../../queries";
 import TabbedResults from "../../components_v2/tabbedResults";
@@ -18,12 +26,9 @@ import {
   AccordionSummary,
   Typography,
 } from '@mui/material';
-
 import moment from "moment";
-
 import PhoneDisabledIcon from '@mui/icons-material/PhoneDisabled';
 import PhoneIcon from '@mui/icons-material/Phone';
-import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 
 const SearchResults = (props) => {
   const { pk } = props;
@@ -66,9 +71,9 @@ const SearchResults = (props) => {
         <AttributionWordCloud data={attributionsData} />
         <Box
           sx={{
-            justifyContent: 'center',
-            display: 'flex',
-            flexWrap: 'wrap',
+            justifyContent: "center",
+            display: "flex",
+            flexWrap: "wrap",
             gap: "0.5em",
             padding: "0.5em",
             width: '100%',
@@ -101,7 +106,7 @@ const SearchResults = (props) => {
     );
   }
 
-  function ListInteractions({ pk }){
+  function ListInteractions({ pk }) {
     //Aug 2022 - This is a working prototype of the query behavious i'm looking for.
     const { loading, error, data } = useQuery(GET_INTERACTIONS, {
       variables: { pk },
@@ -114,14 +119,16 @@ const SearchResults = (props) => {
       setInteractionsData(data.listInteractions.items);
       setInteractionsCount(interactionsData.length);
       return (
-        <Box sx={{
-          justifyContent: 'center',
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: "0.5em",
-          padding: "0.5em",
-          width: '100%',
-        }}>
+        <Box
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0.5em",
+            padding: "0.5em",
+            width: "100%",
+          }}
+        >
           <Masonry columns={5} spacing={2}>
             {interactionsData.map(
               (
@@ -147,19 +154,32 @@ const SearchResults = (props) => {
                   <StyledAccordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                       <Typography>
-                        <Box sx={{
-                          float: 'left'
-                        }}>
-                          {status === 'missed' && (<PhoneDisabledIcon fontSize="medium" sx={{ color: 'red', marginBottom:-2 }}/>)}
-                          {status === 'answered' && (<PhoneIcon fontSize="medium" sx={{ color: 'green', marginBottom:-2 }}/>)}
+                        <Box
+                          sx={{
+                            float: "left",
+                          }}
+                        >
+                          {status === "missed" && (
+                            <PhoneDisabledIcon
+                              fontSize="medium"
+                              sx={{ color: "red", marginBottom: -2 }}
+                            />
+                          )}
+                          {status === "answered" && (
+                            <PhoneIcon
+                              fontSize="medium"
+                              sx={{ color: "green", marginBottom: -2 }}
+                            />
+                          )}
                         </Box>
-                        <Box sx={{
-                          float: 'right'
-                        }}>
-                          &nbsp;&nbsp;{index + 1} - {status} ({duration})  
+                        <Box
+                          sx={{
+                            float: "right",
+                          }}
+                        >
+                          &nbsp;&nbsp;{index + 1} - {status} ({duration})
                           <br />
                           {moment(datetime).format('MMM Do YYYY, h:mma')} 
-                          
                         </Box>
                       </Typography>
                     </AccordionSummary>                    
@@ -193,7 +213,7 @@ const SearchResults = (props) => {
   }
 
   const StyledAccordion = styled(Accordion)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     color: theme.palette.text.secondary,
   }));
   return (
@@ -208,10 +228,7 @@ const SearchResults = (props) => {
         <Typography sx={{
           color:'white', 
           backgroundColor:'#f05c54', 
-          paddingTop:'0.5em',
-          paddingBottom: '0.5em',
-          paddingLeft: '5em',
-          paddingRight: '5em', 
+          padding:'0.2em', 
           borderRadius:'0.3em',
           fontSize:'1.2em',
         }}>
