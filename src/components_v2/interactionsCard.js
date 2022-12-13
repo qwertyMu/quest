@@ -7,7 +7,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import OutboxIcon from '@mui/icons-material/Outbox';
 
 import { randomQuantity } from "@mui/x-data-grid-generator";
-import { Card, CardContent, Typography, Button } from "@mui/material";
+import { Card, CardContent, Button } from "@mui/material";
 import { Box, Modal } from "@mui/material";
 
 import { createCapturedInteraction as createCapturedInteractionMutation } from "../graphql/mutations";
@@ -55,7 +55,7 @@ export default function InteractionsCard(props) {
     // Build the create query up here.
     setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.
     console.log(parameters);
-    if (parameters.device_uid == "") return;
+    if (parameters.device_uid === "") return;
     await API.graphql({
       query: createCapturedInteractionMutation,
       variables: { input: parameters },
@@ -100,16 +100,18 @@ export default function InteractionsCard(props) {
         <CardContent sx={{
           textAlign: 'left',
         }}>
-          <Typography variant="h7">
-            <b>
-              Case Reference: {case_ref}
-            </b>
-          </Typography>
+          <b>Case Reference:</b> {case_ref}
           <br/>
           Supplied by: {organisation}
           <br/>
           Exhibit Number: {exhibit_ref}
           <br/> 
+          Found in Device: 
+          <Box sx={{
+            textAlign: 'center'
+          }}>
+            <Button variant="contained">{device_uid}</Button>
+          </Box>
           Added to Quest: {DateTimeAddedToQuest}
           <br/>
           <SaveIcon onClick={handleOpen} sx={{color: '#f05c54', float: 'right', marginBottom: '0.5em'}}/>
@@ -124,8 +126,7 @@ export default function InteractionsCard(props) {
       >
         <Box sx={modalStyle}>
           <h4>
-            Save interaction with <b>{interaction}</b> into My Captured
-            Interactions List
+            Save interaction into Watchlist?
           </h4>
           <Button
             variant="contained"
@@ -151,7 +152,7 @@ export default function InteractionsCard(props) {
       >
         <Box sx={modalStyle}>
           <h4>
-            Send to Relationship Graph
+            Send to Relationship Map
           </h4>
           <Button
             variant="contained"
