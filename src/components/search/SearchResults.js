@@ -90,6 +90,7 @@ const SearchResults = (props) => {
                   </AccordionSummary>                    
                   <AccordionDetails>
                     Added to Quest on; {moment(attribution.datetime_added).format('MMM Do YYYY, h:mma')} 
+                    <br/><br/>
                     <AttributionsCard data={attribution} key={index} />
                   </AccordionDetails>
                 </StyledAccordion>
@@ -196,6 +197,7 @@ const SearchResults = (props) => {
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     color: theme.palette.text.secondary,
   }));
+
   return (
     <div>
       <Box sx={{
