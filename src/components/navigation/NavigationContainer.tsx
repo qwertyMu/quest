@@ -7,6 +7,7 @@ import useInterfaceStore from "../../datastore/interfaceStore";
 import RelationshipMap from "../graph/RelationshipMap";
 import GenericSearch from "../search/GenericSearch";
 import Watchlist from "../watchlist/Watchlist";
+import FileUpload from "../upload/FileUpload";
 
 export default function NavigationContainer() {
   const animDirection = useInterfaceStore((s) => s.animDirection);
@@ -43,7 +44,7 @@ export default function NavigationContainer() {
         unmountOnExit
       >
         <Box>
-          <GenericSearch />
+          <FileUpload />
         </Box>
       </Slide>
       <Slide

@@ -23,7 +23,7 @@ export default function NavigationBar() {
     setTab(location.pathname);
   }, [location]);
 
-  const handleTabChange = (_, newPath) => {
+  const handleTabChange = (_: any, newPath: any) => {
     let tabs = ["/", "/network", "/watchlist", "/upload"];
 
     if (tabs.indexOf(location.pathname) < tabs.indexOf(newPath))
@@ -33,7 +33,7 @@ export default function NavigationBar() {
     navigate(newPath);
   };
 
-  const handleOpenUserMenu = (event) => {
+  const handleOpenUserMenu = (event: any) => {
     setAnchorElUser(event.currentTarget);
   };
 
@@ -115,8 +115,8 @@ export default function NavigationBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {settings.map((setting, index) => (
+                <MenuItem key={index} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
