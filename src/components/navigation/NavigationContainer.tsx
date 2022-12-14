@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Box, Slide } from "@mui/material";
 
+import useInterfaceStore from "../../datastore/interfaceStore";
 import RelationshipMap from "../graph/RelationshipMap";
 import GenericSearch from "../search/GenericSearch";
 import Watchlist from "../watchlist/Watchlist";
 
 export default function NavigationContainer() {
+  const animDirection = useInterfaceStore((s) => s.animDirection);
   const location = useLocation();
   const [component, setComponent] = useState<string>("");
 
@@ -18,10 +20,24 @@ export default function NavigationContainer() {
     else setComponent("search");
   }, [location.pathname, setComponent]);
 
+  const getOutDirection = () => {
+    if (animDirection === "left") return "right";
+    else return "left";
+  };
+
+  const getInDirection = () => {
+    return animDirection;
+  };
+
+  const getAnimDirection = (x: string) => {
+    if (x === component) return getInDirection();
+    return getOutDirection();
+  };
+
   return (
     <React.Fragment>
       <Slide
-        direction="right"
+        direction={getAnimDirection("upload")}
         in={component === "upload"}
         mountOnEnter
         unmountOnExit
@@ -31,7 +47,7 @@ export default function NavigationContainer() {
         </Box>
       </Slide>
       <Slide
-        direction="right"
+        direction={getAnimDirection("search")}
         in={component === "search"}
         mountOnEnter
         unmountOnExit
@@ -41,7 +57,7 @@ export default function NavigationContainer() {
         </Box>
       </Slide>
       <Slide
-        direction="left"
+        direction={getAnimDirection("network")}
         in={component === "network"}
         mountOnEnter
         unmountOnExit
@@ -50,9 +66,8 @@ export default function NavigationContainer() {
           <RelationshipMap />
         </Box>
       </Slide>
-
       <Slide
-        direction="left"
+        direction={getAnimDirection("watchlist")}
         in={component === "watchlist"}
         mountOnEnter
         unmountOnExit

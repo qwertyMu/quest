@@ -1,6 +1,6 @@
 import React from "react";
 
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 
 import { grey } from "@mui/material/colors";
 import { Box, CssBaseline } from "@mui/material";
@@ -12,8 +12,6 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 export default function IntelDrawer() {
-  const theme = useTheme();
-
   return (
     <StyledBox
       sx={{

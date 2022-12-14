@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react-v1";
+import { AmplifySignOut } from "@aws-amplify/ui-react-v1";
 
 import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { Menu, Avatar, Grid } from "@mui/material";
@@ -12,7 +12,8 @@ import useInterfaceStore from "../../datastore/interfaceStore";
 
 const settings = ["Settings", "Feedback", <AmplifySignOut />];
 
-const NavigationBar = () => {
+export default function NavigationBar() {
+  const setAnimDirection = useInterfaceStore((s) => s.setAnimDirection);
   const location = useLocation();
   const navigate = useNavigate();
   const [tab, setTab] = useState("");
@@ -23,6 +24,12 @@ const NavigationBar = () => {
   }, [location]);
 
   const handleTabChange = (_, newPath) => {
+    let tabs = ["/", "/network", "/watchlist", "/upload"];
+
+    if (tabs.indexOf(location.pathname) < tabs.indexOf(newPath))
+      setAnimDirection("left");
+    else setAnimDirection("right");
+
     navigate(newPath);
   };
 
@@ -76,10 +83,10 @@ const NavigationBar = () => {
               onChange={handleTabChange}
               sx={{ my: 2, color: "white", display: "flex" }}
             >
-              <Tab value="/upload" label="Upload Data" />
               <Tab value="/" label="Search" />
               <Tab value="/network" label="Relationship Map" />
               <Tab value="/watchlist" label="Watchlist" />
+              <Tab value="/upload" label="Upload Data" />
             </Tabs>
           </Grid>
           <Grid
@@ -119,5 +126,4 @@ const NavigationBar = () => {
       </Toolbar>
     </AppBar>
   );
-};
-export default withAuthenticator(NavigationBar, true);
+}
