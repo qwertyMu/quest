@@ -17,7 +17,7 @@ export default function FileUpload() {
         sx={{
           display: "flex",
           border: "8px dashed darkgrey",
-          borderRadius: "4px",
+          borderRadius: "6px",
           width: "32em",
           height: "20em",
           justifyContent: "center",
