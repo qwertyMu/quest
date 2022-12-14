@@ -6,8 +6,6 @@ import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { Menu, Avatar, Grid } from "@mui/material";
 import { Tooltip, MenuItem, Tabs, Tab } from "@mui/material";
 
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AdbIcon from "@mui/icons-material/Adb";
 
 import useInterfaceStore from "../../datastore/interfaceStore";
@@ -19,10 +17,6 @@ const NavigationBar = () => {
   const navigate = useNavigate();
   const [tab, setTab] = useState("");
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [drawerOpen, setDrawerOpen] = useInterfaceStore((s) => [
-    s.drawerOpen,
-    s.setDrawerOpen,
-  ]);
 
   useEffect(() => {
     setTab(location.pathname);
@@ -82,8 +76,10 @@ const NavigationBar = () => {
               onChange={handleTabChange}
               sx={{ my: 2, color: "white", display: "flex" }}
             >
+              <Tab value="/upload" label="Upload Data" />
               <Tab value="/" label="Search" />
               <Tab value="/network" label="Relationship Map" />
+              <Tab value="/watchlist" label="Watchlist" />
             </Tabs>
           </Grid>
           <Grid
@@ -91,13 +87,6 @@ const NavigationBar = () => {
             xs={2}
             sx={{ justifyContent: "flex-end", display: "flex", gap: "4px" }}
           >
-            <Tooltip title="Open watchlist">
-              <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
-                {(drawerOpen && <KeyboardArrowDownIcon />) || (
-                  <KeyboardArrowUpIcon />
-                )}
-              </IconButton>
-            </Tooltip>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
