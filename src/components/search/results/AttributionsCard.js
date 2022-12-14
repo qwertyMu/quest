@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import moment from "moment";
 import { v1 as uuidv1 } from "uuid";
 import { API } from "aws-amplify";
-import { useState } from "react";
-import moment from "moment";
 
+import { randomQuantity } from "@mui/x-data-grid-generator";
 import { Card, CardContent, Button } from "@mui/material";
 import { Box, Modal } from "@mui/material";
 
-import { createCapturedAttribution as createCapturedAttributionMutation } from "../../../graphql/mutations";
+import SaveIcon from "@mui/icons-material/Save";
+import OutboxIcon from "@mui/icons-material/Outbox";
 
-import { randomQuantity } from "@mui/x-data-grid-generator";
-import SaveIcon from '@mui/icons-material/Save';
-import OutboxIcon from '@mui/icons-material/Outbox';
+import { createCapturedAttribution as createCapturedAttributionMutation } from "../../../graphql/mutations";
 
 export default function AttributionsCard(props) {
   const { case_ref, exhibit_ref, device_uid, file_hash } = props.data;
@@ -39,7 +38,6 @@ export default function AttributionsCard(props) {
   async function saveCapturedAttributionItem() {
     // Build the create query up here.
     setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.
-    console.log(parameters);
     if (parameters.device_uid === "") return;
     await API.graphql({
       query: createCapturedAttributionMutation,
@@ -80,26 +78,37 @@ export default function AttributionsCard(props) {
           width: "18em",
           borderRadius: "6px",
           backgroundColor: "#595959",
-      }}>
-        <CardContent sx={{
-          textAlign: 'left',
-        }}>
+        }}
+      >
+        <CardContent
+          sx={{
+            textAlign: "left",
+          }}
+        >
           <b>Case Reference:</b> {case_ref}
-          <br/>
+          <br />
           Supplied by: {organisation}
-          <br/>
+          <br />
           Exhibit Number: {exhibit_ref}
-          <br/> 
-          Found in Device: 
-          <Box sx={{
-            textAlign: 'center'
-          }}>
+          <br />
+          Found in Device:
+          <Box
+            sx={{
+              textAlign: "center",
+            }}
+          >
             <Button variant="contained">{device_uid}</Button>
           </Box>
           Added to Quest: {DateTimeAddedToQuest}
-          <br/>
-          <SaveIcon onClick={handleOpen} sx={{color: '#f05c54', float: 'right', marginBottom: '0.5em'}}/>
-          <OutboxIcon onClick={handleOpenForceGraph} sx={{color: '#f05c54', float: 'right', marginBottom: '0.5em'}}/>
+          <br />
+          <SaveIcon
+            onClick={handleOpen}
+            sx={{ color: "#f05c54", float: "right", marginBottom: "0.5em" }}
+          />
+          <OutboxIcon
+            onClick={handleOpenForceGraph}
+            sx={{ color: "#f05c54", float: "right", marginBottom: "0.5em" }}
+          />
         </CardContent>
       </Card>
       <Modal
@@ -109,9 +118,7 @@ export default function AttributionsCard(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
-          <h4>
-            Save attribution into Watchlist?
-          </h4>
+          <h4>Save attribution into Watchlist?</h4>
           <Button
             variant="contained"
             sx={{ margin: "5px", borderRadius: "20px" }}
@@ -135,13 +142,11 @@ export default function AttributionsCard(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
-          <h4>
-            Send to Relationship Map
-          </h4>
+          <h4>Send to Relationship Map</h4>
           <Button
             variant="contained"
             sx={{ margin: "5px", borderRadius: "20px" }}
-            onClick={''}
+            onClick={""}
           >
             Yes
           </Button>

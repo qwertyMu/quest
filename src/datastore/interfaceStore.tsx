@@ -1,18 +1,21 @@
 import create from "zustand";
 
+type directions = "left" | "right";
+
 export interface interfaceState {
   tab: string;
   setTab: (newVal: string) => void;
-  drawerOpen: boolean;
-  setDrawerOpen: (newVal: boolean) => void;
+
+  animDirection: directions;
+  setAnimDirection: (newVal: directions) => void;
 }
 
 export const useInterfaceStore = create<interfaceState>()((set) => ({
   tab: "",
   setTab: (newVal) => set(() => ({ tab: newVal })),
 
-  drawerOpen: false,
-  setDrawerOpen: (newVal) => set(() => ({ drawerOpen: newVal })),
+  animDirection: "left",
+  setAnimDirection: (newVal) => set(() => ({ animDirection: newVal })),
 }));
 
 export default useInterfaceStore;

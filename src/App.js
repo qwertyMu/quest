@@ -7,7 +7,6 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import { BrowserRouter } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 
-import IntelDrawer from "./components/IntelDrawer";
 import NavigationBar from "./components/navigation/NavigationBar";
 import NavigationContainer from "./components/navigation/NavigationContainer";
 
@@ -51,7 +50,6 @@ class App extends Component {
             <BrowserRouter>
               <NavigationBar />
               <NavigationContainer />
-              <IntelDrawer />
             </BrowserRouter>
           </ApolloProvider>
         </Authenticator>

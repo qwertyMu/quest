@@ -1,38 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react-v1";
+import { AmplifySignOut } from "@aws-amplify/ui-react-v1";
 
 import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { Menu, Avatar, Grid } from "@mui/material";
 import { Tooltip, MenuItem, Tabs, Tab } from "@mui/material";
 
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AdbIcon from "@mui/icons-material/Adb";
 
 import useInterfaceStore from "../../datastore/interfaceStore";
 
 const settings = ["Settings", "Feedback", <AmplifySignOut />];
 
-const NavigationBar = () => {
+export default function NavigationBar() {
+  const setAnimDirection = useInterfaceStore((s) => s.setAnimDirection);
   const location = useLocation();
   const navigate = useNavigate();
   const [tab, setTab] = useState("");
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [drawerOpen, setDrawerOpen] = useInterfaceStore((s) => [
-    s.drawerOpen,
-    s.setDrawerOpen,
-  ]);
 
   useEffect(() => {
     setTab(location.pathname);
   }, [location]);
 
-  const handleTabChange = (_, newPath) => {
+  const handleTabChange = (_: any, newPath: any) => {
+    let tabs = ["/", "/network", "/watchlist", "/upload"];
+
+    if (tabs.indexOf(location.pathname) < tabs.indexOf(newPath))
+      setAnimDirection("left");
+    else setAnimDirection("right");
+
     navigate(newPath);
   };
 
-  const handleOpenUserMenu = (event) => {
+  const handleOpenUserMenu = (event: any) => {
     setAnchorElUser(event.currentTarget);
   };
 
@@ -84,6 +85,8 @@ const NavigationBar = () => {
             >
               <Tab value="/" label="Search" />
               <Tab value="/network" label="Relationship Map" />
+              <Tab value="/watchlist" label="Watchlist" />
+              <Tab value="/upload" label="Upload Data" />
             </Tabs>
           </Grid>
           <Grid
@@ -91,13 +94,6 @@ const NavigationBar = () => {
             xs={2}
             sx={{ justifyContent: "flex-end", display: "flex", gap: "4px" }}
           >
-            <Tooltip title="Open watchlist">
-              <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
-                {(drawerOpen && <KeyboardArrowDownIcon />) || (
-                  <KeyboardArrowUpIcon />
-                )}
-              </IconButton>
-            </Tooltip>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -119,8 +115,8 @@ const NavigationBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {settings.map((setting, index) => (
+                <MenuItem key={index} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
@@ -130,5 +126,4 @@ const NavigationBar = () => {
       </Toolbar>
     </AppBar>
   );
-};
-export default withAuthenticator(NavigationBar, true);
+}
