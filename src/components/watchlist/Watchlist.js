@@ -4,8 +4,8 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
 
 import BulkSearchBuilder from "../bulkSearchBuilder";
-import InteractionsIntelligenceList from "../interactionsIntelligenceList";
-import AttributionsIntelligenceList from "../attributionsIntelligenceList";
+import InteractionsIntelligenceList from "./InteractionsIntelligenceList";
+import AttributionsIntelligenceList from "./AttributionsIntelligenceList";
 
 export default function Watchlist() {
   const [value, setValue] = useState("1");

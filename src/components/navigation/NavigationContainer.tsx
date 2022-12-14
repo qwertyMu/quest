@@ -6,7 +6,7 @@ import { Box, Slide } from "@mui/material";
 import useInterfaceStore from "../../datastore/interfaceStore";
 import RelationshipMap from "../graph/RelationshipMap";
 import GenericSearch from "../search/GenericSearch";
-import Watchlist from "../watchlist/Watchlist";
+import Watchlist from "../watchlist/SimpleWatchlist";
 import FileUpload from "../upload/FileUpload";
 
 export default function NavigationContainer() {
