@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { v1 as uuidv1 } from "uuid";
 import { API } from "aws-amplify";
@@ -13,6 +14,7 @@ import OutboxIcon from "@mui/icons-material/Outbox";
 import { createCapturedAttribution as createCapturedAttributionMutation } from "../../../graphql/mutations";
 
 export default function AttributionsCard(props) {
+  const navigate = useNavigate();
   const { case_ref, exhibit_ref, device_uid, file_hash } = props.data;
   const { organisation, datetime_added } = props.data;
   const { pk, name, attribution } = props.data;
@@ -66,8 +68,6 @@ export default function AttributionsCard(props) {
   const handleClose = () => setOpen(false);
 
   const [openForceGraph, setOpenForceGraph] = useState(false);
-  const handleOpenForceGraph = () => setOpenForceGraph(true);
-  const handleCloseForceGraph = () => setOpenForceGraph(false);
 
   return (
     <React.Fragment>
@@ -85,13 +85,15 @@ export default function AttributionsCard(props) {
             textAlign: "left",
           }}
         >
-          <b>Case Reference:</b> {case_ref}
-          <br />
           Supplied by: {organisation}
           <br />
-          Exhibit Number: {exhibit_ref}
+          Case Reference: {case_ref}
           <br />
-          Found in Device:
+          Exhibit: {exhibit_ref}
+          <br />
+          Uploaded: {DateTimeAddedToQuest}
+          <br />
+          Device:
           <Box
             sx={{
               textAlign: "center",
@@ -99,14 +101,12 @@ export default function AttributionsCard(props) {
           >
             <Button variant="contained">{device_uid}</Button>
           </Box>
-          Added to Quest: {DateTimeAddedToQuest}
-          <br />
           <SaveIcon
             onClick={handleOpen}
             sx={{ color: "#f05c54", float: "right", marginBottom: "0.5em" }}
           />
           <OutboxIcon
-            onClick={handleOpenForceGraph}
+            onClick={() => setOpenForceGraph(true)}
             sx={{ color: "#f05c54", float: "right", marginBottom: "0.5em" }}
           />
         </CardContent>
@@ -137,7 +137,7 @@ export default function AttributionsCard(props) {
       </Modal>
       <Modal
         open={openForceGraph}
-        onClose={handleCloseForceGraph}
+        onClick={() => setOpenForceGraph(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -146,14 +146,14 @@ export default function AttributionsCard(props) {
           <Button
             variant="contained"
             sx={{ margin: "5px", borderRadius: "20px" }}
-            onClick={""}
+            onClick={() => navigate("/network")}
           >
             Yes
           </Button>
           <Button
             variant="contained"
             sx={{ margin: "5px", borderRadius: "20px" }}
-            onClick={handleCloseForceGraph}
+            onClick={() => setOpenForceGraph(false)}
           >
             No
           </Button>

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import moment from "moment";
 
 import { Masonry } from "@mui/lab";
 import { Box, Paper, Typography } from "@mui/material";
@@ -86,12 +85,6 @@ export default function AttributionsList(props: AttributionListProps) {
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  Added to Quest on;{" "}
-                  {moment(attribution.datetime_added).format(
-                    "MMM Do YYYY, h:mma"
-                  )}
-                  <br />
-                  <br />
                   <AttributionsCard data={attribution} key={index} />
                 </AccordionDetails>
               </StyledAccordion>

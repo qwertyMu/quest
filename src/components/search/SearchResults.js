@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Divider, Tooltip } from "@mui/material";
 
 import resultsStore from "../../datastore/resultsStore";
 import AttributionsList from "./results/AttributionsList";
@@ -22,66 +22,49 @@ export default function SearchResults(props) {
         padding: "0.5em",
       }}
     >
-      <Typography
-        sx={{
-          color: "white",
-          backgroundColor: "#f05c54",
-          paddingTop: "0.5em",
-          paddingBottom: "0.5em",
-          paddingLeft: "5em",
-          paddingRight: "5em",
-          borderRadius: "0.3em",
-          fontSize: "1.2em",
-        }}
-      >
-        Attributions for {props.pk}
-        <Box sx={{
-          backgroundColor: '#6ae674',
-          color: '#656665',
-          paddingLeft: '0.3em',
-          paddingRight: '0.3em',
-          float: 'right',
-          borderRadius: '0.4em',
-        }}>
-          {attributionCount}
-        </Box>
-        <hr />
-        <small>
-          What name other devices in the Quest database have attributed to your
-          identifier
-        </small>
-      </Typography>
-      <AttributionsList searchTerm={props.pk} />
-      <Typography
-        sx={{
-          color: "white",
-          backgroundColor: "#f05c54",
-          paddingTop: "0.5em",
-          paddingBottom: "0.5em",
-          paddingLeft: "5em",
-          paddingRight: "5em",
-          borderRadius: "0.3em",
-          fontSize: "1.2em",
-        }}
-      >
-        Interactions with {props.pk}
-        <Box sx={{
-          backgroundColor: '#6ae674',
-          color: '#656665',
-          paddingLeft: '0.3em',
-          paddingRight: '0.3em',
-          float: 'right',
-          borderRadius: '0.4em',
-        }}>
-          {interactionCount}
-        </Box>
-        <hr />
-        <small>
-          Interactions between your identifier and other devices in the Quest
-          database
-        </small>
-      </Typography>
-      <InteractionsList searchTerm={props.pk} />
+      <React.Fragment>
+        <Divider sx={{ width: "100%" }}>
+          <Tooltip title="Where this identifier has been seen in the quest database, the names associated with it by other devices">
+            <Typography
+              sx={{
+                color: "white",
+                backgroundColor: "#f05c54",
+                paddingTop: "0.5em",
+                paddingBottom: "0.5em",
+                paddingLeft: "5em",
+                paddingRight: "5em",
+                borderRadius: "0.3em",
+                fontSize: "1.2em",
+              }}
+            >
+              ({attributionCount}) Attributions for "{props.pk}" identified
+            </Typography>
+          </Tooltip>
+        </Divider>
+        <AttributionsList searchTerm={props.pk} />
+      </React.Fragment>
+
+      <React.Fragment>
+        <Divider sx={{ color: "red", width: "100%" }}>
+          <Tooltip title="Interactions between this identifier and other devices in the Quest database">
+            <Typography
+              sx={{
+                color: "white",
+                backgroundColor: "#f05c54",
+                paddingTop: "0.5em",
+                paddingBottom: "0.5em",
+                paddingLeft: "5em",
+                paddingRight: "5em",
+                borderRadius: "0.3em",
+                fontSize: "1.2em",
+              }}
+            >
+              ({interactionCount}) Known interactions with "{props.pk}"
+            </Typography>
+          </Tooltip>
+        </Divider>
+        <InteractionsList searchTerm={props.pk} />
+      </React.Fragment>
     </Box>
   );
 }
