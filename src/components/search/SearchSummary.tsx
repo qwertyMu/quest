@@ -8,7 +8,8 @@ import { Box, Chip } from "@mui/material";
 import useResultsStore from "../../datastore/resultsStore";
 
 export default function SearchSummary() {
-  const [attributionCount] = useResultsStore((s) => [s.attributionCount]);
+  const attributionCount = useResultsStore((s) => s.attributionCount);
+  const interactionCount = useResultsStore((s) => s.interactionCount);
 
   return (
     <Box
@@ -27,7 +28,7 @@ export default function SearchSummary() {
       />
       <Chip
         icon={<CallIcon sx={{ color: "black !important" }} />}
-        label={"Interactions - " + attributionCount}
+        label={"Interactions - " + interactionCount}
         sx={{ background: "grey" }}
       />
     </Box>
