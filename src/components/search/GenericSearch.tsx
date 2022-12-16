@@ -12,6 +12,8 @@ import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import SearchResults from "./SearchResults";
 import SearchBar from "./SearchBar";
 import TimelineViewContainer from "./TimelineViewContainer";
+import AttributionSearchResults from "./AttributionsSearchResults";
+import InteractionSearchResults from "./InteractionSearchResults";
 
 export default function GenericSearch() {
   const client = new QueryClient();
@@ -31,6 +33,7 @@ export default function GenericSearch() {
       {search !== "" && (
         <QueryClientProvider client={client}>
           <Box sx={{ width: '100%', typography: 'body1' }}>
+            <AttributionSearchResults pk={search} />
             <TabContext value={value} >
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList centered onChange={handlePanelChange} aria-label="lab API tabs example">
@@ -42,7 +45,7 @@ export default function GenericSearch() {
                   <TimelineViewContainer pk={search} />
               </TabPanel>
               <TabPanel value="2">
-                  <SearchResults pk={search} />
+                  <InteractionSearchResults pk={search} />
               </TabPanel>
             </TabContext>
           </Box>

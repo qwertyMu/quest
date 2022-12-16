@@ -3,12 +3,9 @@ import React from "react";
 import { Box, Typography, Divider, Tooltip } from "@mui/material";
 
 import resultsStore from "../../datastore/resultsStore";
-import AttributionsList from "./results/AttributionsList";
 import InteractionsList from "./results/InteractionsList";
 
-import TimelineView from "./results/TimelineView";
-
-export default function TimelineViewContainer(props) {
+export default function InteractionSearchResults(props) {
   const [attributionCount, interactionCount] = resultsStore((s) => [
     s.attributionCount,
     s.interactionCount,
@@ -25,7 +22,7 @@ export default function TimelineViewContainer(props) {
       }}
     >
       <React.Fragment>
-        <TimelineView searchTerm={props.pk} />
+        <InteractionsList searchTerm={props.pk} />
       </React.Fragment>
     </Box>
   );
