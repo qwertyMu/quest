@@ -11,7 +11,7 @@ import RecentActorsIcon from '@mui/icons-material/RecentActors';
 
 import SearchResults from "./SearchResults";
 import SearchBar from "./SearchBar";
-import TimelineView from "./TimelineView";
+import TimelineViewContainer from "./TimelineViewContainer";
 
 export default function GenericSearch() {
   const client = new QueryClient();
@@ -39,7 +39,7 @@ export default function GenericSearch() {
                 </TabList>
               </Box>
               <TabPanel value="1">
-                  <TimelineView pk={search} />
+                  <TimelineViewContainer pk={search} />
               </TabPanel>
               <TabPanel value="2">
                   <SearchResults pk={search} />

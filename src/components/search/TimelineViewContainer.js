@@ -6,7 +6,9 @@ import resultsStore from "../../datastore/resultsStore";
 import AttributionsList from "./results/AttributionsList";
 import InteractionsList from "./results/InteractionsList";
 
-export default function TimelineView(props) {
+import TimelineView from "./results/TimelineView";
+
+export default function TimelineViewContainer(props) {
   const [attributionCount, interactionCount] = resultsStore((s) => [
     s.attributionCount,
     s.interactionCount,
@@ -63,6 +65,7 @@ export default function TimelineView(props) {
             </Typography>
           </Tooltip>
         </Divider>
+        <TimelineView searchTerm={props.pk} />
         {/* <InteractionsList searchTerm={props.pk} /> */}
       </React.Fragment>
     </Box>
