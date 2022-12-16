@@ -46,10 +46,12 @@ export default function AttributionsList(props: AttributionListProps) {
   return (
     <Box
       sx={{
-        width: "calc(100vw - 16px)",
-        margin: "4px 8px 0 8px",
-        padding: "4px 16px",
-        // borderRadius: "8px",
+        justifyContent: "center",
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "0.5em",
+        padding: "0.5em",
+        width: "100%",
       }}
     >
       <AttributionWordCloud data={attributions} />
