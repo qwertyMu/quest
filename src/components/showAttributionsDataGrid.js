@@ -18,48 +18,38 @@ const ShowAttributionsDataGrid = props => {
   if (data !== undefined){
     console.log(data);
   }
-  // key={index}
-  // Id={datetime_added}
-  // Nominal={nominal}
-  // Organisation={organisation}
-  // Attribution={attribution}
-  // FileName={file_name}
-  // DateTimeAdded={datetime_added}
-  // Exhibit={exhibit}
   const columns = [
-    { field: "nominal", headerName: "Nominal", width: 130 },
+    { field: "name", headerName: "Name", width: 130 },
     { field: "organisation", headerName: "Organisation", width: 180 },
     { field: "attribution", headerName: "Attribution", width: 130 },
-    { field: "file_name", headerName: "Original File", width: 180 },
+    { field: "case_ref", headerName: "Case Reference", width: 130 },
+    { field: "file_hash", headerName: "Original File", width: 380 },
+    { field: "device_uid", headerName: "Device Hash", width: 180 },
     { field: "datetime_added", headerName: "Date/Time Added", width: 180 },
-    { field: "exhibit", headerName: "Exhibit Number", width: 130 },
+    { field: "exhibit_ref", headerName: "Exhibit Number", width: 130 },
   ];
-  const rows = data.listAttributions.items.map(({ nominal, organisation, attribution, file_name, datetime_added, exhibit }, index) => {
+  const rows = data.listAttributions.items.map(({ name, organisation, attribution, case_ref, file_hash, device_uid, datetime_added, exhibit_ref }, index) => {
     let DateTimeAddedToQuest = moment(datetime_added).format('MMM Do YY, h:mma')
     return({
       key: index,
       id: index,
-      nominal: nominal,
+      name: name,
       organisation: organisation,
       attribution: attribution,
-      file_name: file_name,
+      case_ref: case_ref,
+      file_hash: file_hash,
+      device_uid: device_uid,
       datetime_added: DateTimeAddedToQuest,
-      exhibit: exhibit,
+      exhibit_ref: exhibit_ref,
     })
   });
 
   return(
-    <div>
+    <React.Fragment>
       <DataGrid style={{color: "white", backgroundImage: "linear-gradient(#ec483e, #f05c54)"}} rows={rows} columns={columns} autoHeight/>
       {/* //Data Grid needs the autoheight property to render */}
-    </div>
+    </React.Fragment>
   )
 }
-
-
-
-ShowAttributionsDataGrid.propTypes = {
-  pk: PropTypes.string.isRequired
-};
 
 export default ShowAttributionsDataGrid;

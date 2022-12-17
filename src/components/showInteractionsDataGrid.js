@@ -82,35 +82,39 @@ const ShowInteractionsDataGrid = props => {
   if (data !== undefined){
   }
   const columns = [
-    { field: "interaction", headerName: "Interaction", width: 130, },
+    // { field: "interaction", headerName: "Interaction", width: 130, }, No longer returned from the API
+    { field: "status", headerName: "Status", width: 130 },
     { field: "direction", headerName: "Direction", width: 130 },
-    { field: "partner", headerName: "Partner", width: 130 },
+    // { field: "partner", headerName: "Partner", width: 130 }, No longer returned from the API
     { field: "duration", headerName: "Duration", width: 130 },
     { field: "datetime", headerName: "Date/Time", width: 180 },
-    { field: "exhibit", headerName: "Exhibit Number", width: 130 },
+    { field: "exhibit_ref", headerName: "Exhibit Number", width: 130 },
     { field: "organisation", headerName: "Organisation", width: 180 },
-    { field: "file_name", headerName: "Orignial File", width: 180 },
+    { field: "case_ref", headerName: "Case Ref", width: 130 },
+    { field: "file_hash", headerName: "Orignial File", width: 380 },
+    { field: "device_uid", headerName: "Device Hash", width: 180 },
     { field: "datetime_added", headerName: "Date/Time Added", width: 180 },
   ];
-  const rows = data.listInteractions.items.map(({ direction, interaction, partner, duration, datetime, exhibit, organisation, file_name, datetime_added }, index) => {
+  const rows = data.listInteractions.items.map(({ status, direction, duration, datetime, exhibit_ref, organisation, case_ref, file_hash, device_uid, datetime_added }, index) => {
     let DateTimeOfInteraction = moment(datetime).format('MMM Do YY, h:mma')
     let DateTimeAddedToQuest = moment(datetime_added).format('MMM Do YY, h:mma')
     return({
       id: uuidv1(),
-      interaction: interaction,
+      status: status,
       direction: direction,
-      partner: partner,
       duration: duration,
       datetime: DateTimeOfInteraction,
-      exhibit: exhibit,
+      exhibit_ref: exhibit_ref,
       organisation: organisation,
-      file_name: file_name,
+      case_ref: case_ref,
+      file_hash: file_hash,
+      device_uid: device_uid,
       datetime_added: DateTimeAddedToQuest,
     })
   });
 
   return(
-    <div>
+    <React.Fragment>
       <InfoOutlinedIcon fontSize="tiny" sx={{position: "relative", bottom: "-2px"}}/><i> Select a row for more context;</i>
       <DataGrid 
         style={{color: "white", backgroundImage: "linear-gradient(#ec483e, #f05c54)"}} 
@@ -133,14 +137,8 @@ const ShowInteractionsDataGrid = props => {
           </Button>
         </Box>
       </Modal>
-    </div>
+    </React.Fragment>
   )
 }
-
-
-
-ShowInteractionsDataGrid.propTypes = {
-  pk: PropTypes.string.isRequired
-};
 
 export default ShowInteractionsDataGrid;
