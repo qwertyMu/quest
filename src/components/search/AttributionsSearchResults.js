@@ -32,7 +32,7 @@ export default function AttributionSearchResults(props) {
                 fontSize: "1.2em",
                 fontFamily: 'monospace',
               }}>
-                <QuizIcon sx={{marginBottom:-1}} />&nbsp; Attributions x{attributionCount}
+                Attributions x{attributionCount}&nbsp;<QuizIcon sx={{marginBottom:-1}} />
             </Typography>
           </Tooltip>
         </Box>
