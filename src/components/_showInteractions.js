@@ -3,7 +3,7 @@ import { useQuery, gql } from "@apollo/client";
 import PropTypes from "prop-types";
 import { GET_INTERACTIONS } from "../queries";
 import ShowInteractionsDataGrid from "./search/results/InteractionsDataGrid";
-import InteractionsCard from "./interactionsCard";
+import InteractionsCard from "./_interactionsCard";
 
 const ShowInteractions = (props) => {
   const { pk } = props;

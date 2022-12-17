@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
 
-import BulkSearchBuilder from "../bulkSearchBuilder";
+import BulkSearchBuilder from "../_bulkSearchBuilder";
 import InteractionsIntelligenceList from "./InteractionsIntelligenceList";
 import AttributionsIntelligenceList from "./AttributionsIntelligenceList";
 

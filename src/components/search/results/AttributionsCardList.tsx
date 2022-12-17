@@ -14,11 +14,11 @@ import resultsState from "../../../datastore/resultsStore";
 import StyledAccordion from "../../generic/StyledAccordion";
 import AttributionsCard from "./AttributionsCard";
 
-type AttributionListProps = {
+type CardListProps = {
   searchTerm: String;
 };
 
-export default function AttributionsList(props: AttributionListProps) {
+export default function AttributionsCardList(props: CardListProps) {
   const [attributions, setAttributions, setAttributionCount] = resultsState(
     (s) => [s.attributions, s.setAttributions, s.setAttributionCount]
   );

@@ -3,8 +3,8 @@ import React from "react";
 import { Box, Typography, Divider, Tooltip } from "@mui/material";
 
 import resultsStore from "../../datastore/resultsStore";
-import AttributionsList from "./results/AttributionsList";
-import InteractionsList from "./results/InteractionsList";
+import AttributionsList from "./results/AttributionsCardList";
+import InteractionsList from "./results/InteractionsCardList";
 
 import TimelineView from "./results/TimelineView";
 

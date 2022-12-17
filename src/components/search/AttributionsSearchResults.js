@@ -2,10 +2,10 @@ import React from "react";
 
 import { Box, Typography, Tooltip } from "@mui/material";
 
-import QuizIcon from '@mui/icons-material/Quiz';
+import QuizIcon from "@mui/icons-material/Quiz";
 
 import resultsStore from "../../datastore/resultsStore";
-import AttributionsList from "./results/AttributionsList";
+import AttributionsCardList from "./results/AttributionsCardList";
 
 export default function AttributionSearchResults(props) {
   const [attributionCount, interactionCount] = resultsStore((s) => [
@@ -25,18 +25,24 @@ export default function AttributionSearchResults(props) {
     >
       <React.Fragment>
         <Box>
-          <Tooltip title="The names associated to this identifier by devices found in the quest database." arrow placement="right">
+          <Tooltip
+            title="The names associated to this identifier by devices found in the quest database."
+            arrow
+            placement="right"
+          >
             <Typography
               sx={{
                 color: "white",
                 fontSize: "1.2em",
-                fontFamily: 'monospace',
-              }}>
-                Attributions x{attributionCount}&nbsp;<QuizIcon sx={{marginBottom:-1}} />
+                fontFamily: "monospace",
+              }}
+            >
+              Attributions x{attributionCount}&nbsp;
+              <QuizIcon sx={{ marginBottom: -1 }} />
             </Typography>
           </Tooltip>
         </Box>
-        <AttributionsList searchTerm={props.pk} />
+        <AttributionsCardList searchTerm={props.pk} />
       </React.Fragment>
     </Box>
   );
