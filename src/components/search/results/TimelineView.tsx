@@ -41,118 +41,117 @@ export default function TimelineView(props: InteractionsListProps) {
   }, [data, setInteractions, setInteractionCount]);
 
   if (loading) return <h2>LOADING... </h2>;
-  if (error) return `Error! ${error.message}`;
-  if (data !== undefined) {
-    return (
-      <Box
-        sx={{
-          justifyContent: "center",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "0.5em",
-          padding: "0.5em",
-          width: "100%",
-        }}
-      >
-        <Timeline position="alternate">
-          {interactions.map(
-            (
-              {
-                pk,
-                sk,
-                case_ref,
-                exhibit_ref,
-                device_uid,
-                file_hash,
-                organisation,
-                datetime_added,
-                datetime,
-                local_partner,
-                interaction,
-                direction,
-                duration,
-                status,
-              },
-              index
-            ) => (
-              <TimelineItem>
-                <TimelineOppositeContent
-                  sx={{ m: "auto 0" }}
-                  align="right"
-                  variant="body2"
-                  color="white"
-                >
-                  {moment(datetime).format("MMM Do YYYY, h:mma")}
-                </TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineConnector />
-                  <TimelineDot>
-                    <Box
-                      sx={{
-                        float: "left",
-                      }}
-                    >
-                      {status === "missed" && (
-                        <PhoneDisabledIcon
-                          fontSize="medium"
-                          sx={{ color: "red", marginBottom: -0.6 }}
+  if (error) return <h2>Error! {error.message}</h2>;
+  if (data === undefined) return null;
+  return (
+    <Box
+      sx={{
+        justifyContent: "center",
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "0.5em",
+        padding: "0 0.5em",
+        width: "100%",
+      }}
+    >
+      <Timeline position="alternate">
+        {interactions.map(
+          (
+            {
+              pk,
+              sk,
+              case_ref,
+              exhibit_ref,
+              device_uid,
+              file_hash,
+              organisation,
+              datetime_added,
+              datetime,
+              local_partner,
+              interaction,
+              direction,
+              duration,
+              status,
+            },
+            index
+          ) => (
+            <TimelineItem>
+              <TimelineOppositeContent
+                sx={{ m: "auto 0" }}
+                align="right"
+                variant="body2"
+                color="white"
+              >
+                {moment(datetime).format("MMM Do YYYY, h:mma")}
+              </TimelineOppositeContent>
+              <TimelineSeparator>
+                <TimelineConnector />
+                <TimelineDot>
+                  <Box
+                    sx={{
+                      float: "left",
+                    }}
+                  >
+                    {status === "missed" && (
+                      <PhoneDisabledIcon
+                        fontSize="medium"
+                        sx={{ color: "red", marginBottom: -0.6 }}
+                      />
+                    )}
+                    {status === "answered" && (
+                      <PhoneIcon
+                        fontSize="medium"
+                        sx={{ color: "green", marginBottom: -0.6 }}
+                      />
+                    )}
+                  </Box>
+                </TimelineDot>
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent>
+                <Masonry columns={1} spacing={2}>
+                  <Paper key={index}>
+                    <StyledAccordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography>
+                          <Box
+                            sx={{
+                              float: "right",
+                            }}
+                          >
+                            &nbsp;&nbsp;{index + 1} - {status} ({duration})
+                            <br />
+                            {moment(datetime).format("MMM Do YYYY, h:mma")}
+                          </Box>
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <InteractionsCard
+                          key={index}
+                          pk={pk}
+                          sk={sk}
+                          case_ref={case_ref}
+                          exhibit_ref={exhibit_ref}
+                          device_uid={device_uid}
+                          file_hash={file_hash}
+                          organisation={organisation}
+                          datetime_added={datetime_added}
+                          datetime={datetime}
+                          local_partner={local_partner}
+                          interaction={interaction}
+                          direction={direction}
+                          duration={duration}
+                          status={status}
                         />
-                      )}
-                      {status === "answered" && (
-                        <PhoneIcon
-                          fontSize="medium"
-                          sx={{ color: "green", marginBottom: -0.6 }}
-                        />
-                      )}
-                    </Box>
-                  </TimelineDot>
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Masonry columns={1} spacing={2}>
-                    <Paper key={index}>
-                      <StyledAccordion>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                          <Typography>
-                            <Box
-                              sx={{
-                                float: "right",
-                              }}
-                            >
-                              &nbsp;&nbsp;{index + 1} - {status} ({duration})
-                              <br />
-                              {moment(datetime).format("MMM Do YYYY, h:mma")}
-                            </Box>
-                          </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <InteractionsCard
-                            key={index}
-                            pk={pk}
-                            sk={sk}
-                            case_ref={case_ref}
-                            exhibit_ref={exhibit_ref}
-                            device_uid={device_uid}
-                            file_hash={file_hash}
-                            organisation={organisation}
-                            datetime_added={datetime_added}
-                            datetime={datetime}
-                            local_partner={local_partner}
-                            interaction={interaction}
-                            direction={direction}
-                            duration={duration}
-                            status={status}
-                          />
-                        </AccordionDetails>
-                      </StyledAccordion>
-                    </Paper>
-                  </Masonry>
-                </TimelineContent>
-              </TimelineItem>
-            )
-          )}
-        </Timeline>
-      </Box>
-    );
-  }
+                      </AccordionDetails>
+                    </StyledAccordion>
+                  </Paper>
+                </Masonry>
+              </TimelineContent>
+            </TimelineItem>
+          )
+        )}
+      </Timeline>
+    </Box>
+  );
 }

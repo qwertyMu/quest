@@ -41,7 +41,6 @@ export default function ShowInteractionsDataGrid(props) {
       query: createCapturedInteractionMutation,
       variables: { input: parameters },
     });
-    console.log("Row saved in showInteractionsDataGrid");
     setParameters(initialParamState);
     handleClose();
   }
@@ -71,7 +70,6 @@ export default function ShowInteractionsDataGrid(props) {
     setParameters((parameters) => {
       return { ...parameters, identifier: pk };
     }); //this adds identifier (i.e. user search term) into the selectedParam object
-    console.log(parameters);
     handleOpen();
   };
 
@@ -134,11 +132,6 @@ export default function ShowInteractionsDataGrid(props) {
 
   return (
     <React.Fragment>
-      <InfoOutlinedIcon
-        fontSize="tiny"
-        sx={{ position: "relative", bottom: "-2px" }}
-      />
-      <i> Select a row for more context;</i>
       <DataGrid
         style={{
           color: "white",
