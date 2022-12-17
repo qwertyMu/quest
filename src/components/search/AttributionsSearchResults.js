@@ -1,6 +1,8 @@
 import React from "react";
 
-import { Box, Typography, Divider, Tooltip } from "@mui/material";
+import { Box, Typography, Tooltip } from "@mui/material";
+
+import QuizIcon from '@mui/icons-material/Quiz';
 
 import resultsStore from "../../datastore/resultsStore";
 import AttributionsList from "./results/AttributionsList";
@@ -22,25 +24,18 @@ export default function AttributionSearchResults(props) {
       }}
     >
       <React.Fragment>
-        <Divider sx={{ width: "100%" }}>
-          <Tooltip title="Where this identifier has been seen in the quest database, the names associated with it by other devices">
+        <Box>
+          <Tooltip title="The names associated to this identifier by devices found in the quest database." arrow placement="right">
             <Typography
               sx={{
                 color: "white",
-                backgroundColor: "#f05c54",
-                paddingTop: "0.5em",
-                paddingBottom: "0.5em",
-                paddingLeft: "5em",
-                paddingRight: "5em",
-                borderRadius: "0.3em",
                 fontSize: "1.2em",
-              }}
-            >
-              ({attributionCount}) Attributions for "{props.pk}" identified <br/>
-              ({interactionCount}) Known interactions with "{props.pk}"
+                fontFamily: 'monospace',
+              }}>
+                <QuizIcon sx={{marginBottom:-1}} />&nbsp; Attributions x{attributionCount}
             </Typography>
           </Tooltip>
-        </Divider>
+        </Box>
         <AttributionsList searchTerm={props.pk} />
       </React.Fragment>
     </Box>
