@@ -2,6 +2,8 @@ import React from "react";
 
 import { Box, Typography } from "@mui/material";
 
+import UserDetails from "./UserDetails";
+
 export default function FileUpload() {
   return (
     <Box
@@ -13,6 +15,7 @@ export default function FileUpload() {
         alignItems: "center",
       }}
     >
+      <UserDetails />
       <Box
         sx={{
           display: "flex",
