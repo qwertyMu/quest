@@ -4,18 +4,18 @@ import {
   Card,
   CardContent,
   Typography,
-  IconButton
+  IconButton,
 } from "@material-ui/core";
 import { DeleteOutlined, EditOutlined } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import Styles from "./userGeneratedContact/Styles";
 import { Button } from "@mui/material";
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
-import BadgeIcon from '@mui/icons-material/Badge';
+import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
+import BadgeIcon from "@mui/icons-material/Badge";
 import { Tooltip } from "@material-ui/core";
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
-const AttributesCard = props => {
+const AttributesCard = (props) => {
   const {
     classes,
     Id,
@@ -37,13 +37,12 @@ const AttributesCard = props => {
   //   exhibit: Exhibit,
   // };
 
-  async function addToMyIntelList(){
-  
+  async function addToMyIntelList() {
     console.log(Pk + Nominal);
-  };
+  }
 
   return (
-    <Card className={classes.card} elevation={8} style={{color: "white"}}>
+    <Card className={classes.card} elevation={8} style={{ color: "white" }}>
       <CardContent>
         {/* <IconButton
           aria-label="Update"
@@ -62,17 +61,23 @@ const AttributesCard = props => {
         <Typography variant="h6" className={classes.name}>
           <BadgeIcon /> {Nominal}
           <Tooltip title="The name saved against this number">
-            <InfoOutlinedIcon fontSize="tiny" sx={{position: "relative", bottom: "10px"}}/>
+            <InfoOutlinedIcon
+              fontSize="tiny"
+              sx={{ position: "relative", bottom: "10px" }}
+            />
           </Tooltip>
-        </Typography><br />
+        </Typography>
+        <br />
         <Typography className={classes.body}>
           <small>Contributed by: </small> <i>{Organisation}</i>
-        </Typography><br />
+        </Typography>
+        <br />
         <Typography className={classes.details}>
-          {Attribution} 
+          {Attribution}
           <br />
           <ContactPhoneIcon fontSize="large" />
-        </Typography><br />
+        </Typography>
+        <br />
         {/* <Typography className={classes.details}>
           {FileName}
         </Typography><br />
@@ -83,7 +88,7 @@ const AttributesCard = props => {
           {Exhibit}
         </Typography><br /> */}
         <Button variant="contained" onClick={addToMyIntelList}>
-            Add to My Intel list
+          Add to My Intel list
         </Button>
       </CardContent>
     </Card>
@@ -105,5 +110,3 @@ AttributesCard.propTypes = {
 };
 
 export default withStyles(Styles)(AttributesCard);
-
-

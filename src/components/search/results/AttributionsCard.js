@@ -101,6 +101,7 @@ export default function AttributionsCard(props) {
           >
             <Button variant="contained">{device_uid}</Button>
           </Box>
+          <br/>
           <SaveIcon
             onClick={handleOpen}
             sx={{ color: "#f05c54", float: "right", marginBottom: "0.5em" }}
