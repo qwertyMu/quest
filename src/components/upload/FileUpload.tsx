@@ -1,9 +1,10 @@
 import React from "react";
 
-import { Box, Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import UploadHistory from "./UploadHistory";
 import UserDetails from "./UserDetails";
+import UploadArea from "./UploadArea";
 
 export default function FileUpload() {
   return (
@@ -35,20 +36,7 @@ export default function FileUpload() {
         <UploadHistory />
       </Grid>
       <Grid item xs={4}>
-        <Box
-          sx={{
-            display: "flex",
-            border: "8px dashed darkgrey",
-            borderRadius: "6px",
-            height: "20em",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography color="darkgrey" variant="h4">
-            Drag file(s) here to upload
-          </Typography>
-        </Box>
+        <UploadArea />
       </Grid>
       <Grid item xs={4}></Grid>
     </Grid>
