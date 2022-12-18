@@ -2,16 +2,21 @@ import React, { useState } from "react";
 
 import { Box, Typography, Tooltip } from "@mui/material";
 
-import resultsStore from "../../datastore/resultsStore";
-import AttributionsCardList from "./results/AttributionsCardList";
+import useResultsStore from "../../datastore/resultsStore";
 import AttributionDisplaySelect from "./widgets/AttributionDisplaySelect";
+import AttributionsCardList from "./results/AttributionsCardList";
+import AttributionWordCloud from "./results/AttributionWordCloud";
 
 type SearchResultsPropType = {
   pk: string;
 };
 
 export default function AttributionSearchResults(props: SearchResultsPropType) {
-  const attributionCount = resultsStore((s) => s.attributionCount);
+  const [attributions, attributionCount] = useResultsStore((s) => [
+    s.attributions,
+    s.attributionCount,
+  ]);
+
   const [displayType, setDisplayType] = useState("wordcloud");
   const searchTerm = props.pk;
 
@@ -47,7 +52,12 @@ export default function AttributionSearchResults(props: SearchResultsPropType) {
             setValue={(x: string) => setDisplayType(x)}
           />
         </Box>
-        <AttributionsCardList searchTerm={searchTerm} />
+        {displayType === "wordcloud" && (
+          <AttributionWordCloud data={attributions} />
+        )}
+        {displayType === "cardlist" && (
+          <AttributionsCardList searchTerm={searchTerm} />
+        )}
       </React.Fragment>
     </Box>
   );

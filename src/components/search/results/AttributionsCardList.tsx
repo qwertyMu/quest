@@ -9,7 +9,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 
 import { GET_ATTRIBUTIONS } from "../../../queries";
-import AttributionWordCloud from "./AttributionWordCloud";
 import resultsState from "../../../datastore/resultsStore";
 import StyledAccordion from "../../generic/StyledAccordion";
 import AttributionsCard from "./AttributionsCard";
@@ -54,7 +53,6 @@ export default function AttributionsCardList(props: CardListProps) {
         width: "100%",
       }}
     >
-      <AttributionWordCloud data={attributions} />
       <Box
         sx={{
           justifyContent: "center",
