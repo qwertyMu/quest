@@ -1,7 +1,7 @@
 import React, { useState, cloneElement } from "react";
 
 import { Popper, Box, Typography, Tooltip } from "@mui/material";
-import { Zoom, ClickAwayListener } from "@mui/material";
+import { Zoom, ClickAwayListener, Divider } from "@mui/material";
 
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import CloudIcon from "@mui/icons-material/Cloud";
@@ -60,6 +60,7 @@ export default function AttributionDisplaySelect(props: PropTypes) {
                 marginTop: "-2em",
                 display: "flex",
                 flexDirection: "column",
+                gap: "4px",
                 padding: "8px",
                 background: "darkgrey",
                 borderRadius: "8px",
@@ -83,6 +84,7 @@ export default function AttributionDisplaySelect(props: PropTypes) {
                   Word cloud
                 </Typography>
               </Box>
+              <Divider />
               <Box
                 sx={{
                   display: "flex",
