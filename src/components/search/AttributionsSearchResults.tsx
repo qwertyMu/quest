@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Box, Typography, Tooltip } from "@mui/material";
 
-import QuizIcon from "@mui/icons-material/Quiz";
-
 import resultsStore from "../../datastore/resultsStore";
 import AttributionsCardList from "./results/AttributionsCardList";
+import AttributionDisplaySelect from "./widgets/AttributionDisplaySelect";
 
-export default function AttributionSearchResults(props) {
-  const [attributionCount, interactionCount] = resultsStore((s) => [
-    s.attributionCount,
-    s.interactionCount,
-  ]);
+type SearchResultsPropType = {
+  pk: string;
+};
+
+export default function AttributionSearchResults(props: SearchResultsPropType) {
+  const attributionCount = resultsStore((s) => s.attributionCount);
+  const [displayType, setDisplayType] = useState("wordcloud");
+  const searchTerm = props.pk;
 
   return (
     <Box
@@ -24,11 +26,11 @@ export default function AttributionSearchResults(props) {
       }}
     >
       <React.Fragment>
-        <Box>
+        <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <Tooltip
             title="The names associated to this identifier by devices found in the quest database."
             arrow
-            placement="right"
+            placement="bottom"
           >
             <Typography
               sx={{
@@ -37,12 +39,15 @@ export default function AttributionSearchResults(props) {
                 fontFamily: "monospace",
               }}
             >
-              Attributions x{attributionCount}&nbsp;
-              <QuizIcon sx={{ marginBottom: -1 }} />
+              {`Attributions x${attributionCount}`}
             </Typography>
           </Tooltip>
+          <AttributionDisplaySelect
+            value={displayType}
+            setValue={(x: string) => setDisplayType(x)}
+          />
         </Box>
-        <AttributionsCardList searchTerm={props.pk} />
+        <AttributionsCardList searchTerm={searchTerm} />
       </React.Fragment>
     </Box>
   );

@@ -39,7 +39,7 @@ export default function AttributionsCardList(props: CardListProps) {
   }, [data, setAttributions, setAttributionCount]);
 
   if (loading) return <h2>LOADING... </h2>;
-  if (error) return `Error! ${error.message}`;
+  if (error) return <h2>`Error! ${error.message}`</h2>;
 
   if (attributions.length === 0) return null;
 
