@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AmplifySignOut } from "@aws-amplify/ui-react-v1";
 
 import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { Menu, Avatar, Grid } from "@mui/material";
@@ -10,7 +9,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 
 import useInterfaceStore from "../../datastore/interfaceStore";
 
-const settings = ["Settings", "Feedback", <AmplifySignOut />];
+const settings = ["Settings", "Feedback"];
 
 export default function NavigationBar() {
   const setAnimDirection = useInterfaceStore((s) => s.setAnimDirection);
