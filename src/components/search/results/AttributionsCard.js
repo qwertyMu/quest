@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import moment from "moment";
 import { v1 as uuidv1 } from "uuid";
-import { API } from "aws-amplify";
+import moment from "moment";
 
 import { randomQuantity } from "@mui/x-data-grid-generator";
 import { Card, CardContent, Button } from "@mui/material";
@@ -10,8 +9,6 @@ import { Box, Modal } from "@mui/material";
 
 import SaveIcon from "@mui/icons-material/Save";
 import OutboxIcon from "@mui/icons-material/Outbox";
-
-import { createCapturedAttribution as createCapturedAttributionMutation } from "../../../graphql/mutations";
 
 export default function AttributionsCard(props) {
   const navigate = useNavigate();
@@ -36,18 +33,6 @@ export default function AttributionsCard(props) {
   };
 
   const [parameters, setParameters] = useState(initialParamState);
-
-  async function saveCapturedAttributionItem() {
-    // Build the create query up here.
-    setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.
-    if (parameters.device_uid === "") return;
-    await API.graphql({
-      query: createCapturedAttributionMutation,
-      variables: { input: parameters },
-    });
-    console.log("Card saved in attributionsCard");
-    handleClose();
-  }
 
   const modalStyle = {
     position: "absolute",
@@ -101,7 +86,7 @@ export default function AttributionsCard(props) {
           >
             <Button variant="contained">{device_uid}</Button>
           </Box>
-          <br/>
+          <br />
           <SaveIcon
             onClick={handleOpen}
             sx={{ color: "#f05c54", float: "right", marginBottom: "0.5em" }}
@@ -123,7 +108,6 @@ export default function AttributionsCard(props) {
           <Button
             variant="contained"
             sx={{ margin: "5px", borderRadius: "20px" }}
-            onClick={saveCapturedAttributionItem}
           >
             Yes
           </Button>

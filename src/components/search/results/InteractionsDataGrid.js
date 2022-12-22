@@ -1,21 +1,17 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/client";
-import { API } from "aws-amplify";
 import moment from "moment";
 
 import { v1 as uuidv1 } from "uuid";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button, Modal, Box } from "@mui/material";
 
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 
-import { GET_INTERACTIONS } from "../../../queries";
-import { createCapturedInteraction as createCapturedInteractionMutation } from "../../../graphql/mutations";
 import InteractionsModalLogic from "../../interactionsModalLogic";
+import useResultsStore from "../../../datastore/resultsStore";
 
 export default function ShowInteractionsDataGrid(props) {
-  const { pk } = props;
+  const interactions = useResultsStore((s) => s.interactions);
 
   const initialParamState = {
     key: "",
@@ -33,18 +29,6 @@ export default function ShowInteractionsDataGrid(props) {
   };
 
   const [parameters, setParameters] = useState(initialParamState);
-
-  async function createCapturedInteractionItem() {
-    // Build the create query up here.
-    if (!parameters.interaction || !parameters.partner) return;
-    await API.graphql({
-      query: createCapturedInteractionMutation,
-      variables: { input: parameters },
-    });
-    setParameters(initialParamState);
-    handleClose();
-  }
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -67,20 +51,9 @@ export default function ShowInteractionsDataGrid(props) {
     console.log(params);
     const selectedRow = params.row;
     setParameters(selectedRow);
-    setParameters((parameters) => {
-      return { ...parameters, identifier: pk };
-    }); //this adds identifier (i.e. user search term) into the selectedParam object
     handleOpen();
   };
 
-  const { loading, error, data } = useQuery(GET_INTERACTIONS, {
-    variables: { pk },
-  });
-
-  if (loading) return <h2>LOADING... </h2>;
-  if (error) return <h2>`Error! ${error}`</h2>;
-  if (data !== undefined) {
-  }
   const columns = [
     // { field: "interaction", headerName: "Interaction", width: 130, }, No longer returned from the API
     { field: "status", headerName: "Status", width: 130 },
@@ -95,7 +68,7 @@ export default function ShowInteractionsDataGrid(props) {
     { field: "device_uid", headerName: "Device Hash", width: 180 },
     { field: "datetime_added", headerName: "Date/Time Added", width: 180 },
   ];
-  const rows = data.listInteractions.items.map(
+  const rows = interactions.map(
     (
       {
         status,
@@ -150,8 +123,8 @@ export default function ShowInteractionsDataGrid(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <InteractionsModalLogic pk={pk} parameters={parameters} />
-          <Button variant="contained" onClick={createCapturedInteractionItem}>
+          <InteractionsModalLogic pk={"pewpewpew"} parameters={parameters} />
+          <Button variant="contained">
             <SaveIcon />
           </Button>
         </Box>

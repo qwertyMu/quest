@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useQuery } from "@apollo/client";
 
 import { Masonry } from "@mui/lab";
 import { Box, Paper, Typography } from "@mui/material";
@@ -8,7 +7,6 @@ import { AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 
-import { GET_ATTRIBUTIONS } from "../../../queries";
 import resultsState from "../../../datastore/resultsStore";
 import StyledAccordion from "../../generic/StyledAccordion";
 import AttributionsCard from "./AttributionsCard";
@@ -18,29 +16,7 @@ type CardListProps = {
 };
 
 export default function AttributionsCardList(props: CardListProps) {
-  const [attributions, setAttributions, setAttributionCount] = resultsState(
-    (s) => [s.attributions, s.setAttributions, s.setAttributionCount]
-  );
-
-  const { loading, error, data } = useQuery(GET_ATTRIBUTIONS, {
-    variables: { pk: props.searchTerm },
-  });
-
-  // save attribution data into state as it changes
-  useEffect(() => {
-    try {
-      setAttributions(data.listAttributions.items);
-      setAttributionCount(data.listAttributions.items.length);
-    } catch (e) {
-      setAttributions([]);
-      setAttributionCount(0);
-    }
-  }, [data, setAttributions, setAttributionCount]);
-
-  if (loading) return <h2>LOADING... </h2>;
-  if (error) return <h2>`Error! ${error.message}`</h2>;
-
-  if (attributions.length === 0) return null;
+  const [attributions] = resultsState((s) => [s.attributions]);
 
   return (
     <Box
