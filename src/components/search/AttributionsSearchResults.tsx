@@ -20,45 +20,53 @@ export default function AttributionSearchResults(props: SearchResultsPropType) {
   const [displayType, setDisplayType] = useState("wordcloud");
   const searchTerm = props.pk;
 
+  if (!attributionCount) return null;
+
   return (
     <Box
       sx={{
-        justifyContent: "center",
         display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
         flexWrap: "wrap",
         gap: "0.5em",
         padding: "0.5em",
       }}
     >
-      <React.Fragment>
-        <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Tooltip
-            title="The names associated to this identifier by devices found in the quest database."
-            arrow
-            placement="bottom"
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+        }}
+      >
+        <Tooltip
+          title="The names associated to this identifier by devices found in the quest database."
+          arrow
+          placement="bottom"
+        >
+          <Typography
+            sx={{
+              color: "white",
+              fontSize: "1.2em",
+              fontFamily: "monospace",
+            }}
           >
-            <Typography
-              sx={{
-                color: "white",
-                fontSize: "1.2em",
-                fontFamily: "monospace",
-              }}
-            >
-              {`Attributions x${attributionCount}`}
-            </Typography>
-          </Tooltip>
-          <AttributionDisplaySelect
-            value={displayType}
-            setValue={(x: string) => setDisplayType(x)}
-          />
-        </Box>
-        {displayType === "wordcloud" && (
-          <AttributionWordCloud data={attributions} />
-        )}
-        {displayType === "cardlist" && (
-          <AttributionsCardList searchTerm={searchTerm} />
-        )}
-      </React.Fragment>
+            {`Attributions x${attributionCount}`}
+          </Typography>
+        </Tooltip>
+        <AttributionDisplaySelect
+          value={displayType}
+          setValue={(x: string) => setDisplayType(x)}
+        />
+      </Box>
+      {displayType === "wordcloud" && (
+        <AttributionWordCloud data={attributions} />
+      )}
+      {displayType === "cardlist" && (
+        <AttributionsCardList searchTerm={searchTerm} />
+      )}
     </Box>
   );
 }

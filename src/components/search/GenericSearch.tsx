@@ -37,12 +37,11 @@ export default function GenericSearch() {
         setSearchTerm={setSearchTerm}
         doSearch={doSearch}
       />
-      {searchTerm !== "" && (
-        <Box sx={{ width: "100%", typography: "body1" }}>
-          <AttributionSearchResults pk={searchTerm} />
-          <InteractionSearchResults searchTerm={searchTerm} />
-        </Box>
-      )}
+
+      <Box sx={{ width: "100%", typography: "body1" }}>
+        <AttributionSearchResults pk={searchTerm} />
+        <InteractionSearchResults searchTerm={searchTerm} />
+      </Box>
     </Box>
   );
 }

@@ -6,7 +6,6 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import ViewListIcon from "@mui/icons-material/ViewList";
-import QuizIcon from "@mui/icons-material/Quiz";
 
 import InteractionsDataGrid from "./results/InteractionsDataGrid";
 import InteractionsCardList from "./results/InteractionsCardList";
@@ -25,6 +24,8 @@ export default function InteractionSearchResults(props: ResultsPropType) {
   const handlePanelChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
+
+  if (!interactionCount) return null;
 
   return (
     <TabContext value={value}>
