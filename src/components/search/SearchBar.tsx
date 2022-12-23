@@ -43,21 +43,21 @@ export default function SearchBar(props: searchBarProps) {
               backgroundColor: "whitesmoke",
               borderRadius: "8px 0 0 8px",
               color: "#972021",
-              // boxShadow: "0px 2px 4px #000000A0",
               fieldset: {
                 borderRadius: "8px 0 0 8px",
-                // borderColor: "black !important",
               },
             }}
             value={searchTerm}
             onChange={handleChange}
             placeholder={"Enter Search"}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") doSearch();
+            }}
           />
           <Button
             variant="contained"
             sx={{
               borderRadius: "0 8px 8px 0",
-              // border: "1px solid black",
               borderLeft: 0,
               boxShadow: "0px 2px 4px #000000A0 !important",
               "&:disabled": {
