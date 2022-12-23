@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useQuery } from "@apollo/client";
 import moment from "moment";
 
 import { Masonry, Timeline, TimelineItem, TimelineDot } from "@mui/lab";
@@ -13,7 +12,6 @@ import PhoneDisabledIcon from "@mui/icons-material/PhoneDisabled";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PhoneIcon from "@mui/icons-material/Phone";
 
-import { GET_INTERACTIONS } from "../../../queries";
 import resultsState from "../../../datastore/resultsStore";
 import StyledAccordion from "../../generic/StyledAccordion";
 import InteractionsCard from "./InteractionsCard";
@@ -26,23 +24,7 @@ export default function TimelineView(props: InteractionsListProps) {
   const [interactions, setInteractions, setInteractionCount] = resultsState(
     (s) => [s.interactions, s.setInteractions, s.setInteractionCount]
   );
-  const { loading, error, data } = useQuery(GET_INTERACTIONS, {
-    variables: { pk: props.searchTerm },
-  });
 
-  useEffect(() => {
-    try {
-      setInteractions(data.listInteractions.items);
-      setInteractionCount(data.listInteractions.items.length);
-    } catch (e) {
-      setInteractions([]);
-      setInteractionCount(0);
-    }
-  }, [data, setInteractions, setInteractionCount]);
-
-  if (loading) return <h2>LOADING... </h2>;
-  if (error) return <h2>Error! {error.message}</h2>;
-  if (data === undefined) return null;
   return (
     <Box
       sx={{

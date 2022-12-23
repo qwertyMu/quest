@@ -1,14 +1,16 @@
-﻿schema {
+schema {
   query: Query
   mutation: Mutation
 }
 
 type Attribution {
-  attribution: AttributionTypes
-  datetime_added: AWSDateTime
-  exhibit: String
-  file_name: String
-  nominal: String
+  attribution: String
+  case_ref: String
+  datetime_added: String
+  device_uid: String
+  exhibit_ref: String
+  file_hash: String
+  name: String
   organisation: String
   pk: String!
   sk: String!
@@ -20,17 +22,20 @@ type AttributionConnection {
 }
 
 type Interaction {
-  datetime: AWSDateTime
-  datetime_added: AWSDateTime
-  direction: DirectionTypes
-  duration: AWSTime
-  exhibit: String
-  file_name: String
-  interaction: InteractionTypes
+  case_ref: String
+  datetime: String
+  datetime_added: String
+  device_uid: String
+  direction: String
+  duration: String
+  exhibit_ref: String
+  file_hash: String
+  interaction: String
+  local_partner: String
   organisation: String
-  partner: String
   pk: String!
   sk: String!
+  status: String
 }
 
 type InteractionConnection {
@@ -61,12 +66,13 @@ type Query {
 enum AttributionTypes {
   CONTACT
   INHERENT
+  PHONENUMBER
 }
 
 enum DirectionTypes {
-  INBOUND
+  IN
   NONE
-  OUTBOUND
+  OUT
 }
 
 enum InteractionTypes {
@@ -74,4 +80,5 @@ enum InteractionTypes {
   MESSAGE
   PHONECALL
   SMS
+  WHATSAPP
 }

@@ -1,10 +1,9 @@
 {
   "name": "quest",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.6.9",
-    "@aws-amplify/ui-react": "^3.2.1",
+    "@aws-amplify/api": "^5.0.7",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@fontsource/roboto": "^4.5.7",
@@ -15,7 +14,6 @@
     "@mui/x-data-grid": "^5.14.0",
     "@mui/x-data-grid-generator": "^5.15.3",
     "@mui/x-data-grid-pro": "^5.15.3",
-    "@tanstack/react-query": "^4.0.10",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -23,15 +21,11 @@
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
-    "aws-amplify": "^4.3.28",
     "d3": "^3.5.17",
-    "graphql": "^16.5.0",
-    "graphql-request": "^4.3.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-force-graph-2d": "^1.23.13",
-    "react-query": "^4.0.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "react-tagcloud": "^2.3.1",
@@ -66,7 +60,6 @@
     ]
   },
   "devDependencies": {
-    "@types/react-query": "^1.2.9",
     "@types/react-tagcloud": "^1.1.7"
   }
 }

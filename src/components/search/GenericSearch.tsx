@@ -1,27 +1,47 @@
 import React, { useState } from "react";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box } from "@mui/material";
 
+import { searchAttributions, searchInteractions } from "../../graphql/api";
+import useResultsStore from "../../datastore/resultsStore";
 import AttributionSearchResults from "./AttributionsSearchResults";
 import InteractionSearchResults from "./InteractionSearchResults";
 import SearchBar from "./SearchBar";
 
 export default function GenericSearch() {
-  const client = new QueryClient();
-  const [search, setSearch] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [setAttributions, setAttributionCount] = useResultsStore((s) => [
+    s.setAttributions,
+    s.setAttributionCount,
+  ]);
+  const [setInteractions, setInteractionCount] = useResultsStore((s) => [
+    s.setInteractions,
+    s.setInteractionCount,
+  ]);
+
+  const doSearch = () => {
+    searchAttributions(searchTerm).then((results) => {
+      setAttributions(results.data.listAttributions.items);
+      setAttributionCount(results.data.listAttributions.items.length);
+    });
+    searchInteractions(searchTerm).then((results) => {
+      setInteractions(results.data.listInteractions.items);
+      setInteractionCount(results.data.listInteractions.items.length);
+    });
+  };
 
   return (
     <Box>
-      <SearchBar searchTerm={search} setSearchTerm={setSearch} />
-      {search !== "" && (
-        <QueryClientProvider client={client}>
-          <Box sx={{ width: "100%", typography: "body1" }}>
-            <AttributionSearchResults pk={search} />
-            <InteractionSearchResults searchTerm={search} />
-          </Box>
-        </QueryClientProvider>
-      )}
+      <SearchBar
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        doSearch={doSearch}
+      />
+
+      <Box sx={{ width: "100%", typography: "body1" }}>
+        <AttributionSearchResults pk={searchTerm} />
+        <InteractionSearchResults searchTerm={searchTerm} />
+      </Box>
     </Box>
   );
 }

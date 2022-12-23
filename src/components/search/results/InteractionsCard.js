@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { v1 as uuidv1 } from "uuid";
-import { API } from "aws-amplify";
+
 import moment from "moment";
 
 import SaveIcon from "@mui/icons-material/Save";
@@ -9,8 +9,6 @@ import OutboxIcon from "@mui/icons-material/Outbox";
 import { randomQuantity } from "@mui/x-data-grid-generator";
 import { Card, CardContent, Button } from "@mui/material";
 import { Box, Modal } from "@mui/material";
-
-import { createCapturedInteraction as createCapturedInteractionMutation } from "../../../graphql/mutations";
 
 export default function InteractionsCard(props) {
   const {
@@ -56,11 +54,6 @@ export default function InteractionsCard(props) {
     setParameters(initialParamState); // I don't know why this works but it does. It forces the state to rerender the compnent thereby casuing the new random ints to be generated.
     console.log(parameters);
     if (parameters.device_uid === "") return;
-    await API.graphql({
-      query: createCapturedInteractionMutation,
-      variables: { input: parameters },
-    });
-    console.log("Card saved in interactionsCard");
     handleClose();
   }
 

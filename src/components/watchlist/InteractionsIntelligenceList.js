@@ -1,25 +1,10 @@
-import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { useState, useEffect } from "react";
-import { API } from "aws-amplify";
-import { listCapturedInteractions } from "../../graphql/queries";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
+
+import { DataGrid } from "@mui/x-data-grid";
 
 export default function InteractionsIntelligenceList() {
   const [list, setList] = useState([]);
-
-  // useEffect(() => {
-  //   setInterval(() => fetchList(), 1000); //This calls fetchList() every second to give the illusion of async db fetch.
-  // }, []);
-
-  useEffect(() => {
-    fetchList(); //This calls fetchList() every second to give the illusion of async db fetch.
-  }, []);
-
-  async function fetchList() {
-    const apiData = await API.graphql({ query: listCapturedInteractions });
-    setList(apiData.data.listCapturedInteractions.items);
-  }
 
   const columns = [
     {
