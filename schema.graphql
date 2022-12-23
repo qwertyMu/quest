@@ -1,0 +1,84 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Attribution {
+  attribution: String
+  case_ref: String
+  datetime_added: String
+  device_uid: String
+  exhibit_ref: String
+  file_hash: String
+  name: String
+  organisation: String
+  pk: String!
+  sk: String!
+}
+
+type AttributionConnection {
+  items: [Attribution]
+  nextToken: String
+}
+
+type Interaction {
+  case_ref: String
+  datetime: String
+  datetime_added: String
+  device_uid: String
+  direction: String
+  duration: String
+  exhibit_ref: String
+  file_hash: String
+  interaction: String
+  local_partner: String
+  organisation: String
+  pk: String!
+  sk: String!
+  status: String
+}
+
+type InteractionConnection {
+  items: [Interaction]
+  nextToken: String
+}
+
+type Mutation {
+  #  Attribution mutations
+  createAttribution(attribution: AttributionTypes, exhibit: String, file_name: String, nominal: String, organisation: String, pk: String!): Attribution
+  #  Interaction mutations
+  createInteraction(datetime: AWSDateTime, direction: DirectionTypes, duration: AWSTime, exhibit: String, file_name: String, interaction: InteractionTypes, organisation: String, partner: String, pk: String!): Interaction
+  # updateAttribution(input: AttributionInput!): Attribution
+  deleteAttribution(pk: String!, sk: String!): Attribution
+  # updateInteraction(input: InteractionInput!): Interaction
+  deleteInteraction(pk: String!, sk: String!): Interaction
+}
+
+type Query {
+  #  Attribution queries
+  getAttribution(pk: String!, sk: String!): Attribution
+  #  Interaction queries
+  getInteraction(pk: String!, sk: String!): Interaction
+  listAttributions(limit: Int, nextToken: String, pk: String!): AttributionConnection
+  listInteractions(limit: Int, nextToken: String, pk: String!): InteractionConnection
+}
+
+enum AttributionTypes {
+  CONTACT
+  INHERENT
+  PHONENUMBER
+}
+
+enum DirectionTypes {
+  IN
+  NONE
+  OUT
+}
+
+enum InteractionTypes {
+  EMAIL
+  MESSAGE
+  PHONECALL
+  SMS
+  WHATSAPP
+}
