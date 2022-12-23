@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { TagCloud } from "react-tagcloud";
 
-import { Box } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 
 type Tag = {
   value: string;
@@ -44,9 +44,27 @@ export default function AttributionWordCloud(props: PropsType) {
     if (props.data) processTags(props.data);
   }, [props.data, processTags]);
 
+  const customRenderer = (tag: any, size: number, color: string) => {
+    return (
+      <Tooltip title="Insert meaningful data" placement="right">
+        <Typography sx={{ color: color, fontSize: size, cursor: "pointer" }}>
+          {tag.value}
+        </Typography>
+      </Tooltip>
+    );
+  };
+
   return (
-    <Box>
-      <TagCloud  tags={tags} shuffle={false} minSize={12} maxSize={42} />
+    <Box
+      sx={{ padding: "2em", border: "2px solid darkgrey", borderRadius: "8px" }}
+    >
+      <TagCloud
+        tags={tags}
+        shuffle={false}
+        minSize={12}
+        maxSize={42}
+        renderer={customRenderer}
+      />
     </Box>
   );
 }
