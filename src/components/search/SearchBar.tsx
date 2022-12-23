@@ -4,8 +4,14 @@ import { Box, TextField, Typography, Button } from "@mui/material";
 
 import SearchSummary from "./SearchSummary";
 
-export default function SearchBar(props: any) {
-  const { searchTerm, setSearchTerm } = props;
+type searchBarProps = {
+  searchTerm: string;
+  setSearchTerm: (x: string) => void;
+  doSearch: () => void;
+};
+
+export default function SearchBar(props: searchBarProps) {
+  const { searchTerm, setSearchTerm, doSearch } = props;
 
   const handleChange = (event: any) => {
     setSearchTerm(event.target.value);
@@ -59,6 +65,7 @@ export default function SearchBar(props: any) {
               },
             }}
             disabled={searchTerm.length < 4}
+            onClick={doSearch}
           >
             Go
           </Button>
